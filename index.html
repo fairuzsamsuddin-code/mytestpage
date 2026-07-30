@@ -175,7 +175,7 @@
         </section>
 
         <!-- Takaful Needs Calculator Section -->
-        <section id="kalkulator-keperluan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
+        <section id="kalkulator-keperluan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-visible scroll-mt-28">
             <div class="bg-gradient-to-r from-teal to-[#005a5c] text-white p-8 text-center rounded-t-3xl">
                 <h3 class="text-2xl md:text-3xl font-bold mb-2" data-translate="calc_title">Kalkulator Keperluan Perlindungan</h3>
                 <p class="text-sm text-white/90" data-translate="calc_subtitle">Kira anggaran keperluan kewangan untuk diri & keluarga.</p>
@@ -191,9 +191,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_income">Pendapatan Bulanan</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-income')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-income" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_income">Gaji asas, sewa, dan pendapatan lain.</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -207,9 +209,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_expenses">Perbelanjaan Bulanan</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-expenses')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-expenses" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_expenses">Cth: Ansuran rumah, bil, makanan, petrol, dan caruman Takaful.</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -223,9 +227,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_debt">Hutang Tertunggak</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-debt')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-debt" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_debt">Cth: Baki keseluruhan pembiayaan kereta, pinjaman peribadi, kad kredit.</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -245,9 +251,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_exist_life">Hayat/Hibah Sedia Ada</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-exist-life')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-exist-life" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_exist_life">Jumlah pampasan perlindungan sedia ada jika berlaku kematian.</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -261,9 +269,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_life_years">Tahun Sokongan Diperlukan</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-life-years')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-life-years" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_life_years">Berapa tahun pendapatan keluarga perlu disokong selepas ketiadaan (Cadangan: 10 tahun).</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -281,9 +291,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_exist_ci">Sakit Kritikal Sedia Ada</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-exist-ci')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-exist-ci" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_exist_ci">Jumlah pampasan tunai sedia ada jika disahkan menghidap penyakit kritikal.</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -297,9 +309,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_ci_years">Sokongan Pendapatan Sakit Kritikal Diperlukan</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-ci-years')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-ci-years" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_ci_years">Anggaran cuti rehat dari bekerja untuk tujuan rawatan penyembuhan (Cadangan: 3 tahun).</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -317,9 +331,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_exist_med">Had Tahunan Perubatan Sedia Ada</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-exist-med')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-exist-med" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_exist_med">Had limit perubatan daripada polisi peribadi atau kad syarikat sedia ada.</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -333,9 +349,11 @@
                         <div>
                             <label class="form-label text-xs uppercase tracking-wide text-gray-500">
                                 <span data-translate="calc_target_med">Had Tahunan Perubatan Diinginkan</span>
-                                <div class="group relative inline-flex items-center ml-1">
-                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
-                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                <div class="relative inline-flex items-center ml-1">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-target-med')" class="focus:outline-none">
+                                        <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-pointer text-sm p-1"></i>
+                                    </button>
+                                    <div id="tip-target-med" class="info-tooltip hidden absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white shadow-xl normal-case tracking-normal">
                                         <span data-translate="tip_target_med">Sasaran perlindungan tahunan untuk bayaran bil hospital (Cth: RM200,000).</span>
                                         <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                                     </div>
@@ -708,6 +726,26 @@
         };
 
         let currentLang = 'ms';
+
+        // Toggle info tooltips on tap / click
+        function toggleTooltip(event, id) {
+            event.stopPropagation();
+            const target = document.getElementById(id);
+            const isHidden = target.classList.contains('hidden');
+            
+            // Close all tooltips first
+            document.querySelectorAll('.info-tooltip').forEach(tip => tip.classList.add('hidden'));
+            
+            // If it was hidden, open it
+            if (isHidden) {
+                target.classList.remove('hidden');
+            }
+        }
+
+        // Close tooltips when clicking outside
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.info-tooltip').forEach(tip => tip.classList.add('hidden'));
+        });
 
         function toggleLanguage() {
             currentLang = currentLang === 'ms' ? 'en' : 'ms';
