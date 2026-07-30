@@ -41,7 +41,7 @@
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
         
         .form-input { @apply block w-full border px-4 py-2 h-12 rounded-xl border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary text-sm transition-colors; }
-        .form-label { @apply text-sm font-semibold text-gray-700 mb-2 block; }
+        .form-label { @apply text-sm font-semibold text-gray-700 mb-2 flex items-center; }
         .btn-primary { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-transform hover:-translate-y-0.5 bg-primary text-white hover:bg-primary-hover min-h-[3.5rem] rounded-full px-8 text-sm md:text-base font-semibold shadow-elegant; }
         
         .grid-card { @apply bg-white border border-gray-200 p-6 rounded-2xl flex flex-col items-center gap-3 shadow-sm transition-all cursor-pointer hover:-translate-y-1 hover:border-primary; text-align: center; }
@@ -53,7 +53,7 @@
 </head>
 <body class="bg-background text-gray-800 antialiased min-h-screen flex flex-col">
 
-    <!-- Unified Top Navigation Bar (Sticky, always visible) -->
+    <!-- Unified Top Navigation Bar -->
     <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200">
         <div class="mx-auto flex max-w-6xl items-center px-4 py-3 gap-5 overflow-x-auto scrollbar-none">
             <!-- Brand -->
@@ -65,7 +65,7 @@
                 </div>
             </a>
 
-            <!-- Language Toggle Button placed second -->
+            <!-- Language Toggle -->
             <button onclick="toggleLanguage()" id="langBtn" class="flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-xs font-bold text-gray-700 shadow-sm transition-colors hover:bg-gray-100 shrink-0">
                 <i class="fas fa-globe text-primary"></i> <span id="langText">EN</span>
             </button>
@@ -90,7 +90,7 @@
                 </a>
             </div>
             
-            <!-- WhatsApp CTA pushed to the right -->
+            <!-- WhatsApp CTA -->
             <div class="ml-auto flex items-center shrink-0">
                 <a href="https://wa.me/60176213432" target="_blank" class="flex items-center gap-2 rounded-full bg-teal px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-teal-hover">
                     <i class="fab fa-whatsapp text-base"></i> WhatsApp
@@ -177,9 +177,9 @@
             </div>
         </section>
 
-        <!-- NEW: Takaful Needs Calculator Section -->
-        <section id="kalkulator-keperluan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
-            <div class="bg-gradient-to-r from-teal to-[#005a5c] text-white p-8 text-center">
+        <!-- Takaful Needs Calculator Section -->
+        <section id="kalkulator-keperluan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-visible scroll-mt-28">
+            <div class="bg-gradient-to-r from-teal to-[#005a5c] text-white p-8 text-center rounded-t-3xl">
                 <h3 class="text-2xl md:text-3xl font-bold mb-2" data-translate="calc_title">Kalkulator Keperluan Perlindungan</h3>
                 <p class="text-sm text-white/90" data-translate="calc_subtitle">Kira anggaran keperluan kewangan untuk diri & keluarga.</p>
             </div>
@@ -192,24 +192,51 @@
                     <!-- Row 1: Income / Expense / Debt -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_income">Pendapatan Bulanan</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_income">Pendapatan Bulanan</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_income">Gaji asas, sewa, dan pendapatan lain.</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcIncome" class="form-input pl-12 bg-gray-50 border-gray-200" placeholder="0" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcIncome" class="calc-currency form-input pl-12 bg-gray-50 border-gray-200" placeholder="0" required>
                             </div>
                         </div>
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_expenses">Perbelanjaan Bulanan</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_expenses">Perbelanjaan Bulanan</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_expenses">Cth: Ansuran rumah, bil, makanan, petrol, dan caruman Takaful.</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcExpenses" class="form-input pl-12 bg-gray-50 border-gray-200" placeholder="0" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcExpenses" class="calc-currency form-input pl-12 bg-gray-50 border-gray-200" placeholder="0" required>
                             </div>
                         </div>
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_debt">Hutang Tertunggak (Total)</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_debt">Hutang Tertunggak</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_debt">Cth: Baki keseluruhan pembiayaan kereta, pinjaman peribadi, kad kredit.</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcDebt" class="form-input pl-12 bg-gray-50 border-gray-200" placeholder="0" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcDebt" class="calc-currency form-input pl-12 bg-gray-50 border-gray-200" placeholder="0" required>
                             </div>
                         </div>
                     </div>
@@ -219,14 +246,32 @@
                     <!-- Row 2: Life / Hibah -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_exist_life">Perlindungan Hayat/Hibah Sedia Ada</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_exist_life">Hayat/Hibah Sedia Ada</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_exist_life">Jumlah pampasan perlindungan sedia ada jika berlaku kematian.</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcExistLife" class="form-input pl-12" placeholder="0" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcExistLife" class="calc-currency form-input pl-12" placeholder="0" required>
                             </div>
                         </div>
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_life_years">Tahun Sokongan Diperlukan</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_life_years">Tahun Sokongan Diperlukan</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_life_years">Berapa tahun pendapatan keluarga perlu disokong selepas ketiadaan (Cadangan: 10 tahun).</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <input type="number" id="calcLifeYears" class="form-input pr-20" value="10" min="1" max="50" required>
                                 <span class="absolute right-4 top-3 text-gray-400 text-sm font-bold" data-translate="calc_years">Tahun</span>
@@ -237,14 +282,32 @@
                     <!-- Row 3: CI -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_exist_ci">Perlindungan Sakit Kritikal Sedia Ada</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_exist_ci">Sakit Kritikal Sedia Ada</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_exist_ci">Jumlah pampasan tunai sedia ada jika disahkan menghidap penyakit kritikal.</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcExistCI" class="form-input pl-12" placeholder="0" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcExistCI" class="calc-currency form-input pl-12" placeholder="0" required>
                             </div>
                         </div>
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_ci_years">Sokongan Pendapatan CI Diperlukan</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_ci_years">Sokongan Pendapatan Sakit Kritikal Diperlukan</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_ci_years">Anggaran cuti rehat dari bekerja untuk tujuan rawatan penyembuhan (Cadangan: 3 tahun).</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <input type="number" id="calcCIYears" class="form-input pr-20" value="3" min="1" max="20" required>
                                 <span class="absolute right-4 top-3 text-gray-400 text-sm font-bold" data-translate="calc_years">Tahun</span>
@@ -255,17 +318,35 @@
                     <!-- Row 4: Medical -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_exist_med">Had Tahunan Perubatan Sedia Ada</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_exist_med">Had Tahunan Perubatan Sedia Ada</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_exist_med">Had limit perubatan daripada polisi peribadi atau kad syarikat sedia ada.</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcExistMed" class="form-input pl-12" placeholder="0" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcExistMed" class="calc-currency form-input pl-12" placeholder="0" required>
                             </div>
                         </div>
                         <div>
-                            <label class="form-label text-xs uppercase tracking-wide text-gray-500" data-translate="calc_target_med">Had Tahunan Perubatan Diinginkan</label>
+                            <label class="form-label text-xs uppercase tracking-wide text-gray-500">
+                                <span data-translate="calc_target_med">Had Tahunan Perubatan Diinginkan</span>
+                                <div class="group relative inline-flex items-center ml-1">
+                                    <i class="fas fa-info-circle text-teal/70 hover:text-teal cursor-help text-sm"></i>
+                                    <div class="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 w-48 -translate-x-1/2 rounded-lg bg-gray-900 px-3 py-2 text-center text-[11px] leading-relaxed text-white opacity-0 transition-opacity group-hover:opacity-100 shadow-xl normal-case tracking-normal">
+                                        <span data-translate="tip_target_med">Sasaran perlindungan tahunan untuk bayaran bil hospital (Cth: RM200,000).</span>
+                                        <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                                    </div>
+                                </div>
+                            </label>
                             <div class="relative">
                                 <span class="absolute left-4 top-3 text-gray-400 text-sm font-bold">RM</span>
-                                <input type="number" id="calcTargetMed" class="form-input pl-12" placeholder="200000" min="0" required>
+                                <input type="text" inputmode="numeric" id="calcTargetMed" class="calc-currency form-input pl-12" placeholder="200,000" required>
                             </div>
                         </div>
                     </div>
@@ -317,23 +398,23 @@
                 <form id="takafulForm" class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="form-label"><span data-translate="label_name">Nama Penuh</span> <span class="text-primary">*</span></label>
+                            <label class="form-label"><span data-translate="label_name">Nama Penuh</span> <span class="text-primary ml-1">*</span></label>
                             <input type="text" id="clientName" class="form-input" placeholder="Contoh: Ahmad" required>
                         </div>
                         <div>
-                            <label class="form-label"><span data-translate="label_dob">Tarikh Lahir</span> <span class="text-primary">*</span></label>
+                            <label class="form-label"><span data-translate="label_dob">Tarikh Lahir</span> <span class="text-primary ml-1">*</span></label>
                             <input type="text" id="clientDob" class="form-input" placeholder="Contoh: 12/05/1990" maxlength="10" required>
                         </div>
                     </div>
 
                     <div>
-                        <label class="form-label"><span data-translate="label_phone">No Telefon</span> <span class="text-primary">*</span></label>
+                        <label class="form-label"><span data-translate="label_phone">No Telefon</span> <span class="text-primary ml-1">*</span></label>
                         <input type="tel" id="clientPhone" class="form-input" placeholder="Contoh: 0123456789" required>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="form-label"><span data-translate="label_gender">Jantina</span> <span class="text-primary">*</span></label>
+                            <label class="form-label"><span data-translate="label_gender">Jantina</span> <span class="text-primary ml-1">*</span></label>
                             <select id="clientGender" class="form-input" required>
                                 <option value="" disabled selected data-translate="opt_select">Pilih</option>
                                 <option value="Lelaki" data-translate="opt_male">Lelaki</option>
@@ -341,7 +422,7 @@
                             </select>
                         </div>
                         <div>
-                            <label class="form-label"><span data-translate="label_smoker">Merokok</span> <span class="text-primary">*</span></label>
+                            <label class="form-label"><span data-translate="label_smoker">Merokok</span> <span class="text-primary ml-1">*</span></label>
                             <select id="clientSmoker" class="form-input" required>
                                 <option value="" disabled selected data-translate="opt_select">Pilih</option>
                                 <option value="Tidak" data-translate="opt_no">Tidak</option>
@@ -352,11 +433,11 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="form-label"><span data-translate="label_job">Pekerjaan</span> <span class="text-primary">*</span></label>
+                            <label class="form-label"><span data-translate="label_job">Pekerjaan</span> <span class="text-primary ml-1">*</span></label>
                             <input type="text" id="clientJob" class="form-input" placeholder="Cth: Executive, Polis" required>
                         </div>
                         <div>
-                            <label class="form-label"><span data-translate="label_status">Status</span> <span class="text-primary">*</span></label>
+                            <label class="form-label"><span data-translate="label_status">Status</span> <span class="text-primary ml-1">*</span></label>
                             <select id="clientStatus" class="form-input" required>
                                 <option value="" disabled selected data-translate="opt_select">Pilih</option>
                                 <option value="Bujang" data-translate="opt_single">Bujang</option>
@@ -366,7 +447,7 @@
                     </div>
 
                     <div>
-                        <label class="form-label"><span data-translate="label_income">Pendapatan Tahunan</span> <span class="text-primary">*</span></label>
+                        <label class="form-label"><span data-translate="label_income">Pendapatan Tahunan</span> <span class="text-primary ml-1">*</span></label>
                         <select id="clientIncome" class="form-input" required>
                             <option value="" disabled selected data-translate="opt_income">Pilih Anggaran Pendapatan</option>
                             <option value="Bawah RM24,000" data-translate="inc_1">Bawah RM24,000</option>
@@ -378,7 +459,7 @@
                     </div>
 
                     <div>
-                        <label class="form-label"><span data-translate="label_budget">Bajet Bulanan Selesa</span> <span class="text-primary">*</span></label>
+                        <label class="form-label"><span data-translate="label_budget">Bajet Bulanan Selesa</span> <span class="text-primary ml-1">*</span></label>
                         <select id="clientBudget" class="form-input" required>
                             <option value="" disabled selected data-translate="opt_budget">Pilih Anggaran Bajet</option>
                             <option value="RM50 - RM200">RM50 - RM200</option>
@@ -389,7 +470,7 @@
                     </div>
 
                     <div>
-                        <label class="form-label"><span data-translate="label_protection">Perlindungan Ingin Disemak</span> <span class="text-primary">*</span></label>
+                        <label class="form-label"><span data-translate="label_protection">Perlindungan Ingin Disemak</span> <span class="text-primary ml-1">*</span></label>
                         <select id="clientPlan" class="form-input" required>
                             <option value="" disabled selected data-translate="opt_protection">Pilih Perlindungan Utama</option>
                             <option value="Medical Card">Medical Card</option>
@@ -434,7 +515,7 @@
 
     <!-- Scripts -->
     <script>
-        // Language Dictionary Data (Updated with Calculator Translations)
+        // Language Dictionary Data
         const translations = {
             ms: {
                 brand_title: "TAKAFUL SERVICES",
@@ -463,11 +544,11 @@
                 calc_error: "Nota: Perbelanjaan bulanan anda melebihi pendapatan bulanan. Sila semak semula.",
                 calc_income: "Pendapatan Bulanan",
                 calc_expenses: "Perbelanjaan Bulanan",
-                calc_debt: "Hutang Tertunggak (Total)",
-                calc_exist_life: "Perlindungan Hayat/Hibah Sedia Ada",
+                calc_debt: "Hutang Tertunggak",
+                calc_exist_life: "Hayat/Hibah Sedia Ada",
                 calc_life_years: "Tahun Sokongan Diperlukan",
-                calc_exist_ci: "Perlindungan Sakit Kritikal Sedia Ada",
-                calc_ci_years: "Sokongan Pendapatan CI Diperlukan",
+                calc_exist_ci: "Sakit Kritikal Sedia Ada",
+                calc_ci_years: "Sokongan Pendapatan Sakit Kritikal Diperlukan",
                 calc_exist_med: "Had Tahunan Perubatan Sedia Ada",
                 calc_target_med: "Had Tahunan Perubatan Diinginkan",
                 calc_years: "Tahun",
@@ -479,6 +560,17 @@
                 calc_shortfall: "Kekurangan: ",
                 calc_covered: "Dilindungi Penuh",
                 calc_disclaimer: "* Anggaran ini adalah rujukan asas. Gunakan borang di bawah untuk mendapatkan konsultasi terperinci bersama Fairuz Samsuddin.",
+                
+                // Calculator Tooltips
+                tip_income: "Gaji asas, sewa, dan pendapatan lain.",
+                tip_expenses: "Cth: Ansuran rumah, bil, makanan, petrol, dan caruman Takaful.",
+                tip_debt: "Cth: Baki keseluruhan pembiayaan kereta, pinjaman peribadi, kad kredit.",
+                tip_exist_life: "Jumlah pampasan perlindungan sedia ada jika berlaku kematian.",
+                tip_life_years: "Berapa tahun pendapatan keluarga perlu disokong selepas ketiadaan (Cadangan: 10 tahun).",
+                tip_exist_ci: "Jumlah pampasan tunai sedia ada jika disahkan menghidap penyakit kritikal.",
+                tip_ci_years: "Anggaran cuti rehat dari bekerja untuk tujuan rawatan penyembuhan (Cadangan: 3 tahun).",
+                tip_exist_med: "Had limit perubatan daripada polisi peribadi atau kad syarikat sedia ada.",
+                tip_target_med: "Sasaran perlindungan tahunan untuk bayaran bil hospital (Cth: RM200,000).",
 
                 // Form Dictionary
                 form_badge: "Konsultasi Percuma",
@@ -546,11 +638,11 @@
                 calc_error: "Note: Your monthly expenses exceed your monthly income. Please double-check.",
                 calc_income: "Monthly Income",
                 calc_expenses: "Monthly Expenses",
-                calc_debt: "Outstanding Debt (Total)",
-                calc_exist_life: "Existing Life / Hibah Protection",
+                calc_debt: "Outstanding Debt",
+                calc_exist_life: "Existing Life / Hibah",
                 calc_life_years: "Years of Support Needed",
-                calc_exist_ci: "Existing Critical Illness Protection",
-                calc_ci_years: "Income Support Needed (CI)",
+                calc_exist_ci: "Existing Critical Illness",
+                calc_ci_years: "Income Support Needed (Critical Illness)",
                 calc_exist_med: "Existing Annual Medical Limit",
                 calc_target_med: "Desired Annual Medical Limit",
                 calc_years: "Years",
@@ -562,6 +654,17 @@
                 calc_shortfall: "Shortfall: ",
                 calc_covered: "Fully Covered",
                 calc_disclaimer: "* This estimate serves as a basic reference. Use the form below for a detailed consultation with Fairuz Samsuddin.",
+                
+                // Calculator Tooltips
+                tip_income: "Basic salary, rental, and other monthly earnings.",
+                tip_expenses: "Ex: Mortgage, bills, food, petrol, and Takaful contributions.",
+                tip_debt: "Ex: Total outstanding balance of car loans, personal loans, credit cards.",
+                tip_exist_life: "Total existing lump sum payout in the event of death.",
+                tip_life_years: "How many years your family needs financial support if you pass away (Rule of thumb: 10 years).",
+                tip_exist_ci: "Existing lump sum payout provided if diagnosed with a critical illness.",
+                tip_ci_years: "Estimated recovery time taken off work for medical treatment (Rule of thumb: 3 years).",
+                tip_exist_med: "Current annual limit from personal or employer provided medical cards.",
+                tip_target_med: "Target annual protection limit for hospital bills (Ex: RM 200,000).",
 
                 // Form Dictionary
                 form_badge: "Free Consultation",
@@ -667,6 +770,27 @@
             e.target.value = value;
         });
 
+        // Thousand Separator for Currency Inputs
+        const currencyInputs = document.querySelectorAll('.calc-currency');
+        currencyInputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                // Remove all non-digit characters
+                let rawValue = this.value.replace(/\D/g, '');
+                // Format with commas if value exists
+                if (rawValue) {
+                    this.value = parseInt(rawValue, 10).toLocaleString('en-MY');
+                } else {
+                    this.value = '';
+                }
+            });
+        });
+
+        // Helper function to safely parse formatted currency strings back to numbers
+        function parseCurrencyInput(value) {
+            if (!value) return 0;
+            return parseFloat(value.replace(/,/g, '')) || 0;
+        }
+
         // Takaful Calculator Logic
         document.getElementById('needsCalculatorForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -674,15 +798,15 @@
             const alertBox = document.getElementById('errorAlert');
             alertBox.classList.add('hidden');
 
-            const income = parseFloat(document.getElementById('calcIncome').value) || 0;
-            const expenses = parseFloat(document.getElementById('calcExpenses').value) || 0;
-            const debt = parseFloat(document.getElementById('calcDebt').value) || 0;
-            const existingLife = parseFloat(document.getElementById('calcExistLife').value) || 0;
+            const income = parseCurrencyInput(document.getElementById('calcIncome').value);
+            const expenses = parseCurrencyInput(document.getElementById('calcExpenses').value);
+            const debt = parseCurrencyInput(document.getElementById('calcDebt').value);
+            const existingLife = parseCurrencyInput(document.getElementById('calcExistLife').value);
             const lifeYears = parseFloat(document.getElementById('calcLifeYears').value) || 0;
-            const existingCI = parseFloat(document.getElementById('calcExistCI').value) || 0;
+            const existingCI = parseCurrencyInput(document.getElementById('calcExistCI').value);
             const ciYears = parseFloat(document.getElementById('calcCIYears').value) || 0;
-            const existingMedical = parseFloat(document.getElementById('calcExistMed').value) || 0;
-            const desiredMedical = parseFloat(document.getElementById('calcTargetMed').value) || 0;
+            const existingMedical = parseCurrencyInput(document.getElementById('calcExistMed').value);
+            const desiredMedical = parseCurrencyInput(document.getElementById('calcTargetMed').value);
 
             if (expenses > income) {
                 alertBox.classList.remove('hidden');
