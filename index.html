@@ -1,5 +1,3 @@
-Here is the full updated code. I have added dynamic explanation text to each result card in the calculator's summary section.
-When a client clicks "Kira Keperluan Semasa," the system will not only show the target amount and gap, but also generate a localized (Malay or English), dynamically calculated sentence explaining exactly how that specific number was derived based on their inputs (e.g., showing the math of Annual Income × Years + Debt).
 <!DOCTYPE html>
 <html lang="ms" id="htmlTag">
 <head>
@@ -829,14 +827,14 @@ When a client clicks "Kira Keperluan Semasa," the system will not only show the 
             const medicalGap = medicalRequired - existingMedical;
 
             // Generate Explanations
-            const descLifeMs = `<strong>Logik Kiraan:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${lifeYears} tahun, ditambah dengan penyelesaian hutang tertunggak (RM ${debt.toLocaleString('en-MY')}). Dana ini memastikan keluarga anda boleh meneruskan kelangsungan hidup tanpa dibebani hutang.`;
-            const descLifeEn = `<strong>Calculation Logic:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${lifeYears} years, plus clearing your outstanding debts (RM ${debt.toLocaleString('en-MY')}). This ensures your family can maintain their lifestyle debt-free.`;
+            const descLifeMs = `<strong>Kenapa Jumlah Ini?:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${lifeYears} tahun, ditambah dengan penyelesaian hutang tertunggak (RM ${debt.toLocaleString('en-MY')}). Dana ini memastikan keluarga anda boleh meneruskan kelangsungan hidup tanpa dibebani hutang.`;
+            const descLifeEn = `<strong>Why This Amount?:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${lifeYears} years, plus clearing your outstanding debts (RM ${debt.toLocaleString('en-MY')}). This ensures your family can maintain their lifestyle debt-free.`;
 
-            const descCIMs = `<strong>Logik Kiraan:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${ciYears} tahun. Dana ini membolehkan anda berehat dan fokus sepenuhnya pada rawatan penyembuhan tanpa tekanan hilang punca pendapatan.`;
-            const descCIEn = `<strong>Calculation Logic:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${ciYears} years. This allows you to take time off work and focus on treatment and recovery without financial stress.`;
+            const descCIMs = `<strong>Kenapa Jumlah Ini?:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${ciYears} tahun. Dana ini membolehkan anda berehat dan fokus sepenuhnya pada rawatan penyembuhan tanpa tekanan hilang punca pendapatan.`;
+            const descCIEn = `<strong>Why This Amount?:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${ciYears} years. This allows you to take time off work and focus on treatment and recovery without financial stress.`;
 
-            const descMedMs = `<strong>Logik Kiraan:</strong> Berdasarkan sasaran had pilihan perlindungan tahunan anda. Had yang mencukupi amat penting bagi menampung bil rawatan hospital swasta selari dengan inflasi kos perubatan semasa.`;
-            const descMedEn = `<strong>Calculation Logic:</strong> Based on your desired annual protection limit. An adequate limit is crucial to cover private hospital bills and counter rising medical inflation costs.`;
+            const descMedMs = `<strong>Kenapa Jumlah Ini?:</strong> Berdasarkan sasaran had pilihan perlindungan tahunan anda. Had yang mencukupi amat penting bagi menampung bil rawatan hospital swasta selari dengan inflasi kos perubatan semasa.`;
+            const descMedEn = `<strong>Why This Amount?:</strong> Based on your desired annual protection limit. An adequate limit is crucial to cover private hospital bills and counter rising medical inflation costs.`;
 
             // Render Output
             document.getElementById('resLifeReq').innerText = formatCurrency(lifeRequired);
@@ -929,4 +927,3 @@ When a client clicks "Kira Keperluan Semasa," the system will not only show the 
     </script>
 </body>
 </html>
-
