@@ -1,3 +1,5 @@
+Here is the full updated code. I have added dynamic explanation text to each result card in the calculator's summary section.
+When a client clicks "Kira Keperluan Semasa," the system will not only show the target amount and gap, but also generate a localized (Malay or English), dynamically calculated sentence explaining exactly how that specific number was derived based on their inputs (e.g., showing the math of Annual Income × Years + Debt).
 <!DOCTYPE html>
 <html lang="ms" id="htmlTag">
 <head>
@@ -361,22 +363,25 @@
                     <h4 class="text-xl font-bold text-gray-900 mb-6 text-center" data-translate="calc_res_title">Ringkasan Keperluan Perlindungan Anda</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         
-                        <div class="bg-white shadow-soft border border-gray-100 rounded-2xl p-6 text-center hover:border-teal transition-colors">
+                        <div class="bg-white shadow-soft border border-gray-100 rounded-2xl p-6 text-center hover:border-teal transition-colors flex flex-col items-center">
                             <h5 class="text-[11px] font-bold text-teal uppercase tracking-wider mb-2" data-translate="calc_res_life">Keperluan Hayat / Hibah</h5>
                             <div id="resLifeReq" class="text-2xl font-bold text-gray-900">RM 0</div>
                             <div id="resLifeGap" class="mt-3 text-xs font-bold px-3 py-1.5 rounded-full inline-block">Gap: RM 0</div>
+                            <p id="descLife" class="mt-4 text-[11px] text-gray-500 leading-relaxed text-left border-t border-gray-100 pt-3 w-full"></p>
                         </div>
                         
-                        <div class="bg-white shadow-soft border border-gray-100 rounded-2xl p-6 text-center hover:border-teal transition-colors">
+                        <div class="bg-white shadow-soft border border-gray-100 rounded-2xl p-6 text-center hover:border-teal transition-colors flex flex-col items-center">
                             <h5 class="text-[11px] font-bold text-teal uppercase tracking-wider mb-2" data-translate="calc_res_ci">Keperluan Sakit Kritikal</h5>
                             <div id="resCIReq" class="text-2xl font-bold text-gray-900">RM 0</div>
                             <div id="resCIGap" class="mt-3 text-xs font-bold px-3 py-1.5 rounded-full inline-block">Gap: RM 0</div>
+                            <p id="descCI" class="mt-4 text-[11px] text-gray-500 leading-relaxed text-left border-t border-gray-100 pt-3 w-full"></p>
                         </div>
                         
-                        <div class="bg-white shadow-soft border border-gray-100 rounded-2xl p-6 text-center hover:border-teal transition-colors">
+                        <div class="bg-white shadow-soft border border-gray-100 rounded-2xl p-6 text-center hover:border-teal transition-colors flex flex-col items-center">
                             <h5 class="text-[11px] font-bold text-teal uppercase tracking-wider mb-2" data-translate="calc_res_med">Sasaran Had Perubatan</h5>
                             <div id="resMedReq" class="text-2xl font-bold text-gray-900">RM 0</div>
                             <div id="resMedGap" class="mt-3 text-xs font-bold px-3 py-1.5 rounded-full inline-block">Gap: RM 0</div>
+                            <p id="descMed" class="mt-4 text-[11px] text-gray-500 leading-relaxed text-left border-t border-gray-100 pt-3 w-full"></p>
                         </div>
 
                     </div>
@@ -813,24 +818,38 @@
             }
 
             // Calculations
-            const lifeRequired = (income * 12 * lifeYears) + debt;
+            const incomeAnnual = income * 12;
+            const lifeRequired = (incomeAnnual * lifeYears) + debt;
             const lifeGap = lifeRequired - existingLife;
 
-            const ciRequired = (income * 12 * ciYears);
+            const ciRequired = (incomeAnnual * ciYears);
             const ciGap = ciRequired - existingCI;
 
             const medicalRequired = desiredMedical;
             const medicalGap = medicalRequired - existingMedical;
 
+            // Generate Explanations
+            const descLifeMs = `<strong>Logik Kiraan:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${lifeYears} tahun, ditambah dengan penyelesaian hutang tertunggak (RM ${debt.toLocaleString('en-MY')}). Dana ini memastikan keluarga anda boleh meneruskan kelangsungan hidup tanpa dibebani hutang.`;
+            const descLifeEn = `<strong>Calculation Logic:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${lifeYears} years, plus clearing your outstanding debts (RM ${debt.toLocaleString('en-MY')}). This ensures your family can maintain their lifestyle debt-free.`;
+
+            const descCIMs = `<strong>Logik Kiraan:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${ciYears} tahun. Dana ini membolehkan anda berehat dan fokus sepenuhnya pada rawatan penyembuhan tanpa tekanan hilang punca pendapatan.`;
+            const descCIEn = `<strong>Calculation Logic:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${ciYears} years. This allows you to take time off work and focus on treatment and recovery without financial stress.`;
+
+            const descMedMs = `<strong>Logik Kiraan:</strong> Berdasarkan sasaran had pilihan perlindungan tahunan anda. Had yang mencukupi amat penting bagi menampung bil rawatan hospital swasta selari dengan inflasi kos perubatan semasa.`;
+            const descMedEn = `<strong>Calculation Logic:</strong> Based on your desired annual protection limit. An adequate limit is crucial to cover private hospital bills and counter rising medical inflation costs.`;
+
             // Render Output
             document.getElementById('resLifeReq').innerText = formatCurrency(lifeRequired);
             renderTailwindGap(document.getElementById('resLifeGap'), lifeGap);
+            document.getElementById('descLife').innerHTML = currentLang === 'ms' ? descLifeMs : descLifeEn;
 
             document.getElementById('resCIReq').innerText = formatCurrency(ciRequired);
             renderTailwindGap(document.getElementById('resCIGap'), ciGap);
+            document.getElementById('descCI').innerHTML = currentLang === 'ms' ? descCIMs : descCIEn;
 
             document.getElementById('resMedReq').innerText = formatCurrency(medicalRequired);
             renderTailwindGap(document.getElementById('resMedGap'), medicalGap);
+            document.getElementById('descMed').innerHTML = currentLang === 'ms' ? descMedMs : descMedEn;
 
             // Show and Scroll to Results
             const resultsDiv = document.getElementById('calcResults');
@@ -910,3 +929,4 @@
     </script>
 </body>
 </html>
+
