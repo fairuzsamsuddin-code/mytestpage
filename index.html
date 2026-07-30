@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title id="pageTitle">TAKAFUL SERVICES - Fairuz Samsuddin</title>
+    <title id="pageTitle">TAKAFUL SERVICES - Nani Mad Sahad</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
-    <link rel="apple-touch-icon" href="FS-logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/FS-logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/FS-logo.png">
+    <link rel="apple-touch-icon" href="rms-logo.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/rms-logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/rms-logo.png">
     <link rel="shortcut icon" href="/favicon.ico">
 
     <!-- Tailwind CSS Standardized Config -->
@@ -36,7 +36,8 @@
     
     <style type="text/tailwindcss">
       @layer components {
-        html, body { scroll-behavior: smooth; overflow-x: hidden; width: 100%; max-width: 100vw; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { overflow-x: hidden; width: 100%; max-width: 100vw; box-sizing: border-box; }
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -51,22 +52,22 @@
       }
     </style>
 </head>
-<body class="bg-background text-gray-800 antialiased min-h-screen flex flex-col overflow-x-hidden">
+<body class="bg-background text-gray-800 antialiased min-h-screen flex flex-col">
 
-    <!-- Unified Top Navigation Bar -->
-    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200 w-full overflow-hidden">
+    <!-- Unified Top Navigation Bar (Sticky, always visible) -->
+    <nav class="sticky top-0 z-50 bg-white shadow-sm border-b border-gray-200 w-full">
         <div class="mx-auto flex max-w-6xl items-center px-4 py-3 gap-5 overflow-x-auto scrollbar-none w-full">
             <!-- Brand -->
             <a href="#top" class="flex items-center gap-3 shrink-0">
-                <img src="FS-logo.png" alt="FS Logo" class="h-10 w-10 object-contain" onerror="this.src='https://ui-avatars.com/api/?name=FS&background=D9000D&color=fff&rounded=true'">
+                <img src="rms-logo.png" alt="RMS Logo" class="h-10 w-10 object-contain" onerror="this.src='https://ui-avatars.com/api/?name=RMS&background=D9000D&color=fff&rounded=true'">
                 <div class="flex flex-col">
                     <span class="text-[14px] font-black uppercase tracking-tight text-primary leading-none" data-translate="brand_title">TAKAFUL SERVICES</span>
-                    <span class="mt-1 text-[11px] font-medium text-gray-500 leading-none" data-translate="brand_sub">by Fairuz Samsuddin</span>
+                    <span class="mt-1 text-[11px] font-medium text-gray-500 leading-none" data-translate="brand_sub">by Nani Mad Sahad</span>
                 </div>
             </a>
 
-            <!-- Language Toggle -->
-            <button onclick="toggleLanguage()" id="langBtn" class="flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-xs font-bold text-gray-700 shadow-sm transition-colors hover:bg-gray-100 shrink-0">
+            <!-- Language Toggle Button placed second -->
+            <button type="button" onclick="toggleLanguage()" id="langBtn" class="flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-xs font-bold text-gray-700 shadow-sm transition-colors hover:bg-gray-100 shrink-0">
                 <i class="fas fa-globe text-primary"></i> <span id="langText">EN</span>
             </button>
             
@@ -90,9 +91,9 @@
                 </a>
             </div>
             
-            <!-- WhatsApp CTA -->
+            <!-- WhatsApp CTA pushed to the right -->
             <div class="ml-auto flex items-center shrink-0">
-                <a href="https://wa.me/60176213432" target="_blank" class="flex items-center gap-2 rounded-full bg-teal px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-teal-hover">
+                <a href="https://wa.me/60173128022" target="_blank" class="flex items-center gap-2 rounded-full bg-teal px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-teal-hover">
                     <i class="fab fa-whatsapp text-base"></i> WhatsApp
                 </a>
             </div>
@@ -100,7 +101,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-10 space-y-16 overflow-hidden box-border">
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-10 space-y-16 box-border">
 
         <!-- Profile Section -->
         <section id="profil" class="bg-white rounded-3xl shadow-elegant border border-gray-100 p-8 md:p-10 flex flex-col md:flex-row gap-10 items-center scroll-mt-28">
@@ -110,14 +111,14 @@
             </div>
             
             <div class="text-center md:text-left flex-1 min-w-0">
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 truncate">FAIRUZ SAMSUDDIN</h1>
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 truncate">NANI MAD SAHAD</h1>
                 <p class="text-primary font-semibold text-base md:text-lg mt-1 tracking-wide uppercase" data-translate="profile_role">Perunding Takaful Berdaftar PruBSN</p>
                 
                 <div class="flex justify-center md:justify-start gap-3 mt-4">
-                    <a href="https://www.facebook.com/fairuz.samsuddin" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/rigidius/" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fab fa-instagram"></i></a>
-                    <a href="https://threads.net/@rigidius" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fa-brands fa-threads"></i></a>
-                    <a href="https://tiktok.com/@rigidius" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/rosnani.sahad" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/me_nani/" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fab fa-instagram"></i></a>
+                    <a href="https://threads.net/@me_nani" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fa-brands fa-threads"></i></a>
+                    <a href="https://tiktok.com/@ms_rigidius" target="_blank" class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-gray-600 hover:bg-primary hover:text-white transition-all hover:scale-110"><i class="fab fa-tiktok"></i></a>
                 </div>
 
                 <p class="text-gray-500 mt-5 text-sm md:text-base leading-relaxed" data-translate="profile_desc">Membantu anda mendapatkan pelan perlindungan Takaful yang lengkap dan jelas bersesuaian dengan bajet keluarga anda.</p>
@@ -126,7 +127,7 @@
                     <a href="#borang-semakan" class="btn-primary flex-1">
                         <i class="fas fa-clipboard-check text-lg"></i> <span data-translate="btn_check">Semak Pelan Sesuai</span>
                     </a>
-                    <a href="https://wa.me/60176213432" target="_blank" class="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors border shadow-sm min-h-[3.5rem] rounded-full border-teal/40 bg-teal-soft px-8 text-sm md:text-base font-semibold text-teal hover:bg-teal hover:text-white">
+                    <a href="https://wa.me/60173128022" target="_blank" class="inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors border shadow-sm min-h-[3.5rem] rounded-full border-teal/40 bg-teal-soft px-8 text-sm md:text-base font-semibold text-teal hover:bg-teal hover:text-white">
                         <i class="fab fa-whatsapp text-lg"></i> <span data-translate="btn_whatsapp">WhatsApp Saya</span>
                     </a>
                 </div>
@@ -399,7 +400,7 @@
 
                     </div>
                     
-                    <p class="text-center text-xs text-gray-500 mt-6" data-translate="calc_disclaimer">* Anggaran ini adalah rujukan asas. Gunakan borang di bawah untuk mendapatkan konsultasi terperinci bersama Fairuz Samsuddin.</p>
+                    <p class="text-center text-xs text-gray-500 mt-6" data-translate="calc_disclaimer">* Anggaran ini adalah rujukan asas. Gunakan borang di bawah untuk mendapatkan konsultasi terperinci bersama Nani Mad Sahad.</p>
                 </div>
             </div>
         </section>
@@ -409,7 +410,7 @@
             <div class="bg-gradient-to-r from-primary to-[#b8000b] text-white p-8 text-center">
                 <span class="bg-white/20 text-white px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4 backdrop-blur-sm tracking-wider uppercase" data-translate="form_badge">Konsultasi Percuma</span>
                 <h3 class="text-2xl md:text-3xl font-bold mb-2" data-translate="form_title">Semak Pelan Takaful Sesuai</h3>
-                <p class="text-sm text-white/90"><span data-translate="form_subtitle">Isi butiran ringkas. Mesej draf akan dihantar terus ke WhatsApp</span> <strong>Fairuz Samsuddin</strong>.</p>
+                <p class="text-sm text-white/90"><span data-translate="form_subtitle">Isi butiran ringkas. Mesej draf akan dihantar terus ke WhatsApp</span> <strong>Nani Mad Sahad</strong>.</p>
             </div>
             
             <div class="p-8 md:p-10">
@@ -525,8 +526,8 @@
         <div class="mx-auto max-w-6xl px-6">
             <div class="flex flex-col items-center justify-between gap-4 text-xs text-gray-500 md:flex-row text-center md:text-left">
                 <p data-translate="footer_reg">Perunding Takaful Berdaftar dengan PruBSN Takaful Berhad.</p>
-                <p>© 2026 Fairuz Samsuddin. <span data-translate="footer_rights">Hak Cipta Terpelihara.</span></p>
-                <p data-translate="footer_portal">Portal Servis Rasmi Fairuz Samsuddin</p>
+                <p>© 2026 Nani Mad Sahad. <span data-translate="footer_rights">Hak Cipta Terpelihara.</span></p>
+                <p data-translate="footer_portal">Portal Servis Rasmi Nani Mad Sahad</p>
             </div>
         </div>
     </footer>
@@ -537,7 +538,7 @@
         const translations = {
             ms: {
                 brand_title: "TAKAFUL SERVICES",
-                brand_sub: "by Fairuz Samsuddin",
+                brand_sub: "by Nani Mad Sahad",
                 nav_profile: "Profil",
                 nav_plans: "Pilihan Pelan",
                 nav_calc: "Kalkulator",
@@ -577,7 +578,7 @@
                 calc_res_med: "Sasaran Had Perubatan",
                 calc_shortfall: "Kekurangan: ",
                 calc_covered: "Dilindungi Penuh",
-                calc_disclaimer: "* Anggaran ini adalah rujukan asas. Gunakan borang di bawah untuk mendapatkan konsultasi terperinci bersama Fairuz Samsuddin.",
+                calc_disclaimer: "* Anggaran ini adalah rujukan asas. Gunakan borang di bawah untuk mendapatkan konsultasi terperinci bersama Nani Mad Sahad.",
                 
                 // Calculator Tooltips
                 tip_income: "Gaji asas, sewa, dan pendapatan lain.",
@@ -627,11 +628,11 @@
                 btn_submit: "Hantar Ke WhatsApp",
                 footer_reg: "Perunding Takaful Berdaftar dengan PruBSN Takaful Berhad.",
                 footer_rights: "Hak Cipta Terpelihara.",
-                footer_portal: "Portal Servis Rasmi Fairuz Samsuddin"
+                footer_portal: "Portal Servis Rasmi Nani Mad Sahad"
             },
             en: {
                 brand_title: "TAKAFUL SERVICES",
-                brand_sub: "by Fairuz Samsuddin",
+                brand_sub: "by Nani Mad Sahad",
                 nav_profile: "Profile",
                 nav_plans: "Plan Options",
                 nav_calc: "Calculator",
@@ -671,7 +672,7 @@
                 calc_res_med: "Target Medical Limit",
                 calc_shortfall: "Shortfall: ",
                 calc_covered: "Fully Covered",
-                calc_disclaimer: "* This estimate serves as a basic reference. Use the form below for a detailed consultation with Fairuz Samsuddin.",
+                calc_disclaimer: "* This estimate serves as a basic reference. Use the form below for a detailed consultation with Nani Mad Sahad.",
                 
                 // Calculator Tooltips
                 tip_income: "Basic salary, rental, and other monthly earnings.",
@@ -721,11 +722,9 @@
                 btn_submit: "Send to WhatsApp",
                 footer_reg: "Authorized Takaful Consultant with PruBSN Takaful Berhad.",
                 footer_rights: "All Rights Reserved.",
-                footer_portal: "Official Service Portal of Fairuz Samsuddin"
+                footer_portal: "Official Service Portal of Nani Mad Sahad"
             }
         };
-
-        let currentLang = 'ms';
 
         // Toggle info tooltips on tap / click
         function toggleTooltip(event, id) {
@@ -749,14 +748,16 @@
 
         function toggleLanguage() {
             currentLang = currentLang === 'ms' ? 'en' : 'ms';
-            document.getElementById('langText').innerText = currentLang === 'ms' ? 'EN' : 'MS';
+            
+            // When currentLang is 'ms', button displays 'EN' (to switch to English). When 'en', button displays 'BM' (to switch to Bahasa Melayu).
+            document.getElementById('langText').innerText = currentLang === 'ms' ? 'EN' : 'BM';
             document.getElementById('htmlTag').setAttribute('lang', currentLang);
 
             // Update all elements with data-translate attribute
             const elements = document.querySelectorAll('[data-translate]');
             elements.forEach(el => {
                 const key = el.getAttribute('data-translate');
-                if (translations[currentLang][key]) {
+                if (translations[currentLang] && translations[currentLang][key]) {
                     el.innerText = translations[currentLang][key];
                 }
             });
@@ -781,6 +782,8 @@
                 document.getElementById('needsCalculatorForm').dispatchEvent(new Event('submit'));
             }
         }
+
+        let currentLang = 'ms';
 
         function selectPlan(planName, clickedElement) {
             var cards = document.querySelectorAll('.grid-card');
@@ -812,9 +815,7 @@
         const currencyInputs = document.querySelectorAll('.calc-currency');
         currencyInputs.forEach(input => {
             input.addEventListener('input', function(e) {
-                // Remove all non-digit characters
                 let rawValue = this.value.replace(/\D/g, '');
-                // Format with commas if value exists
                 if (rawValue) {
                     this.value = parseInt(rawValue, 10).toLocaleString('en-MY');
                 } else {
@@ -823,7 +824,6 @@
             });
         });
 
-        // Helper function to safely parse formatted currency strings back to numbers
         function parseCurrencyInput(value) {
             if (!value) return 0;
             return parseFloat(value.replace(/,/g, '')) || 0;
@@ -850,7 +850,6 @@
                 alertBox.classList.remove('hidden');
             }
 
-            // Calculations
             const incomeAnnual = income * 12;
             const lifeRequired = (incomeAnnual * lifeYears) + debt;
             const lifeGap = lifeRequired - existingLife;
@@ -861,7 +860,6 @@
             const medicalRequired = desiredMedical;
             const medicalGap = medicalRequired - existingMedical;
 
-            // Generate Explanations
             const descLifeMs = `<strong>Kenapa Jumlah Ini?:</strong> Menggantikan pendapatan tahunan anda (RM ${incomeAnnual.toLocaleString('en-MY')}) selama ${lifeYears} tahun, ditambah dengan penyelesaian hutang tertunggak (RM ${debt.toLocaleString('en-MY')}). Dana ini memastikan keluarga anda boleh meneruskan kelangsungan hidup tanpa dibebani hutang.`;
             const descLifeEn = `<strong>Why This Amount?:</strong> Replacing your annual income (RM ${incomeAnnual.toLocaleString('en-MY')}) for ${lifeYears} years, plus clearing your outstanding debts (RM ${debt.toLocaleString('en-MY')}). This ensures your family can maintain their lifestyle debt-free.`;
 
@@ -871,7 +869,6 @@
             const descMedMs = `<strong>Kenapa Jumlah Ini?:</strong> Berdasarkan sasaran had pilihan perlindungan tahunan anda. Had yang mencukupi amat penting bagi menampung bil rawatan hospital swasta selari dengan inflasi kos perubatan semasa.`;
             const descMedEn = `<strong>Why This Amount?:</strong> Based on your desired annual protection limit. An adequate limit is crucial to cover private hospital bills and counter rising medical inflation costs.`;
 
-            // Render Output
             document.getElementById('resLifeReq').innerText = formatCurrency(lifeRequired);
             renderTailwindGap(document.getElementById('resLifeGap'), lifeGap);
             document.getElementById('descLife').innerHTML = currentLang === 'ms' ? descLifeMs : descLifeEn;
@@ -884,7 +881,6 @@
             renderTailwindGap(document.getElementById('resMedGap'), medicalGap);
             document.getElementById('descMed').innerHTML = currentLang === 'ms' ? descMedMs : descMedEn;
 
-            // Show and Scroll to Results
             const resultsDiv = document.getElementById('calcResults');
             resultsDiv.classList.remove('hidden');
             resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -924,7 +920,7 @@
             var policy = document.querySelector('input[name="polisiAktif"]:checked').value;
             var addMessage = document.getElementById('clientMessage').value;
             
-            var phoneNumber = "60176213432"; 
+            var phoneNumber = "60173128022"; 
             
             var message = (currentLang === 'ms') 
                 ? "Hai, saya berminat untuk buat semakan pelan Takaful percuma. Ini butiran saya:\n\n" +
