@@ -152,6 +152,29 @@
             </div>
         </section>
 
+        <!-- Selection Grid Section -->
+        <section id="pilihan-pelan" class="scroll-mt-28">
+            <div class="mb-6 text-center md:text-left">
+                <h2 class="text-2xl font-bold text-gray-900" data-translate="grid_title">Pilihan Yang Boleh Disemak</h2>
+                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-hand-pointer text-primary"></i> <span data-translate="grid_subtitle">Klik kad di bawah untuk memilih</span></p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="planGrid">
+                <div class="grid-card" onclick="selectPlan('Medical Card', this)">
+                    <i class="fas fa-heartbeat"></i><span data-translate="plan_med">Medical Card</span>
+                </div>
+                <div class="grid-card" onclick="selectPlan('Hibah Takaful', this)">
+                    <i class="fas fa-gift"></i><span data-translate="plan_hibah">Hibah</span>
+                </div>
+                <div class="grid-card" onclick="selectPlan('Income Protection', this)">
+                    <i class="fas fa-briefcase"></i><span data-translate="plan_income">Income Protection</span>
+                </div>
+                <div class="grid-card" onclick="selectPlan('Sakit Kritikal', this)">
+                    <i class="fas fa-user-md"></i><span data-translate="plan_critical">Sakit Kritikal</span>
+                </div>
+            </div>
+        </section>
+
         <!-- Takaful Needs Calculator Section -->
         <section id="kalkulator-keperluan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-visible scroll-mt-28">
             <div class="bg-gradient-to-r from-teal to-[#005a5c] text-white p-8 text-center rounded-t-3xl">
@@ -382,29 +405,6 @@
             </div>
         </section>
 
-        <!-- Selection Grid Section -->
-        <section id="pilihan-pelan" class="scroll-mt-28">
-            <div class="mb-6 text-center md:text-left">
-                <h2 class="text-2xl font-bold text-gray-900" data-translate="grid_title">Pilihan Yang Boleh Disemak</h2>
-                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-hand-pointer text-primary"></i> <span data-translate="grid_subtitle">Klik kad di bawah untuk memilih</span></p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="planGrid">
-                <div class="grid-card" onclick="selectPlan('Medical Card', this)">
-                    <i class="fas fa-heartbeat"></i><span data-translate="plan_med">Medical Card</span>
-                </div>
-                <div class="grid-card" onclick="selectPlan('Hibah Takaful', this)">
-                    <i class="fas fa-gift"></i><span data-translate="plan_hibah">Hibah</span>
-                </div>
-                <div class="grid-card" onclick="selectPlan('Income Protection', this)">
-                    <i class="fas fa-briefcase"></i><span data-translate="plan_income">Income Protection</span>
-                </div>
-                <div class="grid-card" onclick="selectPlan('Sakit Kritikal', this)">
-                    <i class="fas fa-user-md"></i><span data-translate="plan_critical">Sakit Kritikal</span>
-                </div>
-            </div>
-        </section>
-
         <!-- Form Section -->
         <section id="borang-semakan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
             <div class="bg-gradient-to-r from-primary to-[#b8000b] text-white p-8 text-center">
@@ -519,6 +519,135 @@
             </div>
         </section>
 
+        <!-- ======================================================== -->
+        <!-- NEW SECTION: CAREER OPPORTUNITY WITH MUQMEEN GROUP       -->
+        <!-- ======================================================== -->
+        <section id="kerjaya" class="relative group cursor-default scroll-mt-28">
+            <!-- Background element -->
+            <div class="absolute inset-0 bg-gradient-to-b from-teal/20 to-teal/5 rounded-3xl transform rotate-1 scale-[1.02] opacity-50 transition-transform group-hover:rotate-2"></div>
+            
+            <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-elegant border border-gray-100 z-10 overflow-hidden">
+              
+              <!-- Top Badge -->
+              <div class="flex justify-center md:justify-start mb-6">
+                <span class="inline-flex items-center justify-center gap-2 bg-teal-soft text-teal px-4 py-2 rounded-full text-xs font-bold tracking-wide uppercase">
+                    <i class="fas fa-briefcase"></i> <span data-translate="career_badge">Peluang Kerjaya</span>
+                </span>
+              </div>
+  
+              <!-- Main Header -->
+              <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-4 tracking-tight text-center md:text-left">
+                <span data-translate="career_title_1">Bina Kerjaya Bersama</span> <br class="md:hidden" /> 
+                <span class="text-teal">Muqmeen Group</span>
+              </h2>
+              
+              <p class="text-gray-600 text-sm md:text-base mb-10 leading-relaxed text-center md:text-left max-w-3xl" data-translate="career_desc">
+                Kami sedang mencari individu yang bercita-cita tinggi untuk menyertai pasukan kami sebagai <strong>Perunding Takaful PruBSN</strong>. Terbuka untuk peluang <strong>Sepenuh Masa (Full-time)</strong> mahupun <strong>Separuh Masa (Part-time)</strong>.
+              </p>
+  
+              <!-- WHY MUQMEEN GROUP - Highlight Box -->
+              <div class="bg-gray-50 rounded-2xl p-6 md:p-8 mb-10 text-left border border-gray-200">
+                <h3 class="font-bold text-gray-900 text-lg mb-6 text-center md:text-left flex items-center justify-center md:justify-start gap-2">
+                    <i class="far fa-building text-teal"></i> <span data-translate="career_why_title">Kenapa Pilih Muqmeen Group?</span>
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8">
+                  <!-- Benefit 1 -->
+                  <div class="flex items-start gap-4">
+                    <div class="mt-1 bg-white p-2 w-8 h-8 flex items-center justify-center rounded-full shadow-sm text-primary shrink-0">
+                      <i class="fas fa-trophy"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-900 text-sm" data-translate="career_why_1_title">Agensi Takaful Mega</h4>
+                      <p class="text-xs text-gray-600 mt-1" data-translate="career_why_1_desc">Salah sebuah agensi bumiputera terbesar dan paling diiktiraf di bawah rangkaian Prudential BSN Takaful.</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Benefit 2 -->
+                  <div class="flex items-start gap-4">
+                    <div class="mt-1 bg-white p-2 w-8 h-8 flex items-center justify-center rounded-full shadow-sm text-yellow-500 shrink-0">
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-900 text-sm" data-translate="career_why_2_title">Melahirkan Perunding Antarabangsa</h4>
+                      <p class="text-xs text-gray-600 mt-1" data-translate="career_why_2_desc">Rekod prestasi cemerlang melahirkan ramai penerima anugerah bertaraf dunia seperti MDRT (Million Dollar Round Table) setiap tahun.</p>
+                    </div>
+                  </div>
+  
+                  <!-- Benefit 3 -->
+                  <div class="flex items-start gap-4">
+                    <div class="mt-1 bg-white p-2 w-8 h-8 flex items-center justify-center rounded-full shadow-sm text-teal shrink-0">
+                      <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-900 text-sm" data-translate="career_why_3_title">Sistem Latihan Berstruktur</h4>
+                      <p class="text-xs text-gray-600 mt-1" data-translate="career_why_3_desc">Sistem mentoring, modul latihan komprehensif, dan sokongan padu dari <i>leaders</i> yang berpengalaman untuk memastikan kejayaan anda dari zero.</p>
+                    </div>
+                  </div>
+  
+                  <!-- Benefit 4 -->
+                  <div class="flex items-start gap-4">
+                    <div class="mt-1 bg-white p-2 w-8 h-8 flex items-center justify-center rounded-full shadow-sm text-blue-600 shrink-0">
+                      <i class="fas fa-users"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold text-gray-900 text-sm" data-translate="career_why_4_title">Budaya Pasukan & Ukhuwah</h4>
+                      <p class="text-xs text-gray-600 mt-1" data-translate="career_why_4_desc">Berada dalam persekitaran positif yang sentiasa menyokong kelangsungan kerjaya, kerohanian, dan pembangunan diri anda.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- General Job Benefits Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+                  <div class="w-12 h-12 bg-green-50 rounded-full flex items-center justify-center text-green-600 mb-3">
+                    <i class="fas fa-chart-line text-xl"></i>
+                  </div>
+                  <h4 class="font-bold text-gray-900 mb-2 text-sm text-center" data-translate="career_ben_1_title">Pendapatan Pasif & Bonus</h4>
+                  <p class="text-xs text-gray-500 text-center" data-translate="career_ben_1_desc">Nikmati struktur komisen berterusan (selama 6 tahun untuk setiap polisi), pelbagai bonus pencapaian, dan peluang kenaikan pangkat.</p>
+                </div>
+  
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+                  <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-3">
+                    <i class="far fa-clock text-xl"></i>
+                  </div>
+                  <h4 class="font-bold text-gray-900 mb-2 text-sm text-center" data-translate="career_ben_2_title">Fleksibiliti Masa</h4>
+                  <p class="text-xs text-gray-500 text-center" data-translate="career_ben_2_desc">Bebas menguruskan masa kerja anda. Sangat sesuai untuk bina pendapatan sampingan (part-time) atau menjadikannya kerjaya tetap.</p>
+                </div>
+  
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center">
+                  <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center text-purple-600 mb-3">
+                    <i class="fas fa-plane text-xl"></i>
+                  </div>
+                  <h4 class="font-bold text-gray-900 mb-2 text-sm text-center" data-translate="career_ben_3_title">Percutian Percuma</h4>
+                  <p class="text-xs text-gray-500 text-center" data-translate="career_ben_3_desc">Ganjaran pelancongan eksklusif percuma bertaraf 5 bintang ke luar negara setiap tahun atas pencapaian jualan anda.</p>
+                </div>
+              </div>
+  
+              <!-- CTA Box -->
+              <div class="bg-teal-soft rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border border-teal/20">
+                <div class="text-left flex-1 flex flex-col md:flex-row items-center md:items-start gap-4 text-center md:text-left">
+                  <div class="bg-white p-3 rounded-full shadow-sm text-teal w-12 h-12 flex items-center justify-center shrink-0">
+                    <i class="fas fa-award text-xl"></i>
+                  </div>
+                  <div>
+                    <h5 class="font-bold text-gray-900 text-lg mb-1" data-translate="career_cta_title">Bersedia untuk langkah seterusnya?</h5>
+                    <p class="text-sm text-gray-600" data-translate="career_cta_desc">Hubungi saya untuk sesi sembang santai mengenai potensi kerjaya ini.</p>
+                  </div>
+                </div>
+                <!-- WhatsApp Link specifically tailored for career inquiry -->
+                <a href="https://wa.me/60176213432?text=Hai%20Fairuz,%20saya%20berminat%20untuk%20mengetahui%20lebih%20lanjut%20tentang%20peluang%20kerjaya%20sebagai%20Perunding%20Takaful%20bersama%20Muqmeen%20Group." target="_blank" class="btn-primary w-full md:w-auto bg-teal hover:bg-teal-hover shadow-md text-base">
+                    <i class="fab fa-whatsapp text-lg"></i> <span data-translate="career_cta_btn">Mohon Sekarang</span>
+                </a>
+              </div>
+              
+            </div>
+        </section>
+        <!-- ======================================================== -->
+        <!-- END OF NEW SECTION                                       -->
+        <!-- ======================================================== -->
+
     </main>
 
     <!-- Unified Footer -->
@@ -628,7 +757,30 @@
                 btn_submit: "Hantar Ke WhatsApp",
                 footer_reg: "Perunding Takaful Berdaftar dengan PruBSN Takaful Berhad.",
                 footer_rights: "Hak Cipta Terpelihara.",
-                footer_portal: "Portal Servis Rasmi Fairuz Samsuddin"
+                footer_portal: "Portal Servis Rasmi Fairuz Samsuddin",
+
+                // Career Section Dictionary
+                career_badge: "Peluang Kerjaya",
+                career_title_1: "Bina Kerjaya Bersama",
+                career_desc: "Kami sedang mencari individu yang bercita-cita tinggi untuk menyertai pasukan kami sebagai Perunding Takaful PruBSN. Terbuka untuk peluang Sepenuh Masa (Full-time) mahupun Separuh Masa (Part-time).",
+                career_why_title: "Kenapa Pilih Muqmeen Group?",
+                career_why_1_title: "Agensi Takaful Mega",
+                career_why_1_desc: "Salah sebuah agensi bumiputera terbesar dan paling diiktiraf di bawah rangkaian Prudential BSN Takaful.",
+                career_why_2_title: "Melahirkan Perunding Antarabangsa",
+                career_why_2_desc: "Rekod prestasi cemerlang melahirkan ramai penerima anugerah bertaraf dunia seperti MDRT (Million Dollar Round Table) setiap tahun.",
+                career_why_3_title: "Sistem Latihan Berstruktur",
+                career_why_3_desc: "Sistem mentoring, modul latihan komprehensif, dan sokongan padu dari leaders yang berpengalaman untuk memastikan kejayaan anda dari zero.",
+                career_why_4_title: "Budaya Pasukan & Ukhuwah",
+                career_why_4_desc: "Berada dalam persekitaran positif yang sentiasa menyokong kelangsungan kerjaya, kerohanian, dan pembangunan diri anda.",
+                career_ben_1_title: "Pendapatan Pasif & Bonus",
+                career_ben_1_desc: "Nikmati struktur komisen berterusan (selama 6 tahun untuk setiap polisi), pelbagai bonus pencapaian, dan peluang kenaikan pangkat.",
+                career_ben_2_title: "Fleksibiliti Masa",
+                career_ben_2_desc: "Bebas menguruskan masa kerja anda. Sangat sesuai untuk bina pendapatan sampingan (part-time) atau menjadikannya kerjaya tetap.",
+                career_ben_3_title: "Percutian Percuma",
+                career_ben_3_desc: "Ganjaran pelancongan eksklusif percuma bertaraf 5 bintang ke luar negara setiap tahun atas pencapaian jualan anda.",
+                career_cta_title: "Bersedia untuk langkah seterusnya?",
+                career_cta_desc: "Hubungi saya untuk sesi sembang santai mengenai potensi kerjaya ini.",
+                career_cta_btn: "Mohon Sekarang"
             },
             en: {
                 brand_title: "TAKAFUL SERVICES",
@@ -722,7 +874,30 @@
                 btn_submit: "Send to WhatsApp",
                 footer_reg: "Authorized Takaful Consultant with PruBSN Takaful Berhad.",
                 footer_rights: "All Rights Reserved.",
-                footer_portal: "Official Service Portal of Fairuz Samsuddin"
+                footer_portal: "Official Service Portal of Fairuz Samsuddin",
+
+                // Career Section Dictionary
+                career_badge: "Career Opportunity",
+                career_title_1: "Build Your Career With",
+                career_desc: "We are looking for ambitious individuals to join our team as PruBSN Takaful Consultants. Open to those looking for Full-time or Part-time opportunities.",
+                career_why_title: "Why Muqmeen Group?",
+                career_why_1_title: "Mega Takaful Agency",
+                career_why_1_desc: "One of the largest and most recognized bumiputera agencies under the Prudential BSN Takaful network.",
+                career_why_2_title: "Producing Global Consultants",
+                career_why_2_desc: "Outstanding track record of producing world-class award recipients such as MDRT (Million Dollar Round Table) every year.",
+                career_why_3_title: "Structured Training System",
+                career_why_3_desc: "Mentoring system, comprehensive training modules, and solid support from experienced leaders to ensure your success from scratch.",
+                career_why_4_title: "Team Culture & Brotherhood",
+                career_why_4_desc: "Be in a positive environment that constantly supports your career continuity, spirituality, and personal development.",
+                career_ben_1_title: "Passive Income & Bonuses",
+                career_ben_1_desc: "Enjoy continuous commission structure (for 6 years per policy), various achievement bonuses, and promotion opportunities.",
+                career_ben_2_title: "Time Flexibility",
+                career_ben_2_desc: "Freedom to manage your own working hours. Perfect for building a side income (part-time) or making it a full-time career.",
+                career_ben_3_title: "Free Vacations",
+                career_ben_3_desc: "Exclusive 5-star overseas travel rewards for free every year based on your sales achievements.",
+                career_cta_title: "Ready for the next step?",
+                career_cta_desc: "Contact me for a casual chat about this career potential.",
+                career_cta_btn: "Apply Now"
             }
         };
 
@@ -758,9 +933,22 @@
             elements.forEach(el => {
                 const key = el.getAttribute('data-translate');
                 if (translations[currentLang] && translations[currentLang][key]) {
-                    el.innerText = translations[currentLang][key];
+                    // Special handling for HTML content inside translations
+                    if(el.innerHTML.includes('<strong>') || key === 'career_desc') {
+                         el.innerHTML = translations[currentLang][key];
+                    } else {
+                         el.innerText = translations[currentLang][key];
+                    }
                 }
             });
+
+            // Re-apply strong tags for the specific career description paragraph since it uses innerText overwrite above
+            const careerDesc = document.querySelector('[data-translate="career_desc"]');
+            if(currentLang === 'en') {
+                careerDesc.innerHTML = "We are looking for ambitious individuals to join our team as <strong>PruBSN Takaful Consultants</strong>. Open to those looking for <strong>Full-time</strong> or <strong>Part-time</strong> opportunities.";
+            } else {
+                careerDesc.innerHTML = "Kami sedang mencari individu yang bercita-cita tinggi untuk menyertai pasukan kami sebagai <strong>Perunding Takaful PruBSN</strong>. Terbuka untuk peluang <strong>Sepenuh Masa (Full-time)</strong> mahupun <strong>Separuh Masa (Part-time)</strong>.";
+            }
 
             // Update form placeholders based on language
             if (currentLang === 'en') {
@@ -965,3 +1153,5 @@
     </script>
 </body>
 </html>
+
+
