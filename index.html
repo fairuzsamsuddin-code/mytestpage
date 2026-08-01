@@ -420,54 +420,68 @@
                 <p class="mt-3 text-muted-foreground font-medium text-sm md:text-base ml-15" data-translate="unplanned_desc">Untuk keadaan kecemasan yang memerlukan rawatan segera.</p>
               </div>
 
-              <!-- Unplanned Steps Slider (Added pt-6 to avoid top shadow clipping) -->
-              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-6 snap-x snap-mandatory scrollbar-none">
-                <!-- Step 1 (Added ml-5 to avoid left circle clipping) -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow ml-5">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">1</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-ambulance"></i></div>
+              <!-- Unplanned Steps Slider (With clean padding and non-clipping layout) -->
+              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-4 pt-2 px-2 snap-x snap-mandatory scrollbar-none">
+                <!-- Step 1 -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-ambulance"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">1</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step1_title">Dapatkan Rawatan Segera</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step1_desc">Pergi terus ke Klinik atau Hospital terdekat. Jika perlu, ke unit Kecemasan (A&E).</p>
                 </div>
                 <!-- Step 2 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">2</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-user-md"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-user-md"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step2_title">Penilaian oleh Pegawai Perubatan</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step2_desc">Anda akan dinilai oleh Pegawai Perubatan yang akan menilai keadaan anda dan merujuk kepada pakar yang sesuai.</p>
                 </div>
                 <!-- Step 3 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">3</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-user-nurse"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-user-nurse"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step3_title">Pemeriksaan oleh Pakar</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step3_desc">Pakar akan memeriksa anda. Jika kemasukan ke hospital diperlukan, pakar melengkapkan Bahagian II Borang PAF.</p>
                 </div>
                 <!-- Step 4 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">4</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-heartbeat"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-heartbeat"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">4</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step4_title">Ujian Diagnostik</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step4_desc">Jalani ujian diagnostik (cth: CT scan, ultrasound, ujian darah) mengikut keperluan pakar.</p>
                 </div>
                 <!-- Step 5 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">5</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-clipboard-user"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-clipboard-user"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step5_title">Pendaftaran Masuk</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step5_desc">Di kaunter pendaftaran, kemukakan Kad Pengenalan anda dan kad perubatan (jika ada) untuk tujuan pengesahan.</p>
                 </div>
                 <!-- Step 6 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">6</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-file-signature"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-file-signature"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">6</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step6_title">Lengkapkan Borang PAF (Bahagian I)</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step6_desc">Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit.</p>
                 </div>
-                <!-- Step 7 (Added mr-5 for right scroll padding) -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow mr-5">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">7</div>
-                  <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-envelope-open-text"></i></div>
+                <!-- Step 7 -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">7</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step7_title">Kelulusan & Surat Pra-Kebenaran (PAL)</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step7_desc">Sila tunggu kelulusan dan PAL. Bil hospital akan dibayar terus oleh PruBSN tertakluk kepada syarat.</p>
                 </div>
@@ -497,54 +511,68 @@
                 <p class="mt-3 text-muted-foreground font-medium text-sm md:text-base ml-15" data-translate="planned_desc">Untuk rawatan atau pembedahan yang telah dijadualkan lebih awal.</p>
               </div>
 
-              <!-- Planned Steps Slider (Added pt-6) -->
-              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-6 snap-x snap-mandatory scrollbar-none">
-                <!-- Step 1 (Added ml-5) -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow ml-5">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">1</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="fab fa-whatsapp"></i></div>
+              <!-- Planned Steps Slider -->
+              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-4 pt-2 px-2 snap-x snap-mandatory scrollbar-none">
+                <!-- Step 1 -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fab fa-whatsapp"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">1</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step1_title">Maklumkan Lebih Awal kepada PruBSN</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step1_desc">Maklumkan kepada Perkhidmatan Pelanggan atau Perunding Takaful anda sekurang-kurangnya 3 hari bekerja sebelum tarikh dijadualkan.</p>
                 </div>
                 <!-- Step 2 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">2</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="fas fa-notes-medical"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-notes-medical"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step2_title">Hantar Dokumen</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step2_desc">Kemukakan dokumen yang diperlukan seperti laporan perubatan, surat rujukan, dan anggaran kos.</p>
                 </div>
                 <!-- Step 3 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">3</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="fas fa-search-plus"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-search-plus"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step3_title">Penilaian oleh PruBSN</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step3_desc">PruBSN akan menilai dokumen dan memberi kelulusan tertakluk kepada manfaat sijil anda.</p>
                 </div>
                 <!-- Step 4 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">4</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="fas fa-envelope-open-text"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">4</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step4_title">Kelulusan & Surat Pra-Kebenaran (PAL)</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step4_desc">Setelah diluluskan, anda akan menerima Surat PAL yang menyatakan tempoh kelulusan dan anggaran amaun.</p>
                 </div>
                 <!-- Step 5 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">5</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="far fa-hospital"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="far fa-hospital"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step5_title">Pendaftaran Masuk ke Hospital</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step5_desc">Pada tarikh yang dijadualkan, kemukakan Kad Pengenalan dan kad perubatan serta surat PAL semasa pendaftaran.</p>
                 </div>
                 <!-- Step 6 -->
                 <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">6</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="fas fa-file-signature"></i></div>
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-file-signature"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">6</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step6_title">Lengkapkan Borang PAF (Bahagian I)</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step6_desc">Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit.</p>
                 </div>
-                <!-- Step 7 (Added mr-5) -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow mr-5">
-                  <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">7</div>
-                  <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="far fa-check-circle"></i></div>
+                <!-- Step 7 -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <div class="flex items-center justify-between mb-5">
+                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="far fa-check-circle"></i></div>
+                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">7</div>
+                  </div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step7_title">Rawatan & Kelulusan Akhir</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step7_desc">Terima rawatan seperti yang dijadualkan. Bil hospital akan dibayar terus oleh PruBSN tertakluk syarat.</p>
                 </div>
@@ -976,7 +1004,7 @@
           u_step2_title: "Penilaian oleh Pegawai Perubatan",
           u_step2_desc: "Anda akan dinilai oleh Pegawai Perubatan yang akan menilai keadaan anda dan merujuk kepada pakar yang sesuai.",
           u_step3_title: "Pemeriksaan oleh Pakar",
-          u_step3_desc: "Pakar akan memeriksa anda. Jika kemasukan ke hospital diperlukan, pakar akan melengkapkan Bahagian II Borang Pra-Kebenaran (PAF).",
+          u_step3_desc: "Pakar akan memeriksa anda. Jika kemasukan ke hospital diperlukan, pakar melengkapkan Bahagian II Borang Pra-Kebenaran (PAF).",
           u_step4_title: "Ujian Diagnostik",
           u_step4_desc: "Jalani ujian diagnostik (cth: CT scan, ultrasound, ujian darah) mengikut keperluan pakar.",
           u_step5_title: "Pendaftaran Masuk",
@@ -1269,11 +1297,9 @@
         elements.forEach(el => {
           const key = el.getAttribute('data-translate');
           if (translations[currentLang][key]) {
-            // Apply translation, ensuring strong tags are preserved where applicable
             if(el.innerHTML.includes('<strong>')) {
                 let tempDiv = document.createElement('div');
                 tempDiv.innerHTML = translations[currentLang][key];
-                // basic replacement to keep simple HTML in info list
                 if(key.includes('u_info_1')) el.innerHTML = tempDiv.innerHTML.replace('Hospital Panel PruBSN', '<strong>Hospital Panel PruBSN</strong>').replace('PruBSN Panel Hospital', '<strong>PruBSN Panel Hospital</strong>');
                 else if(key.includes('u_info_2')) el.innerHTML = tempDiv.innerHTML.replace('hospital bukan panel', '<strong>hospital bukan panel</strong>').replace('non-panel hospital', '<strong>non-panel hospital</strong>');
                 else el.innerText = translations[currentLang][key];
@@ -1283,7 +1309,6 @@
           }
         });
 
-        // Dynamic placeholders update
         if (currentLang === 'en') {
           document.getElementById('sijil-takaful-nama').placeholder = "Example: Abu Bakar";
           document.getElementById('sijil-takaful-no').placeholder = "Example: 12345678";
@@ -1323,7 +1348,6 @@
       }
 
       document.addEventListener('DOMContentLoaded', () => {
-        // Automatically default to English if ?lang=en or #en is present in the URL
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('lang') === 'en' || window.location.hash === '#en') {
           toggleLanguage();
@@ -1360,7 +1384,6 @@
         const eventDate = document.getElementById('event-date');
         const calcResult = document.getElementById('calc-result-container');
         
-        // Load saved local storage and sync dates
         if(localStorage.getItem('f_sijil-takaful_nama')) inputNama.value = localStorage.getItem('f_sijil-takaful_nama');
         if(localStorage.getItem('f_sijil-takaful_no')) inputNo.value = localStorage.getItem('f_sijil-takaful_no');
         if(localStorage.getItem('f_sijil-takaful_tarikh')) {
@@ -1369,7 +1392,6 @@
             if(policyDate) policyDate.value = savedDate;
         }
         
-        // Sync policy date automatically when user inputs policy start date
         if(inputTarikh && policyDate) {
           inputTarikh.addEventListener('input', () => {
             policyDate.value = inputTarikh.value;
@@ -1436,7 +1458,6 @@
         if (policyDate) policyDate.addEventListener('change', updateCalculator);
         if (eventDate) eventDate.addEventListener('change', updateCalculator);
 
-        // --- NEW CLAIM FORM HANDLER ---
         const formHantarClaim = document.getElementById('form-hantar-claim');
         
         if (formHantarClaim) {
