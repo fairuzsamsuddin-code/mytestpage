@@ -85,13 +85,13 @@
                     <i class="fas fa-calculator text-gray-400 text-lg"></i>
                     <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_calc">Kalkulator</span>
                 </a>
-                <a href="#kerjaya" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-briefcase text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_career">Kerjaya</span>
-                </a>
                 <a href="#borang-semakan" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
                     <i class="far fa-clipboard text-gray-400 text-lg"></i>
                     <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_form">Borang Semakan</span>
+                </a>
+                <a href="#kerjaya" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
+                    <i class="fas fa-briefcase text-gray-400 text-lg"></i>
+                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_career">Kerjaya</span>
                 </a>
             </div>
             
@@ -409,54 +409,6 @@
             </div>
         </section>
 
-        <!-- Career Section -->
-        <section id="kerjaya" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
-            <div class="p-8 md:p-10">
-                <div class="text-center mb-10">
-                    <span class="bg-teal-soft text-teal px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4 tracking-wider uppercase" data-translate="career_badge">Peluang Kerjaya</span>
-                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4" data-translate="career_title">Sertai Pasukan Kami di Muqmeen Group</h3>
-                    <p class="text-gray-500 max-w-2xl mx-auto text-sm md:text-base leading-relaxed" data-translate="career_subtitle">Bina kerjaya bermakna sebagai Perunding Takaful (Sepenuh Masa / Separuh Masa) dengan agensi No. 1 PruBSN Takaful.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
-                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-chart-line"></i></div>
-                        <div>
-                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben1_title">Pendapatan Tanpa Had</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben1_desc">Komisen lumayan, bonus pencapaian & elaun pembangunan bulanan (RM3K - RM10K).</p>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
-                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-clock"></i></div>
-                        <div>
-                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben2_title">Fleksibiliti Masa</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben2_desc">Masa bekerja yang fleksibel dan hibrid. Capai keseimbangan kerja & kehidupan (Work-Life Balance).</p>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
-                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-graduation-cap"></i></div>
-                        <div>
-                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben3_title">Latihan Profesional</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben3_desc">Bimbingan & latihan berstruktur disediakan. Pengalaman tidak diwajibkan.</p>
-                        </div>
-                    </div>
-                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
-                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-plane-departure"></i></div>
-                        <div>
-                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben4_title">Ganjaran Percutian</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben4_desc">Peluang memenangi percutian mewah ke luar negara sehingga 4 kali setahun.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
-                    <button type="button" onclick="applyCareer()" class="btn-primary inline-flex bg-teal hover:bg-teal-hover">
-                        <i class="fas fa-user-tie text-lg"></i> <span data-translate="career_cta">Mohon Sekarang</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
         <!-- Form Section -->
         <section id="borang-semakan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
             <div class="bg-gradient-to-r from-primary to-[#b8000b] text-white p-8 text-center">
@@ -571,6 +523,54 @@
             </div>
         </section>
 
+        <!-- Career Section (Moved to Last) -->
+        <section id="kerjaya" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
+            <div class="p-8 md:p-10">
+                <div class="text-center mb-10">
+                    <span class="bg-teal-soft text-teal px-4 py-1.5 rounded-full text-xs font-bold inline-block mb-4 tracking-wider uppercase" data-translate="career_badge">Peluang Kerjaya</span>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4" data-translate="career_title">Sertai Pasukan Kami di Muqmeen Group</h3>
+                    <p class="text-gray-500 max-w-2xl mx-auto text-sm md:text-base leading-relaxed" data-translate="career_subtitle">Bina kerjaya bermakna sebagai Perunding Takaful (Sepenuh Masa / Separuh Masa) dengan agensi No. 1 PruBSN Takaful.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
+                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-chart-line"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben1_title">Pendapatan Tanpa Had</h4>
+                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben1_desc">Komisen lumayan, bonus pencapaian & elaun pembangunan bulanan (RM3K - RM10K).</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
+                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben2_title">Fleksibiliti Masa</h4>
+                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben2_desc">Masa bekerja yang fleksibel dan hibrid. Capai keseimbangan kerja & kehidupan (Work-Life Balance).</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
+                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-graduation-cap"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben3_title">Latihan Profesional</h4>
+                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben3_desc">Bimbingan & latihan berstruktur disediakan. Pengalaman tidak diwajibkan.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
+                        <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-plane-departure"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben4_title">Ganjaran Percutian</h4>
+                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben4_desc">Peluang memenangi percutian mewah ke luar negara sehingga 4 kali setahun.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" onclick="applyCareer()" class="btn-primary inline-flex bg-teal hover:bg-teal-hover">
+                        <i class="fas fa-user-tie text-lg"></i> <span data-translate="career_cta">Mohon Sekarang</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Unified Footer -->
@@ -594,8 +594,8 @@
                 nav_profile: "Profil",
                 nav_plans: "Pilihan Pelan",
                 nav_calc: "Kalkulator",
-                nav_career: "Kerjaya",
                 nav_form: "Borang Semakan",
+                nav_career: "Kerjaya",
                 profile_role: "Perunding Takaful Berdaftar PruBSN",
                 profile_desc: "Membantu anda mendapatkan pelan perlindungan Takaful yang lengkap dan jelas bersesuaian dengan bajet keluarga anda.",
                 btn_check: "Semak Pelan Sesuai",
@@ -703,8 +703,8 @@
                 nav_profile: "Profile",
                 nav_plans: "Plan Options",
                 nav_calc: "Calculator",
-                nav_career: "Career",
                 nav_form: "Review Form",
+                nav_career: "Career",
                 profile_role: "Authorized PruBSN Takaful Consultant",
                 profile_desc: "Helping you secure comprehensive and clear Takaful protection plans suited to your family budget.",
                 btn_check: "Check Suitable Plan",
