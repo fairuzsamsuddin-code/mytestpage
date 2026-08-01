@@ -401,7 +401,7 @@
               Panduan Kemasukan Hospital
             </h2>
             <p class="mt-3 text-sm text-muted-foreground md:text-base" data-translate="adm_subtitle">
-              Langkah-langkah yang perlu diambil untuk kemasukan hospital secara terancang atau kecemasan.
+              Langkah-langkah yang perlu diambil untuk kemasukan hospital secara dirancang atau kecemasan.
             </p>
           </div>
 
@@ -416,10 +416,10 @@
                 <p class="mt-3 text-muted-foreground font-medium text-sm md:text-base ml-15" data-translate="unplanned_desc">Untuk keadaan kecemasan yang memerlukan rawatan segera.</p>
               </div>
 
-              <!-- Unplanned Steps Slider -->
-              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-none">
-                <!-- Step 1 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+              <!-- Unplanned Steps Slider (Added pt-6 to avoid top shadow clipping) -->
+              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-6 snap-x snap-mandatory scrollbar-none">
+                <!-- Step 1 (Added ml-5 to avoid left circle clipping) -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow ml-5">
                   <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">1</div>
                   <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-ambulance"></i></div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step1_title">Dapatkan Rawatan Segera</h4>
@@ -460,8 +460,8 @@
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step6_title">Lengkapkan Borang PAF (Bahagian I)</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step6_desc">Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit.</p>
                 </div>
-                <!-- Step 7 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                <!-- Step 7 (Added mr-5 for right scroll padding) -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow mr-5">
                   <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shadow-md border-4 border-white">7</div>
                   <div class="h-14 w-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-5 text-3xl"><i class="fas fa-envelope-open-text"></i></div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step7_title">Kelulusan & Surat Pra-Kebenaran (PAL)</h4>
@@ -493,10 +493,10 @@
                 <p class="mt-3 text-muted-foreground font-medium text-sm md:text-base ml-15" data-translate="planned_desc">Untuk rawatan atau pembedahan yang telah dijadualkan lebih awal.</p>
               </div>
 
-              <!-- Planned Steps Slider -->
-              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-none">
-                <!-- Step 1 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+              <!-- Planned Steps Slider (Added pt-6) -->
+              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-8 pt-6 snap-x snap-mandatory scrollbar-none">
+                <!-- Step 1 (Added ml-5) -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow ml-5">
                   <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">1</div>
                   <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="fab fa-whatsapp"></i></div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step1_title">Maklumkan Lebih Awal kepada PruBSN</h4>
@@ -537,8 +537,8 @@
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step6_title">Lengkapkan Borang PAF (Bahagian I)</h4>
                   <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step6_desc">Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit.</p>
                 </div>
-                <!-- Step 7 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
+                <!-- Step 7 (Added mr-5) -->
+                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow mr-5">
                   <div class="absolute -top-4 -left-4 h-10 w-10 rounded-full bg-teal text-white flex items-center justify-center font-bold shadow-md border-4 border-white">7</div>
                   <div class="h-14 w-14 rounded-2xl bg-teal-soft text-teal flex items-center justify-center mb-5 text-3xl"><i class="far fa-check-circle"></i></div>
                   <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step7_title">Rawatan & Kelulusan Akhir</h4>
@@ -963,8 +963,8 @@
           /* KEMASUKAN HOSPITAL DICTIONARY */
           adm_badge: "Kemasukan Hospital",
           adm_title: "Panduan Kemasukan Hospital",
-          adm_subtitle: "Langkah-langkah yang perlu diambil untuk kemasukan hospital secara terancang atau kecemasan.",
-          unplanned_title: "1. UNPLANNED ADMISSION",
+          adm_subtitle: "Langkah-langkah yang perlu diambil untuk kemasukan hospital secara dirancang atau kecemasan.",
+          unplanned_title: "1. KEMASUKAN TIDAK DIRANCANG",
           unplanned_desc: "Untuk keadaan kecemasan yang memerlukan rawatan segera.",
           u_step1_title: "Dapatkan Rawatan Segera",
           u_step1_desc: "Pergi terus ke Klinik atau Hospital terdekat. Jika perlu, ke unit Kecemasan (A&E).",
@@ -984,7 +984,7 @@
           u_info_1: "Jika anda dimasukkan ke Hospital Panel PruBSN, anda boleh menikmati pra-kebenaran* untuk perbelanjaan perubatan.",
           u_info_2: "Jika dimasukkan ke hospital bukan panel, anda perlu menjelaskan bil hospital sebelum keluar dan membuat tuntutan untuk bayaran balik (tertakluk kepada syarat dan terma sijil anda).",
           u_info_3: "Deposit biasanya meliputi caj sampingan dan bukan perubatan seperti caj telefon, eligibiliti bilik, ko-takaful dan deduktibel.",
-          planned_title: "2. PLANNED ADMISSION",
+          planned_title: "2. KEMASUKAN DIRANCANG",
           planned_desc: "Untuk rawatan atau pembedahan yang telah dijadualkan lebih awal.",
           p_step1_title: "Maklumkan Lebih Awal kepada PruBSN",
           p_step1_desc: "Maklumkan kepada Perkhidmatan Pelanggan atau Perunding Takaful anda sekurang-kurangnya 3 hari bekerja sebelum tarikh kemasukan yang dijadualkan.",
