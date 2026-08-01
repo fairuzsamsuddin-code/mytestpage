@@ -77,13 +77,13 @@
                     <i class="far fa-user text-gray-400 text-lg"></i>
                     <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_profile">Profil</span>
                 </a>
-                <a href="#pilihan-pelan" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-hand-holding-heart text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_plans">Pilihan Pelan</span>
-                </a>
                 <a href="#kalkulator-keperluan" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
                     <i class="fas fa-calculator text-gray-400 text-lg"></i>
                     <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_calc">Kalkulator</span>
+                </a>
+                <a href="#pilihan-pelan" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
+                    <i class="fas fa-hand-holding-heart text-gray-400 text-lg"></i>
+                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_plans">Pilihan Pelan</span>
                 </a>
                 <a href="#borang-semakan" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
                     <i class="far fa-clipboard text-gray-400 text-lg"></i>
@@ -152,29 +152,6 @@
                 <div class="flex flex-col items-center gap-4 flex-1 bg-white md:bg-transparent px-4">
                     <div class="w-14 h-14 rounded-full bg-teal text-white flex items-center justify-center text-xl shadow-md"><i class="fas fa-shield-halved"></i></div>
                     <span class="font-semibold text-gray-700 bg-white px-3 py-1 rounded-lg text-sm" data-translate="feat_comprehensive_protection">Perlindungan Menyeluruh</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Selection Grid Section -->
-        <section id="pilihan-pelan" class="scroll-mt-28">
-            <div class="mb-6 text-center md:text-left">
-                <h2 class="text-2xl font-bold text-gray-900" data-translate="grid_title">Pilihan Yang Boleh Disemak</h2>
-                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-hand-pointer text-primary"></i> <span data-translate="grid_subtitle">Klik kad di bawah untuk memilih</span></p>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="planGrid">
-                <div class="grid-card" onclick="selectPlan('Medical Card', this)">
-                    <i class="fas fa-heartbeat"></i><span data-translate="plan_med">Medical Card</span>
-                </div>
-                <div class="grid-card" onclick="selectPlan('Hibah Takaful', this)">
-                    <i class="fas fa-gift"></i><span data-translate="plan_hibah">Hibah</span>
-                </div>
-                <div class="grid-card" onclick="selectPlan('Income Protection', this)">
-                    <i class="fas fa-briefcase"></i><span data-translate="plan_income">Income Protection</span>
-                </div>
-                <div class="grid-card" onclick="selectPlan('Sakit Kritikal', this)">
-                    <i class="fas fa-user-md"></i><span data-translate="plan_critical">Sakit Kritikal</span>
                 </div>
             </div>
         </section>
@@ -409,6 +386,29 @@
             </div>
         </section>
 
+        <!-- Selection Grid Section (Moved after Calculator, before Form) -->
+        <section id="pilihan-pelan" class="scroll-mt-28">
+            <div class="mb-6 text-center md:text-left">
+                <h2 class="text-2xl font-bold text-gray-900" data-translate="grid_title">Pilihan Yang Boleh Disemak</h2>
+                <p class="text-sm text-gray-500 mt-1"><i class="fas fa-hand-pointer text-primary"></i> <span data-translate="grid_subtitle">Klik kad di bawah untuk memilih</span></p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="planGrid">
+                <div class="grid-card" onclick="selectPlan('Medical Card', this)">
+                    <i class="fas fa-heartbeat"></i><span data-translate="plan_med">Medical Card</span>
+                </div>
+                <div class="grid-card" onclick="selectPlan('Hibah Takaful', this)">
+                    <i class="fas fa-gift"></i><span data-translate="plan_hibah">Hibah</span>
+                </div>
+                <div class="grid-card" onclick="selectPlan('Income Protection', this)">
+                    <i class="fas fa-briefcase"></i><span data-translate="plan_income">Income Protection</span>
+                </div>
+                <div class="grid-card" onclick="selectPlan('Sakit Kritikal', this)">
+                    <i class="fas fa-user-md"></i><span data-translate="plan_critical">Sakit Kritikal</span>
+                </div>
+            </div>
+        </section>
+
         <!-- Form Section -->
         <section id="borang-semakan" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
             <div class="bg-gradient-to-r from-primary to-[#b8000b] text-white p-8 text-center">
@@ -523,7 +523,7 @@
             </div>
         </section>
 
-        <!-- Career Section (Moved to Last) -->
+        <!-- Career Section -->
         <section id="kerjaya" class="bg-white rounded-3xl shadow-elegant border border-gray-100 overflow-hidden scroll-mt-28">
             <div class="p-8 md:p-10">
                 <div class="text-center mb-10">
@@ -537,7 +537,7 @@
                         <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-chart-line"></i></div>
                         <div>
                             <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben1_title">Pendapatan Tanpa Had</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben1_desc">Komisen lumayan, bonus pencapaian & elaun pembangunan bulanan.</p>
+                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben1_desc">Komisen lumayan, bonus pencapaian & elaun pembangunan bulanan (RM3K - RM10K).</p>
                         </div>
                     </div>
                     <div class="bg-gray-50 border border-gray-100 p-6 rounded-2xl flex gap-4 items-start transition-colors hover:border-teal hover:bg-white hover:shadow-soft">
@@ -558,7 +558,7 @@
                         <div class="w-12 h-12 rounded-full bg-teal text-white flex shrink-0 items-center justify-center text-xl shadow-md"><i class="fas fa-plane-departure"></i></div>
                         <div>
                             <h4 class="font-bold text-gray-900 mb-1" data-translate="career_ben4_title">Ganjaran Percutian</h4>
-                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben4_desc">Peluang memenangi percutian mewah ke luar negara setiap tahun.</p>
+                            <p class="text-sm text-gray-500 leading-relaxed" data-translate="career_ben4_desc">Peluang memenangi percutian mewah ke luar negara sehingga 4 kali setahun.</p>
                         </div>
                     </div>
                 </div>
@@ -592,8 +592,8 @@
                 brand_title: "TAKAFUL SERVICES",
                 brand_sub: "by Fairuz Samsuddin",
                 nav_profile: "Profil",
-                nav_plans: "Pilihan Pelan",
                 nav_calc: "Kalkulator",
+                nav_plans: "Pilihan Pelan",
                 nav_form: "Borang Semakan",
                 nav_career: "Kerjaya",
                 profile_role: "Perunding Takaful Berdaftar PruBSN",
@@ -649,13 +649,13 @@
                 career_title: "Sertai Pasukan Kami di Muqmeen Group",
                 career_subtitle: "Bina kerjaya bermakna sebagai Perunding Takaful (Sepenuh Masa / Separuh Masa) dengan agensi No. 1 PruBSN Takaful.",
                 career_ben1_title: "Pendapatan Tanpa Had",
-                career_ben1_desc: "Komisen lumayan, bonus pencapaian & elaun pembangunan bulanan.",
+                career_ben1_desc: "Komisen lumayan, bonus pencapaian & elaun pembangunan bulanan (RM3K - RM10K).",
                 career_ben2_title: "Fleksibiliti Masa",
                 career_ben2_desc: "Masa bekerja yang fleksibel dan hibrid. Capai keseimbangan kerja & kehidupan (Work-Life Balance).",
                 career_ben3_title: "Latihan Profesional",
                 career_ben3_desc: "Bimbingan & latihan berstruktur disediakan. Pengalaman tidak diwajibkan.",
                 career_ben4_title: "Ganjaran Percutian",
-                career_ben4_desc: "Peluang memenangi percutian mewah ke luar negara setiap tahun.",
+                career_ben4_desc: "Peluang memenangi percutian mewah ke luar negara sehingga 4 kali setahun.",
                 career_cta: "Mohon Sekarang",
 
                 // Form Dictionary
@@ -701,8 +701,8 @@
                 brand_title: "TAKAFUL SERVICES",
                 brand_sub: "by Fairuz Samsuddin",
                 nav_profile: "Profile",
-                nav_plans: "Plan Options",
                 nav_calc: "Calculator",
+                nav_plans: "Plan Options",
                 nav_form: "Review Form",
                 nav_career: "Career",
                 profile_role: "Authorized PruBSN Takaful Consultant",
@@ -758,13 +758,13 @@
                 career_title: "Join Our Team at Muqmeen Group",
                 career_subtitle: "Build a meaningful career as a Takaful Consultant (Full-Time / Part-Time) with the top PruBSN Takaful agency.",
                 career_ben1_title: "Unlimited Income",
-                career_ben1_desc: "Attractive commissions, performance bonuses & monthly development allowance.",
+                career_ben1_desc: "Attractive commissions, performance bonuses & monthly development allowance (RM3K - RM10K).",
                 career_ben2_title: "Time Flexibility",
                 career_ben2_desc: "Flexible and hybrid working hours. Achieve true work-life balance.",
                 career_ben3_title: "Professional Training",
                 career_ben3_desc: "Structured coaching & training provided. No prior experience required.",
                 career_ben4_title: "Travel Rewards",
-                career_ben4_desc: "Opportunity to win luxury overseas trips every year.",
+                career_ben4_desc: "Opportunity to win luxury overseas trips up to 4 times a year.",
                 career_cta: "Apply Now",
 
                 // Form Dictionary
