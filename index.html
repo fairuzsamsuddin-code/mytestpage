@@ -3,352 +3,805 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Takaful Advisory Tool</title>
-    <style>
-        :root {
-            --prubsn-red: #ED1B2E;
-            --prubsn-red-hover: #D11828;
-            --bg-color: #F8F9FA;
-            --card-bg: #FFFFFF;
-            --text-main: #1F2937;
-            --text-muted: #6B7280;
-            --border-color: #E5E7EB;
-            --success-green: #10B981;
-            --danger-red: #EF4444;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.5;
-            padding: 2rem;
-        }
-
-        .header {
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .header h1 {
-            color: var(--prubsn-red);
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 992px) {
-            .container {
-                grid-template-columns: 1fr 1fr;
+    <title>Need Base Solution - Advisory Tool</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        prubsn: '#ED1B2E',
+                        'prubsn-dark': '#C91626',
+                        'primary-blue': '#0070F0',
+                        'bg-app': '#F8FAFC'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
             }
         }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid var(--border-color);
-            margin-bottom: 1.5rem;
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; color: #1E293B; }
+        .input-field {
+            width: 100%; padding: 0.75rem 1rem; border: 1px solid #E2E8F0; border-radius: 0.5rem;
+            font-size: 0.875rem; transition: all 0.2s; outline: none; background: #FFFFFF;
         }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--prubsn-red);
-        }
-
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            color: var(--text-muted);
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.2s;
-            background-color: #F9FAFB;
-        }
-
-        .form-group input:focus {
-            border-color: var(--prubsn-red);
-            background-color: #FFF;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .result-box {
-            background-color: #F9FAFB;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
-
-        .result-box.highlight {
-            background-color: rgba(237, 27, 46, 0.05);
-            border-color: var(--prubsn-red);
-        }
-
-        .result-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
-        }
-
-        .result-value {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .text-green { color: var(--success-green); }
-        .text-red { color: var(--prubsn-red); }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.95rem;
-        }
-
-        .summary-row:last-child {
-            border-bottom: none;
-        }
+        .input-field:focus { border-color: #ED1B2E; box-shadow: 0 0 0 3px rgba(237, 27, 46, 0.1); }
+        .card-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); }
+        .step-active { background-color: #ED1B2E; color: white; box-shadow: 0 4px 10px rgba(237, 27, 46, 0.3); }
+        .step-inactive { background-color: white; color: #94A3B8; border: 1px solid #E2E8F0; }
         
-        .summary-row.total {
-            font-weight: 700;
-            font-size: 1.1rem;
-            border-top: 2px solid var(--text-main);
-            margin-top: 0.5rem;
-            padding-top: 1rem;
-        }
-
-        .badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            background-color: rgba(237, 27, 46, 0.1);
-            color: var(--prubsn-red);
-        }
+        /* Custom scrollbar for policy list */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        
+        [v-cloak] { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Takaful Advisory Needs Analysis</h1>
-        <p>Comprehensive Financial Profile & Protection Planning</p>
-    </div>
+<div id="app" v-cloak class="min-h-screen flex flex-col pb-20">
 
-    <div class="container">
-        <!-- LEFT COLUMN: INPUTS -->
-        <div class="column">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <div class="bg-prubsn text-white p-2 rounded-lg flex items-center justify-center">
+                <i class="fas fa-shield-check text-lg"></i>
+            </div>
+            <h1 class="font-bold text-lg tracking-tight">
+                NEED BASE SOLUTION <span class="font-normal text-gray-400 text-sm ml-1 italic">by INFAQ CONSULTANCY</span>
+            </h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="bg-emerald-50 text-emerald-600 px-3 py-1.5 rounded-full text-xs font-medium flex items-center border border-emerald-100">
+                <i class="fas fa-circle text-[8px] mr-2 text-emerald-500"></i> Disimpan secara automatik
+            </div>
+            <button class="bg-prubsn hover:bg-prubsn-dark text-white px-4 py-2 rounded-lg text-xs font-semibold transition-colors flex items-center">
+                <i class="fas fa-file-pdf mr-2"></i> EKSPORT PDF
+            </button>
+        </div>
+    </header>
+
+    <!-- Navigation Steps -->
+    <nav class="bg-white border-b border-gray-200 py-6">
+        <div class="max-w-5xl mx-auto flex justify-between relative px-10">
+            <!-- Connecting Line -->
+            <div class="absolute top-1/2 left-10 right-10 h-[2px] bg-gray-100 -z-10 -translate-y-1/2"></div>
             
-            <!-- Cash Flow Inputs -->
-            <div class="card">
-                <div class="card-title">1. Cash Flow (Aliran Tunai)</div>
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label>Monthly Income (RM)</label>
-                        <input type="number" id="monthly-income" value="7000" oninput="calculateAll()">
+            <button v-for="step in 5" :key="step" @click="activeTab = step" 
+                    class="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold transition-all z-10"
+                    :class="activeTab === step ? 'step-active' : 'step-inactive hover:border-gray-300'">
+                {{ step }}
+            </button>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+
+        <!-- ==================== TAB 1: HALA TUJU ==================== -->
+        <div v-show="activeTab === 1" class="animate-fade-in">
+            <div class="mb-8">
+                <div class="flex items-center gap-2 text-sm text-prubsn font-medium mb-2">
+                    <i class="fas fa-shield-check"></i> Analisa
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 mb-2">Hala tuju strategi.</h2>
+                <p class="text-slate-500">Matlamat dan hala tuju anda.</p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-10 card-shadow border border-gray-100 relative overflow-hidden">
+                <i class="fas fa-chart-pie absolute -right-10 -top-10 text-[15rem] text-gray-50 opacity-50"></i>
+                
+                <div class="text-center relative z-10 mb-12">
+                    <h3 class="text-xl font-bold mb-2">Analisis Keperluan Kewangan</h3>
+                    <p class="text-sm text-gray-500 mb-3">Disediakan secara eksklusif untuk</p>
+                    <h4 class="text-lg font-bold text-prubsn mb-4">{{ profile.name }}</h4>
+                    
+                    <div class="flex justify-center gap-2">
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1 rounded-full text-xs font-medium">{{ profile.job }}</span>
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1 rounded-full text-xs font-medium">{{ profile.age }} Tahun</span>
+                        <span class="bg-gray-100 text-gray-600 px-4 py-1 rounded-full text-xs font-medium">{{ profile.status }}</span>
                     </div>
-                    <div class="form-group">
-                        <label>Monthly Expenses (RM)</label>
-                        <input type="number" id="monthly-expense" value="6500" oninput="calculateAll()">
+                </div>
+
+                <div class="grid grid-cols-4 gap-6 text-center relative z-10 border-t border-gray-100 pt-8">
+                    <div>
+                        <div class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-wider">Pendapatan tahunan</div>
+                        <div class="font-mono text-lg font-semibold">{{ formatRM(annualIncome) }}</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-wider">Perbelanjaan tahunan</div>
+                        <div class="font-mono text-lg font-semibold">{{ formatRM(annualExpense) }}</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-wider">Total aset</div>
+                        <div class="font-mono text-lg font-semibold">{{ formatRM(totalAssets) }}</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-gray-400 font-medium mb-1 uppercase tracking-wider">Total liabiliti</div>
+                        <div class="font-mono text-lg font-semibold">{{ formatRM(totalLiabilities) }}</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Asset Inputs -->
-            <div class="card">
-                <div class="card-title">2. Assets (Aset)</div>
-                <div class="form-group">
-                    <label>Cash & Savings (Tunai & Simpanan)</label>
-                    <input type="number" id="asset-cash" value="10000" oninput="calculateAll()">
-                </div>
-                <div class="form-group">
-                    <label>Real Estate & Property (Hartanah)</label>
-                    <input type="number" id="asset-property" value="600000" oninput="calculateAll()">
+            <div class="flex justify-center mt-8">
+                <div class="bg-white rounded-full p-2 card-shadow flex gap-2">
+                    <button class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-50"><i class="fas fa-wallet mr-2"></i> Simpanan</button>
+                    <button class="px-6 py-2 rounded-full text-sm font-medium bg-white card-shadow text-prubsn"><i class="fas fa-shield-alt mr-2"></i> Perlindungan</button>
+                    <button class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-50"><i class="fas fa-chart-line mr-2"></i> Pelaburan</button>
                 </div>
             </div>
-
-            <!-- Liability Inputs -->
-            <div class="card">
-                <div class="card-title">3. Liabilities (Hutang)</div>
-                <div class="form-group">
-                    <label>Housing Loans (Hutang Perumahan)</label>
-                    <input type="number" id="liability-house" value="365000" oninput="calculateAll()">
-                </div>
-                <div class="form-group">
-                    <label>Personal/Car Loans (Hutang Peribadi/Kereta)</label>
-                    <input type="number" id="liability-personal" value="4000" oninput="calculateAll()">
-                </div>
+            
+            <div class="flex justify-end mt-10">
+                <button @click="activeTab = 2" class="bg-prubsn text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:bg-prubsn-dark">Seterusnya <i class="fas fa-chevron-right ml-2 text-sm"></i></button>
             </div>
         </div>
 
-        <!-- RIGHT COLUMN: ANALYSIS & DASHBOARD -->
-        <div class="column">
-            
-            <!-- Cash Flow & Net Worth Summary -->
-            <div class="card">
-                <div class="card-title">Financial Profile Summary</div>
-                
-                <div class="grid-2" style="margin-bottom: 1.5rem;">
-                    <div class="result-box">
-                        <div class="result-label">Annual Income</div>
-                        <div class="result-value" id="res-annual-income">RM 0.00</div>
+        <!-- ==================== TAB 2: ALIRAN TUNAI ==================== -->
+        <div v-show="activeTab === 2">
+            <div class="mb-8">
+                <div class="flex items-center gap-2 text-sm text-prubsn font-medium mb-2">
+                    <i class="fas fa-chart-line"></i> Aliran Tunai
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 mb-2">Analisis aliran tunai.</h2>
+                <p class="text-slate-500">Berapakah pendapatan dan belanja bulanan anda?</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Pendapatan Card -->
+                <div class="bg-white rounded-2xl p-6 border border-emerald-100 card-shadow">
+                    <div class="flex items-center gap-2 font-bold text-emerald-600 text-lg mb-6">
+                        <div class="bg-emerald-100 p-2 rounded-lg"><i class="fas fa-arrow-trend-up"></i></div>
+                        Pendapatan
                     </div>
-                    <div class="result-box">
-                        <div class="result-label">Monthly Surplus</div>
-                        <div class="result-value text-green" id="res-monthly-surplus">RM 0.00</div>
+                    <div class="mb-6">
+                        <label class="block text-xs text-gray-500 mb-2">Pendapatan bulanan (RM)</label>
+                        <input type="number" v-model.number="cashflow.income" class="input-field text-lg font-medium">
+                    </div>
+                    <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                        <div class="text-xs text-emerald-600 mb-1">Anggaran tahunan</div>
+                        <div class="text-xl font-bold text-emerald-700">{{ formatRM(annualIncome) }}</div>
                     </div>
                 </div>
 
-                <div class="grid-2">
-                    <div class="result-box">
-                        <div class="result-label">Total Assets</div>
-                        <div class="result-value text-green" id="res-total-assets">RM 0.00</div>
+                <!-- Perbelanjaan Card -->
+                <div class="bg-white rounded-2xl p-6 border border-rose-100 card-shadow">
+                    <div class="flex items-center gap-2 font-bold text-rose-600 text-lg mb-6">
+                        <div class="bg-rose-100 p-2 rounded-lg"><i class="fas fa-wallet"></i></div>
+                        Perbelanjaan
                     </div>
-                    <div class="result-box">
-                        <div class="result-label">Total Liabilities</div>
-                        <div class="result-value text-red" id="res-total-liabilities">RM 0.00</div>
+                    <div class="mb-6">
+                        <label class="block text-xs text-gray-500 mb-2">Perbelanjaan bulanan (RM)</label>
+                        <input type="number" v-model.number="cashflow.expense" class="input-field text-lg font-medium">
                     </div>
-                </div>
-                
-                <div class="result-box highlight" style="margin-top: 1rem;">
-                    <div class="result-label" style="color: var(--prubsn-red);">Estimated Net Worth</div>
-                    <div class="result-value" id="res-net-worth" style="font-size: 1.75rem;">RM 0.00</div>
+                    <div class="bg-rose-50 rounded-xl p-4 border border-rose-100">
+                        <div class="text-xs text-rose-600 mb-1">Anggaran tahunan</div>
+                        <div class="text-xl font-bold text-rose-700">{{ formatRM(annualExpense) }}</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Takaful Needs Analysis -->
-            <div class="card">
-                <div class="card-title" style="justify-content: space-between;">
-                    <span>Takaful Protection Needs</span>
-                    <span class="badge" id="res-budget">Budget: RM 0/mth</span>
-                </div>
+            <!-- Rumusan Aliran Tunai -->
+            <div class="bg-white rounded-2xl p-6 card-shadow border border-gray-100">
+                <h3 class="text-xs font-bold text-gray-500 tracking-wider uppercase mb-6 flex items-center">
+                    <i class="fas fa-circle text-[6px] mr-2 text-gray-300"></i> RUMUSAN ALIRAN TUNAI (PENDAPATAN - PERBELANJAAN)
+                </h3>
                 
-                <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                    Target recommendations based on standard financial planning concepts (10x income for Death/TPD, 5x for CI, and full debt cancellation).
-                </p>
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-50">
+                        <div class="text-xs text-gray-500 mb-2">JUMLAH PENDAPATAN<br><span class="text-[10px] text-gray-400">Bulanan (Anggaran Tahunan)</span></div>
+                        <div class="text-lg font-bold text-emerald-600">{{ formatRM(cashflow.income) }}</div>
+                        <div class="text-xs text-emerald-400">{{ formatRM(annualIncome) }}/thn</div>
+                    </div>
+                    <div class="bg-rose-50/50 p-4 rounded-xl border border-rose-50">
+                        <div class="text-xs text-gray-500 mb-2">JUMLAH PERBELANJAAN<br><span class="text-[10px] text-gray-400">Bulanan (Anggaran Tahunan)</span></div>
+                        <div class="text-lg font-bold text-rose-600">{{ formatRM(cashflow.expense) }}</div>
+                        <div class="text-xs text-rose-400">{{ formatRM(annualExpense) }}/thn</div>
+                    </div>
+                    <div :class="surplus >= 0 ? 'bg-emerald-50 border-emerald-100' : 'bg-rose-50 border-rose-100'" class="p-4 rounded-xl border relative">
+                        <div class="absolute top-4 right-4 text-[10px] font-bold text-white px-2 py-1 rounded-full" :class="surplus >= 0 ? 'bg-emerald-500' : 'bg-rose-500'">
+                            {{ surplus >= 0 ? 'LEBIHAN (SURPLUS)' : 'DEFISIT' }}
+                        </div>
+                        <div class="text-xs text-gray-500 mb-2">ALIRAN TUNAI BERSIH<br><span class="text-[10px] text-gray-400">Pendapatan - Perbelanjaan</span></div>
+                        <div class="text-lg font-bold" :class="surplus >= 0 ? 'text-emerald-600' : 'text-rose-600'">{{ formatRM(surplus) }}</div>
+                        <div class="text-xs" :class="surplus >= 0 ? 'text-emerald-400' : 'text-rose-400'">{{ formatRM(surplus * 12) }}/thn</div>
+                    </div>
+                </div>
 
-                <div class="summary-row">
-                    <span>Income Protection (Death/TPD - 10x Annual)</span>
-                    <span id="target-income-protection" style="font-weight: 600;">RM 0.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Critical Illness (5x Annual)</span>
-                    <span id="target-critical-illness" style="font-weight: 600;">RM 0.00</span>
-                </div>
-                <div class="summary-row">
-                    <span>Debt Settlement (Match Total Liabilities)</span>
-                    <span id="target-debt-settlement" style="font-weight: 600;">RM 0.00</span>
+                <div class="bg-gray-50 p-4 rounded-xl flex items-center justify-between border border-gray-100">
+                    <div class="text-sm">
+                        <span class="font-medium">Formula Aliran Tunai:</span> 
+                        <span class="text-gray-500 ml-2">{{ formatRM(cashflow.income) }} (Pendapatan) - {{ formatRM(cashflow.expense) }} (Belanja) =</span> 
+                        <span class="font-bold ml-1" :class="surplus >= 0 ? 'text-emerald-600' : 'text-rose-600'">{{ formatRM(surplus) }}</span>
+                    </div>
                 </div>
                 
-                <div class="summary-row total">
-                    <span style="color: var(--prubsn-red);">Total Target Coverage Required</span>
-                    <span id="target-total" style="color: var(--prubsn-red);">RM 0.00</span>
+                <div v-if="surplus >= 0" class="mt-4 bg-emerald-50 text-emerald-700 text-sm p-3 rounded-lg border border-emerald-100 flex items-center font-medium w-fit">
+                    Tahniah! Anda mempunyai baki aliran tunai bulanan yang positif.
                 </div>
             </div>
 
+            <div class="flex justify-between mt-10">
+                <button @click="activeTab = 1" class="text-gray-500 font-medium hover:text-gray-800"><i class="fas fa-chevron-left mr-2 text-sm"></i> Kembali</button>
+                <button @click="activeTab = 3" class="bg-prubsn text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:bg-prubsn-dark">Seterusnya <i class="fas fa-chevron-right ml-2 text-sm"></i></button>
+            </div>
         </div>
-    </div>
 
-    <script>
-        const formatter = new Intl.NumberFormat('en-MY', {
-            style: 'currency',
-            currency: 'MYR',
-            minimumFractionDigits: 2
-        });
+        <!-- ==================== TAB 3: ASET & HUTANG ==================== -->
+        <div v-show="activeTab === 3">
+            <div class="mb-8">
+                <div class="flex items-center gap-2 text-sm text-prubsn font-medium mb-2">
+                    <i class="fas fa-wallet"></i> Aset & Hutang
+                </div>
+                <h2 class="text-4xl font-black text-slate-900 mb-2">Kunci kira-kira aset.</h2>
+                <p class="text-slate-500">Senaraikan aset dan hutang anda.</p>
+            </div>
 
-        function getVal(id) {
-            const val = parseFloat(document.getElementById(id).value);
-            return isNaN(val) ? 0 : val;
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 flex gap-4">
+                <div class="text-amber-500 mt-0.5"><i class="fas fa-circle-question"></i></div>
+                <div>
+                    <h4 class="text-sm font-bold text-amber-800 mb-1">Cara kira Nilai Bersih</h4>
+                    <p class="text-xs text-amber-700 leading-relaxed">Sila klik butang <strong>+ Tambah</strong> di bawah untuk memasukkan nilai aset (seperti baki bank, simpanan KWSP, ASB, hartanah kediaman, hartanah pelaburan) dan hutang anda. Nilai Bersih akan dikira secara automatik berdasarkan perbezaan antara jumlah aset dan hutang.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 card-shadow border border-gray-100 mb-8">
+                
+                <!-- Aset List -->
+                <div class="mb-10">
+                    <div class="flex items-center gap-2 text-emerald-600 font-bold mb-4">
+                        <i class="fas fa-arrow-trend-up"></i> Senarai aset
+                    </div>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div v-for="(asset, index) in assets" :key="'a'+asset.id" class="flex gap-4 items-end">
+                            <div class="flex-1">
+                                <label class="block text-xs text-gray-500 mb-1" v-if="index === 0">Kategori</label>
+                                <input type="text" v-model="asset.name" class="input-field" placeholder="Nama Aset">
+                            </div>
+                            <div class="flex-1">
+                                <label class="block text-xs text-gray-500 mb-1" v-if="index === 0">Nilai (RM)</label>
+                                <input type="number" v-model.number="asset.value" class="input-field">
+                            </div>
+                            <button @click="assets.splice(index, 1)" class="w-10 h-[46px] flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button @click="assets.push({id: Date.now(), name:'', value:0})" class="text-xs font-bold text-prubsn bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg transition-colors">
+                        + Tambah Aset
+                    </button>
+                </div>
+
+                <!-- Hutang List -->
+                <div>
+                    <div class="flex items-center gap-2 text-rose-600 font-bold mb-4">
+                        <i class="fas fa-wallet"></i> Senarai hutang
+                    </div>
+                    
+                    <div class="space-y-3 mb-4">
+                        <div v-for="(liab, index) in liabilities" :key="'l'+liab.id" class="flex gap-4 items-end">
+                            <div class="flex-1">
+                                <label class="block text-xs text-gray-500 mb-1" v-if="index === 0">Kategori</label>
+                                <input type="text" v-model="liab.name" class="input-field" placeholder="Nama Hutang">
+                            </div>
+                            <div class="flex-1">
+                                <label class="block text-xs text-gray-500 mb-1" v-if="index === 0">Jumlah (RM)</label>
+                                <input type="number" v-model.number="liab.value" class="input-field">
+                            </div>
+                            <button @click="liabilities.splice(index, 1)" class="w-10 h-[46px] flex items-center justify-center text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button @click="liabilities.push({id: Date.now(), name:'', value:0})" class="text-xs font-bold text-prubsn bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg transition-colors">
+                        + Tambah Hutang
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Totals Footer -->
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-[#10B981] text-white p-5 rounded-2xl shadow-md">
+                    <div class="text-xs font-medium opacity-80 mb-1">Jumlah Aset</div>
+                    <div class="text-2xl font-bold">{{ formatRM(totalAssets) }}</div>
+                </div>
+                <div class="bg-[#F43F5E] text-white p-5 rounded-2xl shadow-md">
+                    <div class="text-xs font-medium opacity-80 mb-1">Jumlah Hutang</div>
+                    <div class="text-2xl font-bold">{{ formatRM(totalLiabilities) }}</div>
+                </div>
+                <div class="bg-[#1E293B] text-white p-5 rounded-2xl shadow-md">
+                    <div class="text-xs font-medium opacity-80 mb-1">Nilai Bersih</div>
+                    <div class="text-2xl font-bold">{{ formatRM(netWorth) }}</div>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-10">
+                <button @click="activeTab = 2" class="text-gray-500 font-medium hover:text-gray-800"><i class="fas fa-chevron-left mr-2 text-sm"></i> Kembali</button>
+                <button @click="activeTab = 4" class="bg-prubsn text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:bg-prubsn-dark">Seterusnya <i class="fas fa-chevron-right ml-2 text-sm"></i></button>
+            </div>
+        </div>
+
+        <!-- ==================== TAB 4: TAKAFUL ==================== -->
+        <div v-show="activeTab === 4">
+            
+            <div class="flex justify-center mb-6">
+                <div class="bg-white rounded-full p-2 card-shadow flex gap-2 border border-gray-100">
+                    <button class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-50"><i class="fas fa-wallet mr-2"></i> Simpanan</button>
+                    <button class="px-6 py-2 rounded-full text-sm font-bold bg-white card-shadow text-prubsn border border-gray-100"><i class="fas fa-shield-alt mr-2"></i> Perlindungan</button>
+                    <button class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-50"><i class="fas fa-chart-line mr-2"></i> Pelaburan</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl card-shadow border border-gray-100 overflow-hidden mb-6">
+                <div class="p-4 border-b border-gray-100 flex items-center gap-3">
+                    <div class="bg-prubsn text-white w-8 h-8 rounded flex items-center justify-center">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-gray-800 text-lg">Analisis Keperluan Takaful</h2>
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">SYARAT ANJURAN PERLINDUNGAN BERASASKAN PROFIL KEWANGAN</p>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-gray-50/50">
+                    
+                    <!-- Malapetaka Banner -->
+                    <div class="bg-red-50 border border-red-100 rounded-xl p-5 mb-6 shadow-sm">
+                        <div class="flex gap-4 items-start mb-4">
+                            <div class="bg-prubsn text-white p-2 rounded-lg mt-1"><i class="fas fa-triangle-exclamation"></i></div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="bg-prubsn text-white text-[10px] font-bold px-2 py-0.5 rounded">MALAPETAKA KEWANGAN (FINANCIAL DISASTER)</span>
+                                    <span class="text-xs font-bold text-gray-700">Konsep & Kepentingan Income Protection</span>
+                                </div>
+                                <p class="text-xs text-gray-700 leading-relaxed"><strong>Income Protection</strong> adalah benteng kecemasan utama untuk menghadapi <strong>MALAPETAKA KEWANGAN (FINANCIAL DISASTER)</strong>. Apabila berlaku musibah 3D, individu akan <strong>hilang kemampuan untuk bekerja</strong> dan menjana pendapatan:</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-white rounded-lg p-4 border border-red-50 shadow-sm">
+                                <div class="text-prubsn text-xs font-bold mb-2 flex items-center gap-1"><i class="fas fa-circle text-[8px]"></i> 1. DEATH (Kematian)</div>
+                                <p class="text-[11px] text-gray-600 leading-relaxed">Punca pendapatan keluarga terhenti serta-merta secara kekal, meninggalkan komitmen & beban sara hidup kepada waris serta anak-anak.</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 border border-red-50 shadow-sm">
+                                <div class="text-amber-500 text-xs font-bold mb-2 flex items-center gap-1"><i class="fas fa-circle text-[8px]"></i> 2. DISABILITY (Hilang Upaya)</div>
+                                <p class="text-[11px] text-gray-600 leading-relaxed">Hilang kemampuan fizikal untuk terus bekerja (TPD), manakala kos perubatan, penjagaan diri, dan sara hidup terus berjalan seperti biasa.</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 border border-red-50 shadow-sm">
+                                <div class="text-purple-500 text-xs font-bold mb-2 flex items-center gap-1"><i class="fas fa-circle text-[8px]"></i> 3. DISEASE (Penyakit Kritikal)</div>
+                                <p class="text-[11px] text-gray-600 leading-relaxed">Hilang daya & stamina untuk bekerja dalam jangka panjang semasa tempoh rawatan, di samping kos perubatan khas dan ubat-ubatan tinggi.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Target Boxes -->
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <!-- Box A -->
+                        <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-prubsn"></div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-4">A. INCOME PROTECTION (DISYORKAN)</h3>
+                            
+                            <div class="flex justify-between items-center mb-3 text-sm">
+                                <span class="text-gray-600">Kematian / TPD (10x Gaji)</span>
+                                <span class="font-bold text-gray-800">{{ formatRM(targetDeath) }}</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-5 text-sm">
+                                <span class="text-gray-600">Penyakit Kritikal (5x Gaji)</span>
+                                <span class="font-bold text-gray-800">{{ formatRM(targetCI) }}</span>
+                            </div>
+                            
+                            <div class="bg-blue-50 text-blue-800 p-3 rounded-lg flex justify-between items-center border border-blue-100">
+                                <span class="text-xs font-bold">Bajet Caruman (10%)</span>
+                                <span class="font-bold">{{ formatRM(budget) }} <span class="text-xs font-normal">/ bln</span></span>
+                            </div>
+                        </div>
+
+                        <!-- Box B -->
+                        <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm relative overflow-hidden flex flex-col">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-rose-400"></div>
+                            <h3 class="text-xs font-bold text-gray-800 mb-2">B. DEBT SETTLEMENT (HUTANG)</h3>
+                            <div class="text-3xl font-bold text-rose-500 mb-2">{{ formatRM(targetDebt) }}</div>
+                            <p class="text-[11px] text-gray-500 leading-relaxed mb-auto">Guna perlindungan Takaful untuk melangsaikan semua baki pinjaman tertunggak sekiranya berlaku musibah.</p>
+                            
+                            <div class="border-t border-gray-100 mt-4 pt-3 flex justify-between items-center">
+                                <span class="text-xs text-gray-400">Status Synced Aliran Tunai</span>
+                                <span class="text-xs font-bold text-emerald-500 flex items-center"><i class="fas fa-circle text-[8px] mr-1"></i> ONLINE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress Charts -->
+                    <div class="bg-white rounded-xl border border-gray-200 p-6 shadow-sm flex items-center gap-8">
+                        <div class="flex-1">
+                            <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">PERBANDINGAN PERLINDUNGAN</div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-6">Status Keperluan vs Polisi Sedia Ada</h3>
+
+                            <!-- Bar 1 -->
+                            <div class="mb-5">
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="font-medium text-gray-700">Income Protection + Debt Settlement <span class="text-gray-400 font-normal">(Disasarkan {{ formatRM(totalTarget) }})</span></span>
+                                    <span class="font-medium text-gray-700">{{ formatRM(existingDeath) }} <span class="text-gray-400 ml-1">({{ Math.min(100, Math.round(deathProgress)) }}%)</span></span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                    <div class="bg-primary-blue h-2 rounded-full" :style="`width: ${Math.min(100, deathProgress)}%`"></div>
+                                </div>
+                            </div>
+
+                            <!-- Bar 2 -->
+                            <div>
+                                <div class="flex justify-between text-xs mb-1.5">
+                                    <span class="font-medium text-gray-700">Penyakit Kritikal <span class="text-gray-400 font-normal">(Disasarkan {{ formatRM(targetCI) }})</span></span>
+                                    <span class="font-medium text-gray-700">{{ formatRM(existingCI) }} <span class="text-gray-400 ml-1">({{ Math.min(100, Math.round(ciProgress)) }}%)</span></span>
+                                </div>
+                                <div class="w-full bg-gray-100 rounded-full h-2">
+                                    <div class="bg-emerald-500 h-2 rounded-full" :style="`width: ${Math.min(100, ciProgress)}%`"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-[200px] flex flex-col items-center">
+                            <div class="text-[10px] text-gray-400 font-bold uppercase mb-1">SASARAN KEPERLUAN</div>
+                            <div class="text-lg font-bold text-gray-800 mb-2">{{ formatRM(totalTarget) }}</div>
+                            <div class="w-24 h-24 relative mb-4">
+                                <canvas id="donutChart"></canvas>
+                            </div>
+                            <div class="w-full space-y-1">
+                                <div class="flex items-center justify-between text-[10px]">
+                                    <div class="flex items-center gap-1"><i class="fas fa-circle text-primary-blue text-[8px]"></i> Income Protection:</div>
+                                    <div class="font-bold">{{ formatRM(targetDeath) }}</div>
+                                </div>
+                                <div class="flex items-center justify-between text-[10px]">
+                                    <div class="flex items-center gap-1"><i class="fas fa-circle text-rose-500 text-[8px]"></i> Debt Settlement:</div>
+                                    <div class="font-bold">{{ formatRM(targetDebt) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Review Sijil Takaful Section -->
+            <div class="bg-white rounded-2xl card-shadow border border-gray-100 overflow-hidden">
+                <div class="p-4 border-b border-gray-100 flex items-center gap-3">
+                    <div class="bg-[#1E293B] text-white w-8 h-8 rounded flex items-center justify-center">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-gray-800 text-lg">Review Sijil Takaful</h2>
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest font-semibold">PENDAFTARAN & PEMANTAUAN SIJIL TAKAFUL MANUAL (TALLY DENGAN ALIRAN TUNAI)</p>
+                    </div>
+                </div>
+
+                <div class="flex h-[600px]">
+                    <!-- Left Sidebar (Policies List) -->
+                    <div class="w-[30%] bg-gray-50 border-r border-gray-100 p-5 flex flex-col">
+                        
+                        <div class="mb-6">
+                            <div class="text-[10px] font-bold text-gray-400 uppercase mb-1">STATUS CARUMAN TAHUNAN</div>
+                            <div class="flex items-end gap-1 mb-1">
+                                <span class="text-3xl font-bold text-primary-blue">{{ formatRM(totalPremium * 12) }}</span>
+                                <span class="text-xs text-gray-400 font-medium mb-1">/ Thn</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs text-gray-500">
+                                <span>Purata Bulanan:</span>
+                                <span>{{ formatRM(totalPremium) }} / Bln</span>
+                            </div>
+                        </div>
+
+                        <button @click="addNewPolicy" class="w-full bg-[#1E293B] hover:bg-slate-800 text-white py-3 rounded-lg text-sm font-bold shadow-md transition-colors mb-4">
+                            + TAMBAH SIJIL
+                        </button>
+
+                        <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-2">
+                            <div v-for="policy in policies" :key="policy.id" 
+                                 @click="selectPolicy(policy)"
+                                 class="bg-white border rounded-lg p-3 cursor-pointer transition-all relative group"
+                                 :class="selectedPolicyId === policy.id ? 'border-primary-blue shadow-md ring-1 ring-primary-blue' : 'border-gray-200 hover:border-gray-300'">
+                                <div class="font-bold text-sm text-gray-800 mb-1 pr-6">{{ policy.name }}</div>
+                                <div class="text-[10px] text-gray-500 mb-2">Syarikat: {{ policy.company || '-' }}</div>
+                                <div class="text-xs font-bold text-primary-blue">{{ formatRM(policy.premium) }} <span class="text-gray-400 font-normal">/ Bln</span></div>
+                                
+                                <div class="absolute top-3 right-3 flex items-center gap-2">
+                                    <span class="bg-emerald-50 text-emerald-600 text-[9px] font-bold px-2 py-0.5 rounded">Saved</span>
+                                    <button @click.stop="deletePolicy(policy.id)" class="text-rose-400 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <i class="fas fa-trash-alt text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Area (Form or Empty State) -->
+                    <div class="w-[70%] p-6 bg-white overflow-y-auto custom-scrollbar">
+                        
+                        <!-- Empty State -->
+                        <div v-if="!selectedPolicyId" class="h-full flex flex-col items-center justify-center text-center opacity-50">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                <i class="fas fa-shield-alt text-2xl text-gray-400"></i>
+                            </div>
+                            <h3 class="font-bold text-gray-700 mb-2">Modul Rekod Perlindungan Manual</h3>
+                            <p class="text-xs text-gray-500 max-w-xs">Sila pilih mana-mana sijil sedia ada di sebelah kiri untuk disunting, atau klik butang <strong>+ TAMBAH SIJIL</strong> untuk memulakan pendaftaran sijil baharu.</p>
+                        </div>
+
+                        <!-- Form -->
+                        <div v-else>
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <div class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">FORMAT REKOD</div>
+                                    <h3 class="text-lg font-bold text-gray-800">{{ activePolicy.name }} <span class="text-[10px] text-gray-400 font-normal ml-1">({{ activePolicy.id.toString().slice(-6) }})</span></h3>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <label class="text-xs text-gray-500 font-medium">Kemaskini Nama:</label>
+                                    <input type="text" v-model="activePolicy.name" class="input-field py-1.5 px-3 w-40">
+                                </div>
+                            </div>
+
+                            <div class="space-y-6">
+                                <!-- Section 1 -->
+                                <div class="border border-gray-200 rounded-xl p-5">
+                                    <div class="flex items-center gap-2 text-primary-blue text-xs font-bold uppercase tracking-wider mb-4">
+                                        <i class="fas fa-circle text-[6px]"></i> MAKLUMAT ASAS SIJIL
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Syarikat Takaful</label>
+                                            <input type="text" v-model="activePolicy.company" class="input-field" placeholder="Cth: PruBSN">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Caruman Bulanan (RM/bln)</label>
+                                            <input type="number" v-model.number="activePolicy.premium" class="input-field">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Tahun Sijil Mulai</label>
+                                            <input type="number" v-model.number="activePolicy.start" class="input-field">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Tahun Tamat Polisi</label>
+                                            <input type="number" v-model.number="activePolicy.end" class="input-field">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section 2 -->
+                                <div class="border border-gray-200 rounded-xl p-5">
+                                    <div class="flex items-center gap-2 text-primary-blue text-xs font-bold uppercase tracking-wider mb-4">
+                                        <i class="fas fa-circle text-[6px]"></i> INCOME PROTECTION (PENGGANTIAN PENDAPATAN)
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Manfaat Kematian / Lumpuh (RM)</label>
+                                            <input type="number" v-model.number="activePolicy.death" class="input-field">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Manfaat Penyakit Kritikal (RM)</label>
+                                            <input type="number" v-model.number="activePolicy.ci" class="input-field">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Penamaan Waris / Wasiy (%)</label>
+                                            <input type="text" class="input-field" placeholder="cth: 100%">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Penambahan Hibah (%)</label>
+                                            <input type="text" class="input-field" placeholder="100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Section 3 -->
+                                <div class="border border-gray-200 rounded-xl p-5">
+                                    <div class="flex items-center gap-2 text-primary-blue text-xs font-bold uppercase tracking-wider mb-4">
+                                        <i class="fas fa-circle text-[6px]"></i> MEDICAL CARD & HAD MINIMUM
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 mb-4">
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Kelayakan Bilik (Room & Board) (RM)</label>
+                                            <input type="text" v-model="activePolicy.room" class="input-field" placeholder="cth: RM 200 / Sehari">
+                                        </div>
+                                        <div>
+                                            <label class="block text-xs text-gray-500 font-medium mb-1.5">Had Siling Had Medical Card (RM/thn)</label>
+                                            <input type="number" v-model.number="activePolicy.limit" class="input-field">
+                                        </div>
+                                    </div>
+                                    <div class="pt-4 border-t border-gray-100 flex items-start gap-3">
+                                        <div class="flex-1">
+                                            <div class="text-sm font-bold text-gray-700">Waiver Caruman / Payor Waiver</div>
+                                            <div class="text-xs text-gray-500">Melindungi pemegang polisi dengan mengecualikan caruman jika disahkan menghidap Penyakit Kritikal.</div>
+                                        </div>
+                                        <input type="checkbox" v-model="activePolicy.waiver" class="w-5 h-5 mt-1 border-gray-300 rounded text-primary-blue focus:ring-primary-blue">
+                                    </div>
+                                </div>
+
+                                <div class="bg-emerald-500 text-white rounded-xl p-4 text-center font-bold text-sm shadow-md cursor-pointer hover:bg-emerald-600 transition-colors">
+                                    <i class="fas fa-shield-check mr-2"></i> REKOD SIJIL BERJAYA DISIMPAN! SINKRONISASI SELESAI
+                                </div>
+                                <p class="text-center text-[10px] text-gray-400 max-w-md mx-auto">PENTING: Menekan butang ini menyimpan rekod ini secara kekal di komputer sedia ada. Segala status caruman dan perlindungan akan diselaraskan ke dalam baki kewangan keseluruhan.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-10">
+                <button @click="activeTab = 3" class="text-gray-500 font-medium hover:text-gray-800"><i class="fas fa-chevron-left mr-2 text-sm"></i> Kembali</button>
+                <button @click="activeTab = 5" class="bg-prubsn text-white px-6 py-3 rounded-xl font-medium shadow-lg hover:bg-prubsn-dark">Seterusnya <i class="fas fa-chevron-right ml-2 text-sm"></i></button>
+            </div>
+        </div>
+
+        <!-- TAB 5 (Placeholder) -->
+        <div v-show="activeTab === 5" class="text-center py-20">
+            <i class="fas fa-check-circle text-6xl text-emerald-500 mb-4"></i>
+            <h2 class="text-3xl font-bold mb-2">Selesai</h2>
+            <p class="text-gray-500">Analisis komprehensif telah sedia untuk dieksport.</p>
+            <button @click="activeTab = 4" class="mt-8 text-gray-500 hover:text-gray-800"><i class="fas fa-chevron-left mr-2"></i> Kembali</button>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    const { createApp } = Vue;
+
+    createApp({
+        data() {
+            return {
+                activeTab: 1, // Start on Tab 1
+                profile: { name: 'Ali Bin Abu', job: 'Guru', age: 35, status: 'Berkahwin' },
+                cashflow: { income: 7000, expense: 6500 },
+                assets: [
+                    { id: 1, name: 'Tunai', value: 10000 },
+                    { id: 2, name: 'Hartanah Kediaman', value: 500000 },
+                    { id: 3, name: 'Rumah', value: 100000 }
+                ],
+                liabilities: [
+                    { id: 1, name: 'Hutang Perumahan', value: 365000 },
+                    { id: 2, name: 'Hutang Peribadi', value: 4000 }
+                ],
+                policies: [
+                    { id: 1, name: 'Sijil Takaful 1', company: 'Prisma', premium: 185, start: 2020, end: 2060, death: 100000, ci: 100000, room: '200', limit: 0, waiver: true }
+                ],
+                selectedPolicyId: null,
+                chartInstance: null
+            }
+        },
+        computed: {
+            annualIncome() { return (this.cashflow.income || 0) * 12; },
+            annualExpense() { return (this.cashflow.expense || 0) * 12; },
+            surplus() { return (this.cashflow.income || 0) - (this.cashflow.expense || 0); },
+            totalAssets() { return this.assets.reduce((sum, item) => sum + (item.value || 0), 0); },
+            totalLiabilities() { return this.liabilities.reduce((sum, item) => sum + (item.value || 0), 0); },
+            netWorth() { return this.totalAssets - this.totalLiabilities; },
+            
+            targetDeath() { return this.annualIncome * 10; },
+            targetCI() { return this.annualIncome * 5; },
+            targetDebt() { return this.totalLiabilities; },
+            totalTarget() { return this.targetDeath + this.targetDebt; },
+            budget() { return (this.cashflow.income || 0) * 0.10; },
+            
+            existingDeath() { return this.policies.reduce((sum, pol) => sum + (pol.death || 0), 0); },
+            existingCI() { return this.policies.reduce((sum, pol) => sum + (pol.ci || 0), 0); },
+            totalPremium() { return this.policies.reduce((sum, pol) => sum + (pol.premium || 0), 0); },
+            
+            deathProgress() { return this.totalTarget > 0 ? (this.existingDeath / this.totalTarget) * 100 : 0; },
+            ciProgress() { return this.targetCI > 0 ? (this.existingCI / this.targetCI) * 100 : 0; },
+            
+            activePolicy() {
+                return this.policies.find(p => p.id === this.selectedPolicyId);
+            }
+        },
+        methods: {
+            formatRM(value) {
+                return new Intl.NumberFormat('en-MY', {
+                    style: 'currency',
+                    currency: 'MYR',
+                    minimumFractionDigits: 2
+                }).format(value);
+            },
+            addNewPolicy() {
+                const newId = Date.now();
+                const newCount = this.policies.length + 1;
+                this.policies.push({
+                    id: newId,
+                    name: `Sijil Takaful ${newCount}`,
+                    company: '',
+                    premium: 0,
+                    start: new Date().getFullYear(),
+                    end: new Date().getFullYear() + 30,
+                    death: 0,
+                    ci: 0,
+                    room: '',
+                    limit: 0,
+                    waiver: false
+                });
+                this.selectedPolicyId = newId;
+            },
+            selectPolicy(policy) {
+                this.selectedPolicyId = policy.id;
+            },
+            deletePolicy(id) {
+                this.policies = this.policies.filter(p => p.id !== id);
+                if (this.selectedPolicyId === id) {
+                    this.selectedPolicyId = null;
+                }
+            },
+            initChart() {
+                const ctx = document.getElementById('donutChart');
+                if(!ctx) return;
+                
+                if (this.chartInstance) {
+                    this.chartInstance.destroy();
+                }
+
+                this.chartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Income Protection', 'Debt Settlement'],
+                        datasets: [{
+                            data: [this.targetDeath, this.targetDebt],
+                            backgroundColor: ['#0070F0', '#F43F5E'],
+                            borderWidth: 0,
+                            cutout: '75%'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: { enabled: true }
+                        },
+                        animation: { duration: 0 }
+                    }
+                });
+            },
+            updateChart() {
+                if (this.chartInstance) {
+                    this.chartInstance.data.datasets[0].data = [this.targetDeath, this.targetDebt];
+                    this.chartInstance.update();
+                }
+            }
+        },
+        watch: {
+            activeTab(newVal) {
+                if (newVal === 4) {
+                    // Initialize chart when Takaful tab is opened and DOM is ready
+                    this.$nextTick(() => {
+                        if(!this.chartInstance) this.initChart();
+                    });
+                }
+            },
+            targetDeath() { this.updateChart(); },
+            targetDebt() { this.updateChart(); }
+        },
+        mounted() {
+            // Setup initial view
+            if (this.policies.length > 0) {
+                this.selectedPolicyId = this.policies[0].id;
+            }
+            // Auto switch to tab 1 initially (handled by data)
         }
+    }).mount('#app');
+</script>
 
-        function setTxt(id, value) {
-            document.getElementById(id).innerText = formatter.format(value);
-        }
-
-        function calculateAll() {
-            const mIncome = getVal('monthly-income');
-            const mExpense = getVal('monthly-expense');
-            
-            const aIncome = mIncome * 12;
-            const mSurplus = mIncome - mExpense;
-
-            setTxt('res-annual-income', aIncome);
-            setTxt('res-monthly-surplus', mSurplus);
-            
-            const surplusEl = document.getElementById('res-monthly-surplus');
-            surplusEl.className = mSurplus >= 0 ? 'result-value text-green' : 'result-value text-red';
-
-            const assets = getVal('asset-cash') + getVal('asset-property');
-            const liabilities = getVal('liability-house') + getVal('liability-personal');
-            const netWorth = assets - liabilities;
-
-            setTxt('res-total-assets', assets);
-            setTxt('res-total-liabilities', liabilities);
-            setTxt('res-net-worth', netWorth);
-
-            const incomeProtection = aIncome * 10;
-            const criticalIllness = aIncome * 5;
-            const debtSettlement = liabilities;
-            
-            const totalTarget = incomeProtection + debtSettlement;
-            
-            const budget = mIncome * 0.10;
-
-            setTxt('target-income-protection', incomeProtection);
-            setTxt('target-critical-illness', criticalIllness);
-            setTxt('target-debt-settlement', debtSettlement);
-            setTxt('target-total', totalTarget);
-            
-            document.getElementById('res-budget').innerText = `Budget (10%): ${formatter.format(budget)} / bln`;
-        }
-
-        window.onload = calculateAll;
-    </script>
 </body>
 </html>
