@@ -1,1497 +1,354 @@
 <!DOCTYPE html>
-<html lang="ms" class="scroll-smooth" id="htmlTag">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title id="pageTitle">Client Portal - TAKAFUL SERVICES - Fairuz Samsuddin</title>
-    <meta name="author" content="Fairuz Samsuddin" />
-    <meta name="description" content="Semak tempoh menunggu, bantuan tuntutan dan khidmat sijil takaful dalam satu portal." />
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <link rel="apple-touch-icon" href="FS-logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/FS-logo.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/FS-logo.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <!-- Tailwind CSS Standardized Config -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: { sans: ['Poppins', 'sans-serif'] },
-            colors: {
-              background: '#f8fafc',
-              foreground: '#0f172a',
-              primary: { DEFAULT: '#D9000D', hover: '#b8000b', glow: '#ff3340', 10: 'rgba(217, 0, 13, 0.1)' },
-              teal: { DEFAULT: '#008183', hover: '#005a5c', soft: '#e6f6f5', 15: 'rgba(0, 129, 131, 0.15)' },
-              muted: { DEFAULT: '#f1f5f9', foreground: '#64748b' },
-              border: '#eaeaea',
-              card: { DEFAULT: '#ffffff', foreground: '#0f172a' },
-              secondary: { DEFAULT: '#f8fafc' },
-              accent: { DEFAULT: '#f1f5f9', foreground: '#0f172a' }
-            },
-            boxShadow: {
-              'soft': '0 4px 10px rgba(0,0,0,0.03)',
-              'elegant': '0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01)',
-              'glow-teal': '0 0 25px rgba(0, 129, 131, 0.3)',
-              'card': '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)'
-            }
-          }
-        }
-      }
-    </script>
-    
-    <style type="text/tailwindcss">
-      @layer components {
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takaful Advisory Tool</title>
+    <style>
         :root {
-          --gradient-hero: linear-gradient(135deg, #b8000b 0%, #D9000D 100%);
-          --gradient-teal: linear-gradient(135deg, #005a5c 0%, #008183 100%);
+            --prubsn-red: #ED1B2E;
+            --prubsn-red-hover: #D11828;
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
+            --border-color: #E5E7EB;
+            --success-green: #10B981;
+            --danger-red: #EF4444;
         }
-        .scrollbar-none::-webkit-scrollbar { display: none; }
-        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
-        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 2rem;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: var(--prubsn-red);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--prubsn-red);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background-color: #F9FAFB;
+        }
+
+        .form-group input:focus {
+            border-color: var(--prubsn-red);
+            background-color: #FFF;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .result-box {
+            background-color: #F9FAFB;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .result-box.highlight {
+            background-color: rgba(237, 27, 46, 0.05);
+            border-color: var(--prubsn-red);
+        }
+
+        .result-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .result-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .text-green { color: var(--success-green); }
+        .text-red { color: var(--prubsn-red); }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
         }
         
-        /* FIX FOR IOS/SAFARI DATE INPUT HEIGHTS */
-        input[type="date"] { @apply w-full min-h-[3rem] appearance-none; }
-        
-        .form-input { @apply block w-full border px-4 py-2 h-12 rounded-xl border-gray-300 bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary text-sm transition-colors; }
-        .btn-primary { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-transform hover:-translate-y-0.5 bg-primary text-white hover:bg-primary-hover h-12 rounded-full px-8 text-sm font-semibold shadow-elegant; }
-      }
+        .summary-row.total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-top: 2px solid var(--text-main);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background-color: rgba(237, 27, 46, 0.1);
+            color: var(--prubsn-red);
+        }
     </style>
-  </head>
-  <body class="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary relative flex flex-col">
-    
-    <!-- Unified Top Navigation Bar (Sticky, Always Visible) -->
-    <nav class="sticky top-0 z-50 w-full bg-white shadow-sm border-b border-border">
-        <div class="mx-auto flex w-full max-w-7xl items-center px-4 py-3 gap-4 overflow-x-auto scrollbar-none">
-            <!-- Brand -->
-            <a href="#top" class="flex items-center gap-3 shrink-0">
-                <img src="FS-logo.png" alt="FS Logo" class="h-10 w-10 object-contain">
-                <div class="flex flex-col">
-                    <span class="text-[14px] font-black uppercase tracking-tight text-primary leading-none" data-translate="brand_title">TAKAFUL SERVICES</span>
-                    <span class="mt-1 text-[11px] font-medium text-gray-500 leading-none" data-translate="brand_sub">by Fairuz Samsuddin</span>
-                </div>
-            </a>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Takaful Advisory Needs Analysis</h1>
+        <p>Comprehensive Financial Profile & Protection Planning</p>
+    </div>
+
+    <div class="container">
+        <!-- LEFT COLUMN: INPUTS -->
+        <div class="column">
             
-            <!-- Language Toggle Button -->
-            <button onclick="toggleLanguage()" id="langBtn" class="flex items-center gap-1.5 rounded-full border border-gray-300 bg-gray-50 px-3 py-2 text-xs font-bold text-gray-700 shadow-sm transition-colors hover:bg-gray-100 shrink-0">
-                <i class="fas fa-globe text-primary"></i> <span id="langText">EN</span>
-            </button>
-
-            <!-- Navigation Links -->
-            <div class="flex items-center gap-6 shrink-0">
-                <a href="#sijil-takaful-saya" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-file-contract text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_cert">Sijil Saya</span>
-                </a>
-                <a href="#waiting-period" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-calculator text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_waiting">Tempoh Menunggu</span>
-                </a>
-                <a href="#kemasukan-hospital" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-hospital-user text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_admission">Kemasukan Hospital</span>
-                </a>
-                <a href="#perkhidmatan-sijil-takaful" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-tools text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_services">Servis</span>
-                </a>
-                <a href="#cara-claim" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-clipboard-list text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_claim">Tuntutan</span>
-                </a>
-                <a href="#admin-info" class="flex items-center gap-2 text-gray-600 hover:text-primary transition-colors py-1">
-                    <i class="fas fa-user-tie text-gray-400 text-lg"></i>
-                    <span class="text-xs font-bold whitespace-nowrap" data-translate="nav_agent">Ejen</span>
-                </a>
-            </div>
-            
-            <!-- WhatsApp CTA pushed to the far right -->
-            <div class="ml-auto flex items-center shrink-0">
-                <a href="https://wa.me/60176213432?text=Hi%20Fairuz%2C%20saya%20ingin%20mendapatkan%20konsultasi%20takaful%20dan%20semakan%20tempoh%20menunggu." target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 rounded-full bg-teal px-5 py-2.5 text-xs font-bold text-white shadow-sm transition-colors hover:bg-teal-hover">
-                    <i class="fab fa-whatsapp text-base"></i> WhatsApp
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <main class="flex-grow w-full">
-      <div id="top"></div>
-      
-      <!-- Hero Section -->
-      <section class="relative overflow-hidden bg-gradient-to-b from-white via-background to-background pt-8">
-        <div aria-hidden="true" class="pointer-events-none absolute -left-24 -top-24 hidden h-96 w-96 rounded-full bg-primary/10 blur-[80px] md:block"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute -right-24 top-32 hidden h-96 w-96 rounded-full bg-teal/15 blur-[80px] md:block"></div>
-        
-        <div class="mx-auto max-w-3xl px-6 py-24 landscape:py-12 lg:landscape:py-32 text-center md:px-6 md:py-32 transition-all">
-          <h1 class="text-4xl font-extrabold leading-[1.15] tracking-tight text-foreground md:text-5xl" data-translate="hero_title_1">
-            TAKAFUL SERVICES 
-          </h1>
-          <h1 class="text-2xl font-extrabold leading-[1.15] tracking-tight text-primary md:text-2xl mt-1" data-translate="hero_title_2">
-            FAIRUZ SAMSUDDIN 
-          </h1>
-          <p class="mx-auto mt-6 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg" data-translate="hero_desc">
-            Semak tempoh menunggu, bantuan tuntutan dan khidmat sijil takaful dalam satu tempat.
-          </p>
-          <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a href="#waiting-period" class="btn-primary !rounded-full">
-              <i class="far fa-calendar-check mr-1 text-lg"></i>
-              <span data-translate="hero_btn_check">Semak Tempoh Menunggu</span>
-            </a>
-            <a href="https://wa.me/60176213432?text=Hi%20Fairuz%2C%20saya%20ingin%20mendapatkan%20konsultasi%20takaful%20dan%20semakan%20tempoh%20menunggu." target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer transition-colors border shadow-sm h-12 rounded-full border-teal/40 bg-teal-soft px-8 text-sm font-semibold text-teal hover:bg-teal hover:text-white">
-              <i class="fab fa-whatsapp mr-1 text-lg"></i>
-              <span data-translate="hero_btn_whatsapp">WhatsApp Saya</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Sijil Takaful Saya Section -->
-      <section id="sijil-takaful-saya" class="relative py-16 md:py-24 transition-all scroll-mt-24">
-        <div class="mx-auto max-w-3xl px-4 md:px-6">
-          <div class="flex flex-col items-start gap-2">
-            <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-              <i class="fas fa-lock text-sm"></i> <span data-translate="cert_badge">Simpanan Peribadi</span>
-            </div>
-            <h2 class="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              <span data-translate="cert_title_1">Sijil Takaful</span> <span class="text-primary" data-translate="cert_title_2">Saya</span>
-            </h2>
-            <p class="text-sm text-muted-foreground md:text-base" data-translate="cert_desc">
-              Simpan nombor sijil takaful dan tarikh sijil takaful aktif anda dalam peranti ini untuk rujukan yang lebih mudah pada masa akan datang.
-            </p>
-          </div>
-          <div class="bg-card text-card-foreground mt-6 overflow-hidden rounded-3xl border border-border shadow-soft">
-            <div class="p-6 md:p-8">
-              <form id="form-sijil-takaful" class="space-y-5">
-                <div class="space-y-2 min-w-0">
-                  <label class="text-sm font-semibold text-gray-700" for="sijil-takaful-nama" data-translate="label_cert_name">Nama Pemegang Sijil Takaful</label>
-                  <input type="text" id="sijil-takaful-nama" class="form-input" placeholder="Contoh: Abu Bakar" />
-                </div>
-                <div class="grid gap-5 md:grid-cols-2">
-                  <div class="space-y-2 min-w-0">
-                    <label class="text-sm font-semibold text-gray-700" for="sijil-takaful-no" data-translate="label_cert_no">Nombor Sijil Takaful</label>
-                    <input type="text" id="sijil-takaful-no" class="form-input" placeholder="Contoh: 12345678" />
-                  </div>
-                  <div class="space-y-2 min-w-0">
-                    <label class="text-sm font-semibold text-gray-700" for="sijil-takaful-tarikh" data-translate="label_cert_date">Tarikh Sijil Takaful Mula</label>
-                    <div class="relative flex w-full">
-                      <input type="date" id="sijil-takaful-tarikh" class="flex-1 form-input" />
+            <!-- Cash Flow Inputs -->
+            <div class="card">
+                <div class="card-title">1. Cash Flow (Aliran Tunai)</div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Monthly Income (RM)</label>
+                        <input type="number" id="monthly-income" value="7000" oninput="calculateAll()">
                     </div>
-                  </div>
+                    <div class="form-group">
+                        <label>Monthly Expenses (RM)</label>
+                        <input type="number" id="monthly-expense" value="6500" oninput="calculateAll()">
+                    </div>
                 </div>
-                <button type="submit" class="w-full bg-primary text-white h-12 rounded-full font-bold mt-2 shadow-elegant hover:bg-primary-hover transition-colors" data-translate="btn_save_cert">
-                  Simpan Maklumat Sijil Takaful
-                </button>
-                <p class="text-xs text-gray-400 mt-3 text-center leading-relaxed" data-translate="cert_note">
-                  * Maklumat ini hanya disimpan dalam peramban peranti anda dan tidak dihantar ke pihak ketiga.
-                </p>
-              </form>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Waiting Period Section (Interactive Calculator) -->
-      <section id="waiting-period" class="relative bg-gradient-to-b from-background via-white to-background py-20 md:py-28 transition-all scroll-mt-24">
-        <div class="mx-auto max-w-6xl px-4 md:px-6">
-          <div class="flex flex-col items-start justify-between gap-3 md:flex-row md:items-end">
-            <div>
-              <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                <i class="fas fa-calculator text-sm"></i> <span data-translate="calc_badge">Kalkulator Interaktif</span>
-              </div>
-              <h2 class="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl" data-translate="calc_title">
-                Semak Status Tempoh Menunggu
-              </h2>
-              <p class="mt-2 text-sm text-muted-foreground md:text-base" data-translate="calc_subtitle">
-                Masukkan tarikh sijil takaful &amp; tarikh rawatan untuk semak kelayakan perlindungan mengikut fasa rasmi.
-              </p>
+            <!-- Asset Inputs -->
+            <div class="card">
+                <div class="card-title">2. Assets (Aset)</div>
+                <div class="form-group">
+                    <label>Cash & Savings (Tunai & Simpanan)</label>
+                    <input type="number" id="asset-cash" value="10000" oninput="calculateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Real Estate & Property (Hartanah)</label>
+                    <input type="number" id="asset-property" value="600000" oninput="calculateAll()">
+                </div>
             </div>
-            <p class="text-xs text-muted-foreground" data-translate="calc_disclaimer">
-              *Rujukan umum. Tertakluk kepada terma sijil takaful.
-            </p>
-          </div>
-          
-          <div class="bg-card text-card-foreground mt-8 overflow-hidden rounded-3xl border border-border shadow-elegant">
-            <div class="grid gap-0 p-0 md:grid-cols-[380px_1fr] lg:grid-cols-[420px_1fr]">
-              <div class="space-y-5 px-6 sm:px-10 py-8 text-white relative flex flex-col justify-center" style="background:var(--gradient-hero)">
-                <div class="absolute top-0 right-0 -mr-16 -mt-16 h-40 w-40 rounded-full border-4 border-white/10 opacity-50 pointer-events-none"></div>
-                <div class="absolute bottom-0 left-0 -ml-16 -mb-16 h-40 w-40 rounded-full border-4 border-white/10 opacity-50 pointer-events-none"></div>
+
+            <!-- Liability Inputs -->
+            <div class="card">
+                <div class="card-title">3. Liabilities (Hutang)</div>
+                <div class="form-group">
+                    <label>Housing Loans (Hutang Perumahan)</label>
+                    <input type="number" id="liability-house" value="365000" oninput="calculateAll()">
+                </div>
+                <div class="form-group">
+                    <label>Personal/Car Loans (Hutang Peribadi/Kereta)</label>
+                    <input type="number" id="liability-personal" value="4000" oninput="calculateAll()">
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: ANALYSIS & DASHBOARD -->
+        <div class="column">
+            
+            <!-- Cash Flow & Net Worth Summary -->
+            <div class="card">
+                <div class="card-title">Financial Profile Summary</div>
                 
-                <div class="relative z-10">
-                  <p class="text-xs font-semibold uppercase tracking-wider text-white/70" data-translate="calc_sidebar_top">Maklumat Sijil Takaful</p>
-                  <p class="mt-1 text-lg font-semibold" data-translate="calc_sidebar_title">Input Tarikh</p>
+                <div class="grid-2" style="margin-bottom: 1.5rem;">
+                    <div class="result-box">
+                        <div class="result-label">Annual Income</div>
+                        <div class="result-value" id="res-annual-income">RM 0.00</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-label">Monthly Surplus</div>
+                        <div class="result-value text-green" id="res-monthly-surplus">RM 0.00</div>
+                    </div>
                 </div>
-                <div class="space-y-2 relative z-10 w-full min-w-0 max-w-[280px] sm:max-w-[320px]">
-                  <label class="block text-sm font-medium text-white/90" for="policy-date" data-translate="calc_label_policy">Tarikh Sijil Takaful Lulus (In-Force)</label>
-                  <div class="relative flex w-full">
-                    <input type="date" class="flex-1 block w-full border px-3 py-2 text-base h-11 rounded-xl border-white/30 bg-white/95 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50" id="policy-date" />
-                  </div>
-                </div>
-                <div class="space-y-2 relative z-10 w-full min-w-0 max-w-[280px] sm:max-w-[320px]">
-                  <label class="block text-sm font-medium text-white/90" for="event-date" data-translate="calc_label_event">Tarikh Rawatan / Kejadian</label>
-                  <div class="relative flex w-full">
-                    <input type="date" class="flex-1 block w-full border px-3 py-2 text-base h-11 rounded-xl border-white/30 bg-white/95 text-gray-900 focus:outline-none focus:ring-2 focus:ring-white/50" id="event-date" />
-                  </div>
-                </div>
-                <div class="rounded-2xl border border-white/20 bg-white/10 p-4 text-xs leading-relaxed text-white backdrop-blur-md relative z-10 w-full max-w-[280px] sm:max-w-[320px]">
-                  <div class="flex items-center gap-1.5 font-semibold text-white">
-                    <i class="fas fa-magic text-sm"></i> <span data-translate="calc_guide_title">Cara Guna</span>
-                  </div>
-                  <p class="mt-1 opacity-90" data-translate="calc_guide_desc">Tarikh lulus diselaraskan automatik dari bahagian Sijil Saya. Sila pilih tarikh rawatan untuk lihat status.</p>
-                </div>
-              </div>
-              
-              <div class="bg-gray-50/50 p-6 md:p-7 flex items-center justify-center min-h-[300px]" id="calc-result-container">
-                <div class="flex flex-col items-center justify-center text-center max-w-sm fade-in">
-                  <div class="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200/60 text-gray-400 mb-4 shadow-sm border border-gray-100">
-                    <i class="far fa-clock text-2xl"></i>
-                  </div>
-                  <p class="text-sm font-medium text-gray-500" data-translate="calc_initial_text">
-                    Sila isi tarikh rawatan untuk melihat status kelayakan perlindungan mengikut fasa di sini.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Garis Masa Section (5 Phases) -->
-      <section id="garis-masa" class="relative overflow-hidden bg-background py-20 md:py-28 transition-all scroll-mt-24">
-        <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"></div>
-        <div class="mx-auto max-w-7xl px-4 md:px-6">
-          <div class="mx-auto max-w-2xl text-center">
-            <div class="inline-flex items-center gap-2 rounded-full border border-teal/30 bg-teal-soft px-3 py-1 text-xs font-semibold text-teal">
-              <i class="fas fa-hourglass-half text-sm"></i> <span data-translate="timeline_badge">Tempoh Menunggu (Waiting Period)</span>
-            </div>
-            <h2 class="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl" data-translate="timeline_title">
-              Garis Masa Perlindungan Takaful
-            </h2>
-            <p class="mt-3 text-sm text-muted-foreground md:text-base" data-translate="timeline_desc">
-              Tempoh menunggu adalah tempoh di mana perlindungan takaful belum mula berkuat kuasa sepenuhnya bagi penyakit atau keadaan tertentu.
-            </p>
-          </div>
-
-          <!-- 5 Phases Grid -->
-          <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            
-            <!-- Fasa 1: Hari 1 -->
-            <div class="group relative rounded-3xl border border-border/70 bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-teal/40 hover:shadow-glow-teal flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal" data-translate="phase_1_tag">Fasa 1</span>
-                  <div class="w-10 h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md">
-                    <i class="fas fa-shield-alt text-sm"></i>
-                  </div>
-                </div>
-                <p class="text-2xl font-bold text-foreground">1 <span data-translate="day_text">HARI</span></p>
-                <p class="text-xs font-bold text-teal uppercase tracking-wide mt-1" data-translate="phase_1_sub">Lulus</p>
-                <p class="mt-4 text-xs leading-relaxed text-muted-foreground" data-translate="phase_1_desc">
-                  Perlindungan kemalangan terus berkuat kuasa serta-merta dari hari pertama.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-gray-100 flex justify-center text-teal">
-                <i class="fas fa-user-shield text-2xl"></i>
-              </div>
-            </div>
-
-            <!-- Fasa 2: 30 Hari -->
-            <div class="group relative rounded-3xl border border-border/70 bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-teal/40 hover:shadow-glow-teal flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal" data-translate="phase_2_tag">Fasa 2</span>
-                  <div class="w-10 h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md">
-                    <i class="fas fa-heartbeat text-sm"></i>
-                  </div>
-                </div>
-                <p class="text-2xl font-bold text-foreground">30 <span data-translate="days_text">HARI</span></p>
-                <p class="text-xs font-bold text-teal uppercase tracking-wide mt-1" data-translate="phase_2_sub">Medikal: Sakit Biasa</p>
-                <p class="mt-4 text-xs leading-relaxed text-muted-foreground" data-translate="phase_2_desc">
-                  Kemudahan kad perubatan boleh digunakan bagi rawatan dalam wad terhadap penyakit am seperti denggi, viral fever, diarrhea, dan lain-lain.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-gray-100 flex justify-center text-teal">
-                <i class="fas fa-notes-medical text-2xl"></i>
-              </div>
-            </div>
-
-            <!-- Fasa 3: 60 Hari -->
-            <div class="group relative rounded-3xl border border-border/70 bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-teal/40 hover:shadow-glow-teal flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal" data-translate="phase_3_tag">Fasa 3</span>
-                  <div class="w-10 h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md">
-                    <i class="fas fa-file-medical-alt text-sm"></i>
-                  </div>
-                </div>
-                <p class="text-2xl font-bold text-foreground">60 <span data-translate="days_text">HARI</span></p>
-                <p class="text-xs font-bold text-teal uppercase tracking-wide mt-1" data-translate="phase_3_sub">Pampasan: Kritikal</p>
-                <p class="mt-4 text-xs leading-relaxed text-muted-foreground" data-translate="phase_3_desc">
-                  Pampasan dan waiver (pengecualian sumbangan) kerana sakit kritikal mula berkuat kuasa.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-gray-100 flex justify-center text-teal">
-                <i class="fas fa-shield-heart text-2xl"></i>
-              </div>
-            </div>
-
-            <!-- Fasa 4: 120 Hari -->
-            <div class="group relative rounded-3xl border border-border/70 bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-teal/40 hover:shadow-glow-teal flex flex-col justify-between">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal" data-translate="phase_4_tag">Fasa 4</span>
-                  <div class="w-10 h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md">
-                    <i class="fas fa-stethoscope text-sm"></i>
-                  </div>
-                </div>
-                <p class="text-2xl font-bold text-foreground">120 <span data-translate="days_text">HARI</span></p>
-                <p class="text-xs font-bold text-teal uppercase tracking-wide mt-1" data-translate="phase_4_sub">Medikal: Sakit Spesifik</p>
-                <p class="mt-4 text-xs leading-relaxed text-muted-foreground" data-translate="phase_4_desc">
-                  Perlindungan menyeluruh bermula untuk semua jenis penyakit spesifik (Batu karang, Hipertensi, Diabetes, Ketumbuhan, Sinus/Tonsil, Hernia, Endometriosis).
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-gray-100 flex justify-center text-teal">
-                <i class="fas fa-hospital text-2xl"></i>
-              </div>
-            </div>
-
-            <!-- Fasa 5: 2 Tahun -->
-            <div class="group relative rounded-3xl border border-border/70 bg-card p-6 shadow-card transition-all duration-300 hover:-translate-y-1.5 hover:border-teal/40 hover:shadow-glow-teal flex flex-col justify-between sm:col-span-2 lg:col-span-1">
-              <div>
-                <div class="flex items-center justify-between mb-4">
-                  <span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal" data-translate="phase_5_tag">Fasa 5</span>
-                  <div class="w-10 h-10 rounded-full bg-teal text-white flex items-center justify-center shadow-md">
-                    <i class="fas fa-file-contract text-sm"></i>
-                  </div>
-                </div>
-                <p class="text-2xl font-bold text-foreground">2 <span data-translate="years_text">THN</span></p>
-                <p class="text-xs font-bold text-teal uppercase tracking-wide mt-1" data-translate="phase_5_sub">Tempoh Siasatan</p>
-                <p class="mt-4 text-xs leading-relaxed text-muted-foreground" data-translate="phase_5_desc">
-                  Dalam tempoh ini, pihak syarikat berhak untuk menyiasat latar belakang kesihatan anda sekiranya terdapat unsur meragukan semasa tuntutan kad perubatan.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-gray-100 flex justify-center text-teal">
-                <i class="fas fa-search text-2xl"></i>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- PENTING Note Box -->
-          <div class="mt-8 rounded-2xl bg-teal-soft border border-teal/20 p-5 text-xs md:text-sm text-teal flex items-start gap-3">
-            <i class="fas fa-info-circle text-lg shrink-0 mt-0.5"></i>
-            <div>
-              <strong class="font-bold uppercase tracking-wide" data-translate="note_important">PENTING:</strong> <span data-translate="note_desc">Sila fahami tempoh menunggu bagi memastikan perlindungan takaful anda lebih berkesan dan memberi manfaat sewajarnya apabila diperlukan.</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Proses Kemasukan Hospital (Admission) Section -->
-      <section id="kemasukan-hospital" class="relative overflow-hidden bg-white py-20 md:py-28 transition-all scroll-mt-24">
-        <div class="mx-auto max-w-7xl px-4 md:px-6">
-          <div class="mx-auto max-w-2xl text-center mb-16">
-            <div class="inline-flex items-center gap-2 rounded-full border border-teal/30 bg-teal-soft px-3 py-1 text-xs font-semibold text-teal">
-              <i class="fas fa-hospital-user text-sm"></i> <span data-translate="adm_badge">Kemasukan Hospital</span>
-            </div>
-            <h2 class="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl" data-translate="adm_title">
-              Panduan Kemasukan Hospital
-            </h2>
-            <p class="mt-3 text-sm text-muted-foreground md:text-base" data-translate="adm_subtitle">
-              Langkah-langkah yang perlu diambil untuk kemasukan hospital secara dirancang atau kecemasan.
-            </p>
-          </div>
-
-          <div class="space-y-20">
-            <!-- UNPLANNED ADMISSION -->
-            <div>
-              <div class="border-b-2 border-primary/10 pb-5 mb-8">
-                <h3 class="text-2xl md:text-3xl font-bold text-foreground flex items-center gap-3">
-                  <span class="bg-primary text-white h-12 w-12 flex items-center justify-center rounded-xl shadow-sm text-2xl shrink-0"><i class="fas fa-plus"></i></span>
-                  <span data-translate="unplanned_title">KEMASUKAN TIDAK DIRANCANG</span>
-                </h3>
-                <p class="mt-3 text-muted-foreground font-medium text-sm md:text-base ml-15" data-translate="unplanned_desc">Untuk keadaan kecemasan yang memerlukan rawatan segera.</p>
-              </div>
-
-              <!-- Unplanned Steps Slider (With clean padding and non-clipping layout) -->
-              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-4 pt-2 px-2 snap-x snap-mandatory scrollbar-none">
-                <!-- Step 1 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-ambulance"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">1</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step1_title">Dapatkan Rawatan Segera</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step1_desc">Pergi terus ke Klinik atau Hospital terdekat. Jika perlu, ke unit Kecemasan (A&E).</p>
-                </div>
-                <!-- Step 2 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-user-md"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step2_title">Penilaian oleh Pegawai Perubatan</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step2_desc">Anda akan dinilai oleh Pegawai Perubatan yang akan menilai keadaan anda dan merujuk kepada pakar yang sesuai.</p>
-                </div>
-                <!-- Step 3 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-user-nurse"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step3_title">Pemeriksaan oleh Pakar</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step3_desc">Pakar akan memeriksa anda. Jika kemasukan ke hospital diperlukan, pakar melengkapkan Bahagian II Borang PAF.</p>
-                </div>
-                <!-- Step 4 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-heartbeat"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">4</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step4_title">Ujian Diagnostik</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step4_desc">Jalani ujian diagnostik (cth: CT scan, ultrasound, ujian darah) mengikut keperluan pakar.</p>
-                </div>
-                <!-- Step 5 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-clipboard-user"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step5_title">Pendaftaran Masuk</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step5_desc">Di kaunter pendaftaran, kemukakan Kad Pengenalan anda dan kad perubatan (jika ada) untuk tujuan pengesahan.</p>
-                </div>
-                <!-- Step 6 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-file-signature"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">6</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step6_title">Lengkapkan Borang PAF (Bahagian I)</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step6_desc">Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit.</p>
-                </div>
-                <!-- Step 7 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center text-2xl"><i class="fas fa-envelope-open-text"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs shadow-sm">7</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="u_step7_title">Kelulusan & Surat Pra-Kebenaran (PAL)</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="u_step7_desc">Sila tunggu kelulusan dan PAL. Bil hospital akan dibayar terus oleh PruBSN tertakluk kepada syarat.</p>
-                </div>
-              </div>
-
-              <!-- Info Penting Box -->
-              <div class="mt-4 rounded-[1.5rem] bg-teal-soft border border-teal/20 p-5 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                <div class="flex flex-col items-center justify-center shrink-0 text-teal w-full md:w-32 md:border-r border-teal/20 md:pr-6">
-                  <i class="far fa-lightbulb text-4xl mb-2"></i>
-                  <span class="text-[11px] font-black uppercase tracking-wider text-center" data-translate="info_penting">INFO PENTING</span>
-                </div>
-                <ul class="list-disc pl-5 md:pl-0 space-y-3 text-sm text-teal-950 flex-1 leading-relaxed">
-                  <li data-translate="u_info_1">Jika anda dimasukkan ke <strong>Hospital Panel PruBSN</strong>, anda boleh menikmati pra-kebenaran* untuk perbelanjaan perubatan.</li>
-                  <li data-translate="u_info_2">Jika dimasukkan ke <strong>hospital bukan panel</strong>, anda perlu menjelaskan bil hospital sebelum keluar dan membuat tuntutan bayaran balik (tertakluk syarat sijil).</li>
-                  <li data-translate="u_info_3">Deposit biasanya meliputi caj sampingan dan bukan perubatan seperti caj telefon, eligibiliti bilik, ko-takaful dan deduktibel.</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- PLANNED ADMISSION -->
-            <div>
-              <div class="border-b-2 border-teal/10 pb-5 mb-8">
-                <h3 class="text-2xl md:text-3xl font-bold text-foreground flex items-center gap-3">
-                  <span class="bg-teal text-white h-12 w-12 flex items-center justify-center rounded-xl shadow-sm text-2xl shrink-0"><i class="far fa-calendar-check"></i></span>
-                  <span data-translate="planned_title">KEMASUKAN DIRANCANG</span>
-                </h3>
-                <p class="mt-3 text-muted-foreground font-medium text-sm md:text-base ml-15" data-translate="planned_desc">Untuk rawatan atau pembedahan yang telah dijadualkan lebih awal.</p>
-              </div>
-
-              <!-- Planned Steps Slider -->
-              <div class="flex gap-4 md:gap-6 overflow-x-auto pb-4 pt-2 px-2 snap-x snap-mandatory scrollbar-none">
-                <!-- Step 1 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fab fa-whatsapp"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">1</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step1_title">Maklumkan Lebih Awal kepada PruBSN</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step1_desc">Maklumkan kepada Perkhidmatan Pelanggan atau Perunding Takaful anda sekurang-kurangnya 3 hari bekerja sebelum tarikh dijadualkan.</p>
-                </div>
-                <!-- Step 2 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-notes-medical"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">2</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step2_title">Hantar Dokumen</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step2_desc">Kemukakan dokumen yang diperlukan seperti laporan perubatan, surat rujukan, dan anggaran kos.</p>
-                </div>
-                <!-- Step 3 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-search-plus"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">3</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step3_title">Penilaian oleh PruBSN</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step3_desc">PruBSN akan menilai dokumen dan memberi kelulusan tertakluk kepada manfaat sijil anda.</p>
-                </div>
-                <!-- Step 4 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-envelope-open-text"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">4</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step4_title">Kelulusan & Surat Pra-Kebenaran (PAL)</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step4_desc">Setelah diluluskan, anda akan menerima Surat PAL yang menyatakan tempoh kelulusan dan anggaran amaun.</p>
-                </div>
-                <!-- Step 5 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="far fa-hospital"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">5</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step5_title">Pendaftaran Masuk ke Hospital</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step5_desc">Pada tarikh yang dijadualkan, kemukakan Kad Pengenalan dan kad perubatan serta surat PAL semasa pendaftaran.</p>
-                </div>
-                <!-- Step 6 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="fas fa-file-signature"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">6</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step6_title">Lengkapkan Borang PAF (Bahagian I)</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step6_desc">Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit.</p>
-                </div>
-                <!-- Step 7 -->
-                <div class="relative shrink-0 w-64 snap-start rounded-3xl border border-border bg-card p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div class="flex items-center justify-between mb-5">
-                    <div class="h-12 w-12 rounded-2xl bg-teal-soft text-teal flex items-center justify-center text-2xl"><i class="far fa-check-circle"></i></div>
-                    <div class="h-7 w-7 rounded-full bg-teal text-white flex items-center justify-center font-bold text-xs shadow-sm">7</div>
-                  </div>
-                  <h4 class="font-bold text-sm text-foreground mb-2" data-translate="p_step7_title">Rawatan & Kelulusan Akhir</h4>
-                  <p class="text-xs text-muted-foreground leading-relaxed" data-translate="p_step7_desc">Terima rawatan seperti yang dijadualkan. Bil hospital akan dibayar terus oleh PruBSN tertakluk syarat.</p>
-                </div>
-              </div>
-
-              <!-- Info Penting Box -->
-              <div class="mt-4 rounded-[1.5rem] bg-teal-soft border border-teal/20 p-5 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                <div class="flex flex-col items-center justify-center shrink-0 text-teal w-full md:w-32 md:border-r border-teal/20 md:pr-6">
-                  <i class="fas fa-info-circle text-4xl mb-2"></i>
-                  <span class="text-[11px] font-black uppercase tracking-wider text-center" data-translate="info_penting">INFO PENTING</span>
-                </div>
-                <ul class="list-disc pl-5 md:pl-0 space-y-3 text-sm text-teal-950 flex-1 leading-relaxed">
-                  <li data-translate="p_info_1">Pastikan anda memaklumkan dan mendapatkan kelulusan awal untuk mengelakkan sebarang kelewatan.</li>
-                  <li data-translate="p_info_2">Deposit biasanya meliputi caj sampingan dan bukan perubatan seperti caj telefon, eligibiliti bilik, ko-takaful dan deduktibel.</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <p class="text-right text-[10px] md:text-xs text-muted-foreground mt-8" data-translate="adm_disclaimer">*Tertakluk kepada syarat dan terma sijil anda.</p>
-        </div>
-      </section>
-
-      <!-- Cara Claim Section (Updated with side-scrolling horizontal cards) -->
-      <section id="cara-claim" class="relative bg-gradient-to-b from-white via-background to-white py-20 md:py-28 transition-all scroll-mt-24">
-        <div class="mx-auto max-w-6xl px-4 md:px-6">
-          <div class="mx-auto max-w-2xl text-center">
-            <div class="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-              <i class="fas fa-clipboard-check text-sm"></i> <span data-translate="claim_badge">Cara Buat Tuntutan</span>
-            </div>
-            <h2 class="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl" data-translate="claim_title">
-              Proses Tuntutan Yang Mudah &amp; Telus
-            </h2>
-            <p class="mt-3 text-sm text-muted-foreground md:text-base" data-translate="claim_subtitle">
-              Ikuti 5 langkah ini untuk memastikan tuntutan anda diproses dengan lancar.
-            </p>
-          </div>
-
-          <div class="mt-12 flex gap-4 md:gap-6 overflow-x-auto pb-4 pt-2 px-2 snap-x snap-mandatory scrollbar-none">
-            <!-- Step 1 -->
-            <div class="group relative shrink-0 w-64 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-elegant">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 transition-transform duration-500 group-hover:scale-150"></div>
-              <div class="absolute right-4 top-4 text-5xl font-black leading-none text-primary/10 transition-colors group-hover:text-primary/20">01</div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-sm ring-1 ring-primary/15 transition-all duration-300 group-hover:from-primary group-hover:to-primary-glow group-hover:text-white">
-                <i class="fas fa-phone-alt text-2xl"></i>
-              </div>
-              <h3 class="relative mt-5 text-base font-bold text-foreground" data-translate="step_1_title">Hubungi Ejen</h3>
-              <p class="relative mt-2 text-xs leading-relaxed text-muted-foreground" data-translate="step_1_desc">Hubungi ejen atau pihak PruBSN Takaful.</p>
-              <div class="relative mt-4 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary" data-translate="step_1_label">Langkah 1</div>
-            </div>
-            <!-- Step 2 -->
-            <div class="group relative shrink-0 w-64 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-elegant">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 transition-transform duration-500 group-hover:scale-150"></div>
-              <div class="absolute right-4 top-4 text-5xl font-black leading-none text-primary/10 transition-colors group-hover:text-primary/20">02</div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-sm ring-1 ring-primary/15 transition-all duration-300 group-hover:from-primary group-hover:to-primary-glow group-hover:text-white">
-                <i class="fas fa-file-invoice text-2xl"></i>
-              </div>
-              <h3 class="relative mt-5 text-base font-bold text-foreground" data-translate="step_2_title">Sedia Dokumen</h3>
-              <p class="relative mt-2 text-xs leading-relaxed text-muted-foreground" data-translate="step_2_desc">Sediakan dokumen yang diperlukan untuk tuntutan.</p>
-              <div class="relative mt-4 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary" data-translate="step_2_label">Langkah 2</div>
-            </div>
-            <!-- Step 3 -->
-            <div class="group relative shrink-0 w-64 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-elegant">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 transition-transform duration-500 group-hover:scale-150"></div>
-              <div class="absolute right-4 top-4 text-5xl font-black leading-none text-primary/10 transition-colors group-hover:text-primary/20">03</div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-sm ring-1 ring-primary/15 transition-all duration-300 group-hover:from-primary group-hover:to-primary-glow group-hover:text-white">
-                <i class="fas fa-paper-plane text-2xl"></i>
-              </div>
-              <h3 class="relative mt-5 text-base font-bold text-foreground" data-translate="step_3_title">Hantar Tuntutan</h3>
-              <p class="relative mt-2 text-xs leading-relaxed text-muted-foreground" data-translate="step_3_desc">Hantar borang tuntutan kepada pihak PruBSN.</p>
-              <div class="relative mt-4 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary" data-translate="step_3_label">Langkah 3</div>
-            </div>
-            <!-- Step 4 -->
-            <div class="group relative shrink-0 w-64 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-elegant">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 transition-transform duration-500 group-hover:scale-150"></div>
-              <div class="absolute right-4 top-4 text-5xl font-black leading-none text-primary/10 transition-colors group-hover:text-primary/20">04</div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-sm ring-1 ring-primary/15 transition-all duration-300 group-hover:from-primary group-hover:to-primary-glow group-hover:text-white">
-                <i class="fas fa-sync-alt text-2xl"></i>
-              </div>
-              <h3 class="relative mt-5 text-base font-bold text-foreground" data-translate="step_4_title">Semakan Proses</h3>
-              <p class="relative mt-2 text-xs leading-relaxed text-muted-foreground" data-translate="step_4_desc">Pihak PruBSN Takaful memproses tuntutan.</p>
-              <div class="relative mt-4 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary" data-translate="step_4_label">Langkah 4</div>
-            </div>
-            <!-- Step 5 -->
-            <div class="group relative shrink-0 w-64 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/50 hover:shadow-elegant">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-primary/5 transition-transform duration-500 group-hover:scale-150"></div>
-              <div class="absolute right-4 top-4 text-5xl font-black leading-none text-primary/10 transition-colors group-hover:text-primary/20">05</div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 text-primary shadow-sm ring-1 ring-primary/15 transition-all duration-300 group-hover:from-primary group-hover:to-primary-glow group-hover:text-white">
-                <i class="fas fa-check-circle text-2xl"></i>
-              </div>
-              <h3 class="relative mt-5 text-base font-bold text-foreground" data-translate="step_5_title">Keputusan Tuntutan</h3>
-              <p class="relative mt-2 text-xs leading-relaxed text-muted-foreground" data-translate="step_5_desc">Keputusan tuntutan akan dimaklumkan kepada anda.</p>
-              <div class="relative mt-4 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary" data-translate="step_5_label">Langkah 5</div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      <!-- Perkhidmatan Sijil Takaful Section -->
-      <section id="perkhidmatan-sijil-takaful" class="relative overflow-hidden bg-background py-20 md:py-28 transition-all scroll-mt-24">
-        <div aria-hidden="true" class="pointer-events-none absolute -left-32 top-10 hidden h-80 w-80 rounded-full bg-primary/10 blur-3xl md:block"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute -right-32 bottom-10 hidden h-80 w-80 rounded-full bg-teal/15 blur-3xl md:block"></div>
-        
-        <div class="mx-auto max-w-6xl px-4 md:px-6">
-          <div class="mx-auto max-w-2xl text-center">
-            <div class="inline-flex items-center gap-2 rounded-full border border-teal/30 bg-teal-soft px-3 py-1 text-xs font-semibold text-teal">
-              <i class="fas fa-concierge-bell text-sm"></i> <span data-translate="svc_badge">Perkhidmatan Pelanggan</span>
-            </div>
-            <h2 class="mt-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              <span data-translate="svc_title_1">Perkhidmatan</span> <span class="text-primary" data-translate="svc_title_2">Sijil Takaful</span>
-            </h2>
-            <p class="mt-3 text-sm text-muted-foreground md:text-base" data-translate="svc_subtitle">
-              Akses perkhidmatan sijil takaful anda secara online dengan mudah dan pantas.
-            </p>
-          </div>
-          
-          <!-- Services Grid -->
-          <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mx-auto">
-            
-            <div class="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border/50 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-red-50 transition-transform duration-500 group-hover:scale-125"></div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white shadow-sm">
-                <i class="fas fa-file-upload text-2xl"></i>
-              </div>
-              <h3 class="relative mt-6 text-lg font-bold text-foreground" data-translate="svc_card_1_title">Hantar Dokumen Tuntutan</h3>
-              <p class="relative mt-2 text-sm leading-relaxed text-muted-foreground" data-translate="svc_card_1_desc">Muat naik dokumen tuntutan untuk semakan dan bantuan lanjut.</p>
-              <div class="relative mt-6 flex flex-1 items-end">
-                <button type="button" onclick="toggleClaimForm()" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-hover">
-                  <span data-translate="svc_btn_1">Hantar Dokumen</span>
-                  <i class="fas fa-arrow-right text-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border/50 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-teal-soft transition-transform duration-500 group-hover:scale-125"></div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-teal text-white shadow-sm">
-                <i class="fas fa-credit-card text-2xl"></i>
-              </div>
-              <h3 class="relative mt-6 text-lg font-bold text-foreground" data-translate="svc_card_2_title">Bayaran Sijil Takaful</h3>
-              <p class="relative mt-2 text-sm leading-relaxed text-muted-foreground" data-translate="svc_card_2_desc">Buat bayaran sijil takaful secara online dengan mudah dan selamat.</p>
-              <div class="relative mt-6 flex flex-1 items-end">
-                <a href="https://app.prubsn.com.my/PruBSNPay/validate" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-hover">
-                  <span data-translate="svc_btn_2">Bayar Sekarang</span>
-                  <i class="fas fa-arrow-right text-sm"></i>
-                </a>
-              </div>
-            </div>
-            
-            <div class="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border/50 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-red-50 transition-transform duration-500 group-hover:scale-125"></div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white shadow-sm">
-                <i class="fas fa-mobile-alt text-2xl"></i>
-              </div>
-              <h3 class="relative mt-6 text-lg font-bold text-foreground" data-translate="svc_card_3_title">PRUServices Web</h3>
-              <p class="relative mt-2 text-sm leading-relaxed text-muted-foreground" data-translate="svc_card_3_desc">Kemaskini maklumat sijil, semakan sijil dan urusan servis melalui laman web.</p>
-              <div class="relative mt-6 flex flex-1 items-end">
-                <a href="https://pruservices.prubsn.com.my/" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-hover">
-                  <span data-translate="svc_btn_3">Buka PRUServices</span>
-                  <i class="fas fa-arrow-right text-sm"></i>
-                </a>
-              </div>
-            </div>
-
-            <div class="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border/50 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-teal-soft transition-transform duration-500 group-hover:scale-125"></div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-teal text-white shadow-sm">
-                <i class="fas fa-hospital text-2xl"></i>
-              </div>
-              <h3 class="relative mt-6 text-lg font-bold text-foreground" data-translate="svc_card_4_title">Senarai Hospital Panel</h3>
-              <p class="relative mt-2 text-sm leading-relaxed text-muted-foreground" data-translate="svc_card_4_desc">Semak senarai terkini hospital panel PruBSN di seluruh Malaysia.</p>
-              <div class="relative mt-6 flex flex-1 items-end">
-                <a href="https://www.prubsn.com.my/ms/claims-and-services/hospital-network/panel-hospitals/" target="_blank" rel="noopener noreferrer" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-hover">
-                  <span data-translate="svc_btn_4">Semak Hospital</span>
-                  <i class="fas fa-arrow-right text-sm"></i>
-                </a>
-              </div>
-            </div>
-            
-            <div class="group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-border/50 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:col-span-2 lg:col-span-2">
-              <div aria-hidden="true" class="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-red-50 transition-transform duration-500 group-hover:scale-125"></div>
-              <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white shadow-sm">
-                <i class="fas fa-download text-2xl"></i>
-              </div>
-              <h3 class="relative mt-6 text-lg font-bold text-foreground" data-translate="svc_card_5_title">Muat Turun Aplikasi PruBSN</h3>
-              <p class="relative mt-2 text-sm leading-relaxed text-muted-foreground" data-translate="svc_card_5_desc">Urus sijil takaful, hantar tuntutan, dan diletakkan dalam satu aplikasi mudah alih. Muat turun aplikasi rasmi hari ini.</p>
-              
-              <div class="relative mt-6 flex flex-wrap flex-1 items-end gap-3 sm:gap-4">
-                <a href="https://apps.apple.com/my/app/prudential-bsn-takaful/id6781500437" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-105">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="h-10 sm:h-12 w-auto object-contain">
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.prudential.pruservices.pamb2" target="_blank" rel="noopener noreferrer" class="transition-transform hover:scale-105">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="h-10 sm:h-12 w-auto object-contain">
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- HANTAR DOKUMEN CLAIM FORM -->
-      <section id="claim-form-section" class="hidden scroll-mt-24 relative bg-white py-16 transition-all duration-500 border-t border-border/50">
-        <div class="mx-auto max-w-3xl px-4 md:px-6 fade-in">
-          <div class="mx-auto max-w-2xl text-center">
-            <h2 class="text-3xl font-bold tracking-tight text-foreground md:text-4xl" data-translate="form_claim_title">
-              Borang Tuntutan
-            </h2>
-            <p class="mt-3 text-sm text-muted-foreground md:text-base" data-translate="form_claim_subtitle">
-              Lengkapkan butiran di bawah untuk menghantar dokumen tuntutan kepada saya melalui WhatsApp.
-            </p>
-          </div>
-          
-          <div class="bg-card text-card-foreground shadow mt-8 overflow-hidden rounded-3xl border border-border shadow-elegant">
-            <div aria-hidden="true" class="h-1.5" style="background:var(--gradient-hero)"></div>
-            <div class="bg-white p-6 md:p-8">
-              <form id="form-hantar-claim" class="grid gap-5 md:grid-cols-2">
-                <div class="space-y-2 md:col-span-2 min-w-0">
-                  <label class="text-sm font-medium text-gray-700" for="claim-nama" data-translate="form_lbl_name">Nama Penuh</label>
-                  <input type="text" class="form-input" id="claim-nama" required placeholder="Nama penuh anda" />
-                </div>
-                <div class="space-y-2 min-w-0">
-                  <label class="text-sm font-medium text-gray-700" for="claim-ic" data-translate="form_lbl_ic">Nombor IC</label>
-                  <input type="text" class="form-input" id="claim-ic" required maxlength="14" placeholder="Contoh: 900101-14-5555" />
-                </div>
-                <div class="space-y-2 min-w-0">
-                  <label class="text-sm font-medium text-gray-700" for="claim-telefon" data-translate="form_lbl_phone">Nombor Telefon</label>
-                  <input type="tel" class="form-input" id="claim-telefon" minlength="10" placeholder="01x-xxx xxxx" />
-                </div>
-                <div class="space-y-2 md:col-span-2 min-w-0">
-                  <label class="text-sm font-medium text-gray-700" for="claim-sijil-takaful" data-translate="form_lbl_certno">Nombor Sijil Takaful</label>
-                  <input type="text" class="form-input" id="claim-sijil-takaful" required placeholder="Masukkan nombor sijil takaful (jika tahu)" />
-                </div>
-                <div class="space-y-2 md:col-span-2 min-w-0">
-                  <label class="text-sm font-medium text-gray-700" for="claim-jenis" data-translate="form_lbl_claimtype">Jenis Tuntutan</label>
-                  <select id="claim-jenis" onchange="checkJenisClaim()" class="form-input" required>
-                    <option value="" disabled selected data-translate="opt_claim_default">-- Sila Pilih Jenis Tuntutan --</option>
-                    <option value="Kemalangan" data-translate="opt_claim_accident">Kemalangan</option>
-                    <option value="Rawatan Susulan" data-translate="opt_claim_followup">Rawatan susulan</option>
-                    <option value="Claim Vaksin" data-translate="opt_claim_vaccine">Tuntutan vaksin</option>
-                    <option value="Fisioterapi" data-translate="opt_claim_physio">Fisioterapi</option>
-                    <option value="Lain-lain" data-translate="opt_claim_others">Lain-lain</option>
-                  </select>
-                </div>
-                <div class="space-y-2 md:col-span-2 hidden min-w-0" id="claim-lain-container">
-                  <label class="text-sm font-medium text-gray-700" for="claim-jenis-lain" data-translate="form_lbl_other_type">Sila nyatakan jenis tuntutan (Lain-lain)</label>
-                  <input type="text" class="form-input" id="claim-jenis-lain" placeholder="Nyatakan secara ringkas" />
-                </div>
-                <div class="space-y-2 md:col-span-2 min-w-0">
-                  <label class="text-sm font-medium text-gray-700" for="claim-kronologi" data-translate="form_lbl_chronology">Kronologi Ringkas</label>
-                  <textarea class="block w-full border px-4 py-3 text-base rounded-xl border-gray-300 bg-gray-50/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors min-h-[100px]" id="claim-kronologi" required placeholder="Sila ceritakan kronologi kejadian secara ringkas..."></textarea>
-                </div>
-                <div class="md:col-span-2 rounded-xl bg-orange-50 border border-orange-100 p-4 mt-2">
-                  <p class="text-xs md:text-sm text-orange-800 font-medium flex gap-2">
-                    <i class="fas fa-info-circle text-lg mt-0.5 shrink-0"></i>
-                    <span data-translate="form_claim_notice">* Lampirkan gambar resit hospital/klinik dan surat doktor (jika ada) melalui mesej WhatsApp selepas borang ini dihantar.</span>
-                  </p>
-                </div>
-                <div class="md:col-span-2 mt-4 min-w-0">
-                  <button class="btn-primary w-full !h-14 !text-base" type="submit">
-                    <i class="fab fa-whatsapp text-lg"></i> <span data-translate="form_btn_submit">Hantar Ke WhatsApp</span>
-                  </button>
-                  <button type="button" onclick="document.getElementById('claim-form-section').classList.add('hidden')" class="w-full text-center text-sm font-medium text-gray-400 hover:text-gray-600 mt-4 underline decoration-gray-300 underline-offset-4" data-translate="form_btn_cancel">Batal & Tutup Borang</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Admin / Contact Info Section -->
-      <section id="admin-info" class="relative overflow-hidden bg-background py-20 md:py-28 transition-all scroll-mt-24">
-        <div aria-hidden="true" class="pointer-events-none absolute -left-32 top-10 hidden h-80 w-80 rounded-full bg-primary/10 blur-3xl md:block"></div>
-        <div aria-hidden="true" class="pointer-events-none absolute -right-32 bottom-10 hidden h-80 w-80 rounded-full bg-teal/15 blur-3xl md:block"></div>
-        
-        <div class="mx-auto max-w-6xl px-4 md:px-6">
-          <div class="mb-8 text-center md:mb-12">
-            <div class="inline-flex items-center gap-2 rounded-full border border-teal/30 bg-teal-soft px-3 py-1 text-xs font-semibold text-teal">
-              <i class="fas fa-user-check text-sm"></i> <span data-translate="agent_badge">Kenali Ejen Anda</span>
-            </div>
-            <h2 class="mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              <span data-translate="agent_title_1">Ejen</span> <span class="text-primary" data-translate="agent_title_2">Takaful</span> <span data-translate="agent_title_3">Anda</span>
-            </h2>
-            <p class="mx-auto mt-2 max-w-xl text-sm text-muted-foreground md:text-base" data-translate="agent_subtitle">
-              Saya membantu anda dalam semakan tempoh menunggu, proses tuntutan takaful dan urusan kemasukan hospital supaya lebih mudah dan teratur.
-            </p>
-          </div>
-          
-          <div class="group relative overflow-hidden rounded-3xl border border-border bg-white p-8 shadow-elegant md:p-12 isolate [-webkit-mask-image:-webkit-radial-gradient(white,black)]">
-            <div aria-hidden="true" class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-20 blur-2xl" style="background:var(--gradient-teal)"></div>
-            <div aria-hidden="true" class="pointer-events-none absolute -bottom-16 -left-16 h-48 w-48 rounded-full opacity-15 blur-2xl" style="background:var(--gradient-hero)"></div>
-            
-            <div class="relative grid gap-8 md:grid-cols-[auto_1fr] md:items-center md:gap-12">
-              <div class="relative mx-auto md:mx-0">
-                <div aria-hidden="true" class="absolute -inset-4 -z-10 rounded-[2rem] opacity-40 blur-2xl" style="background:var(--gradient-hero)"></div>
-                <div class="relative rounded-[2rem] bg-gradient-to-br from-primary/20 via-white to-teal/20 p-1.5 shadow-xl">
-                  <img src="profile.jpg" alt="Fairuz Samsuddin" class="h-56 w-56 sm:h-64 sm:w-64 md:h-72 md:w-72 rounded-[1.65rem] object-cover shadow-md">
-                </div>
-                <span class="absolute -bottom-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-teal px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-lg">
-                  <i class="fas fa-certificate"></i> <span data-translate="agent_certified">Ejen Bertauliah</span>
-                </span>
-              </div>
-              <div class="flex flex-col text-center md:text-left">
-                <p class="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary" data-translate="agent_role">
-                  Perunding Takaful PruBSN
-                </p>
-                <h3 class="mt-2 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-                  Fairuz Samsuddin
-                </h3>
-                <p class="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base" data-translate="agent_bio">
-                  Dengan pengalaman membantu ratusan keluarga Malaysia, saya komited untuk memberikan nasihat takaful yang jujur, telus, dan disesuaikan dengan keperluan serta bajet anda. Pelan yang tepat memberi ketenangan untuk anda dan orang tersayang.
-                </p>
-                
-                <div class="mt-6 grid gap-3 sm:grid-cols-2">
-                  <a href="tel:0176213432" class="group/tile flex items-center gap-3 rounded-2xl border border-border/60 bg-gray-50 p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-white hover:shadow-card">
-                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover/tile:bg-primary group-hover/tile:text-white">
-                      <i class="fas fa-phone-alt text-lg"></i>
-                    </span>
-                    <span class="min-w-0">
-                      <span class="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground" data-translate="contact_phone_label">Telefon</span>
-                      <span class="block truncate text-sm font-bold text-foreground">017-6213432</span>
-                    </span>
-                  </a>
-                  
-                  <div class="flex items-center gap-3 rounded-2xl border border-border/60 bg-gray-50 p-4 text-left">
-                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal/15 text-teal">
-                      <i class="fas fa-map-marker-alt text-lg"></i>
-                    </span>
-                    <span class="min-w-0">
-                      <span class="block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground" data-translate="contact_area_label">Kawasan Khidmat</span>
-                      <span class="block truncate text-sm font-bold text-foreground" data-translate="contact_area_val">Seluruh Malaysia</span>
-                    </span>
-                  </div>
+                <div class="grid-2">
+                    <div class="result-box">
+                        <div class="result-label">Total Assets</div>
+                        <div class="result-value text-green" id="res-total-assets">RM 0.00</div>
+                    </div>
+                    <div class="result-box">
+                        <div class="result-label">Total Liabilities</div>
+                        <div class="result-value text-red" id="res-total-liabilities">RM 0.00</div>
+                    </div>
                 </div>
                 
-                <div class="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <a href="https://wa.me/60176213432?text=Hi%20Fairuz%2C%20saya%20ingin%20mendapatkan%20konsultasi%20takaful%20dan%20semakan%20tempoh%20menunggu." target="_blank" rel="noopener noreferrer" class="btn-primary !w-full sm:!w-auto">
-                    <i class="fab fa-whatsapp text-lg"></i> <span data-translate="agent_whatsapp_btn">WhatsApp Sekarang</span>
-                  </a>
+                <div class="result-box highlight" style="margin-top: 1rem;">
+                    <div class="result-label" style="color: var(--prubsn-red);">Estimated Net Worth</div>
+                    <div class="result-value" id="res-net-worth" style="font-size: 1.75rem;">RM 0.00</div>
                 </div>
-              </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Unified Footer -->
-      <footer class="border-t border-border bg-white py-10 mt-auto">
-        <div class="mx-auto max-w-6xl px-6">
-            <div class="flex flex-col items-center justify-between gap-4 text-xs text-gray-500 md:flex-row text-center md:text-left">
-                <p data-translate="footer_reg">Perunding Takaful Berdaftar dengan PruBSN Takaful Berhad.</p>
-                <p>© 2026 Fairuz Samsuddin. <span data-translate="footer_rights">Hak Cipta Terpelihara.</span></p>
-                <p data-translate="footer_portal">Portal Servis Rasmi Fairuz Samsuddin</p>
+            <!-- Takaful Needs Analysis -->
+            <div class="card">
+                <div class="card-title" style="justify-content: space-between;">
+                    <span>Takaful Protection Needs</span>
+                    <span class="badge" id="res-budget">Budget: RM 0/mth</span>
+                </div>
+                
+                <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Target recommendations based on standard financial planning concepts (10x income for Death/TPD, 5x for CI, and full debt cancellation).
+                </p>
+
+                <div class="summary-row">
+                    <span>Income Protection (Death/TPD - 10x Annual)</span>
+                    <span id="target-income-protection" style="font-weight: 600;">RM 0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Critical Illness (5x Annual)</span>
+                    <span id="target-critical-illness" style="font-weight: 600;">RM 0.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Debt Settlement (Match Total Liabilities)</span>
+                    <span id="target-debt-settlement" style="font-weight: 600;">RM 0.00</span>
+                </div>
+                
+                <div class="summary-row total">
+                    <span style="color: var(--prubsn-red);">Total Target Coverage Required</span>
+                    <span id="target-total" style="color: var(--prubsn-red);">RM 0.00</span>
+                </div>
             </div>
-        </div>
-      </footer>
-    </main>
 
-    <!-- Scripts -->
+        </div>
+    </div>
+
     <script>
-      // Dual-Language Dictionary Data
-      const translations = {
-        ms: {
-          page_title: "TAKAFUL SERVICES - Fairuz Samsuddin",
-          brand_title: "TAKAFUL SERVICES",
-          brand_sub: "by Fairuz Samsuddin",
-          nav_cert: "Sijil Saya",
-          nav_waiting: "Tempoh Menunggu",
-          nav_admission: "Kemasukan Hospital",
-          nav_services: "Servis",
-          nav_claim: "Tuntutan",
-          nav_agent: "Ejen",
-          hero_title_1: "TAKAFUL SERVICES",
-          hero_title_2: "FAIRUZ SAMSUDDIN",
-          hero_desc: "Semak tempoh menunggu, bantuan tuntutan dan khidmat sijil takaful dalam satu tempat.",
-          hero_btn_check: "Semak Tempoh Menunggu",
-          hero_btn_whatsapp: "WhatsApp Saya",
-          cert_badge: "Simpanan Peribadi",
-          cert_title_1: "Sijil Takaful",
-          cert_title_2: "Saya",
-          cert_desc: "Simpan nombor sijil takaful dan tarikh sijil takaful aktif anda dalam peranti ini untuk rujukan yang lebih mudah pada masa akan datang.",
-          label_cert_name: "Nama Pemegang Sijil Takaful",
-          label_cert_no: "Nombor Sijil Takaful",
-          label_cert_date: "Tarikh Sijil Takaful Mula",
-          btn_save_cert: "Simpan Maklumat Sijil Takaful",
-          cert_note: "* Maklumat ini hanya disimpan dalam peramban peranti anda dan tidak dihantar ke pihak ketiga.",
-          calc_badge: "Kalkulator Interaktif",
-          calc_title: "Semak Status Tempoh Menunggu",
-          calc_subtitle: "Masukkan tarikh sijil takaful & tarikh rawatan untuk semak kelayakan perlindungan mengikut fasa rasmi.",
-          calc_disclaimer: "*Rujukan umum. Tertakluk kepada terma sijil takaful.",
-          calc_sidebar_top: "Maklumat Sijil Takaful",
-          calc_sidebar_title: "Input Tarikh",
-          calc_label_policy: "Tarikh Sijil Takaful Lulus (In-Force)",
-          calc_label_event: "Tarikh Rawatan / Kejadian",
-          calc_guide_title: "Cara Guna",
-          calc_guide_desc: "Tarikh lulus diselaraskan automatik dari bahagian Sijil Saya. Sila pilih tarikh rawatan untuk lihat status.",
-          calc_initial_text: "Sila isi tarikh rawatan untuk melihat status kelayakan perlindungan mengikut fasa di sini.",
-          timeline_badge: "Tempoh Menunggu (Waiting Period)",
-          timeline_title: "Garis Masa Perlindungan Takaful",
-          timeline_desc: "Tempoh menunggu adalah tempoh di mana perlindungan takaful belum mula berkuat kuasa sepenuhnya bagi penyakit atau keadaan tertentu.",
-          phase_1_tag: "Fasa 1",
-          phase_1_sub: "Lulus",
-          phase_1_desc: "Perlindungan kemalangan terus berkuat kuasa serta-merta dari hari pertama.",
-          phase_2_tag: "Fasa 2",
-          phase_2_sub: "Medikal: Sakit Biasa",
-          phase_2_desc: "Kemudahan kad perubatan boleh digunakan bagi rawatan dalam wad terhadap penyakit am seperti denggi, viral fever, diarrhea, dan lain-lain.",
-          phase_3_tag: "Fasa 3",
-          phase_3_sub: "Pampasan: Kritikal",
-          phase_3_desc: "Pampasan dan waiver (pengecualian sumbangan) kerana sakit kritikal mula berkuat kuasa.",
-          phase_4_tag: "Fasa 4",
-          phase_4_sub: "Medikal: Sakit Spesifik",
-          phase_4_desc: "Perlindungan menyeluruh bermula untuk semua jenis penyakit spesifik (Batu karang, Hipertensi, Diabetes, Ketumbuhan, Sinus/Tonsil, Hernia, Endometriosis).",
-          phase_5_tag: "Fasa 5",
-          phase_5_sub: "Tempoh Siasatan",
-          phase_5_desc: "Dalam tempoh ini, pihak syarikat berhak untuk menyiasat latar belakang kesihatan anda sekiranya terdapat unsur meragukan semasa tuntutan kad perubatan.",
-          day_text: "HARI",
-          days_text: "HARI",
-          years_text: "THN",
-          note_important: "PENTING:",
-          note_desc: "Sila fahami tempoh menunggu bagi memastikan perlindungan takaful anda lebih berkesan dan memberi manfaat sewajarnya apabila diperlukan.",
-          
-          /* KEMASUKAN HOSPITAL DICTIONARY */
-          adm_badge: "Kemasukan Hospital",
-          adm_title: "Panduan Kemasukan Hospital",
-          adm_subtitle: "Langkah-langkah yang perlu diambil untuk kemasukan hospital secara dirancang atau kecemasan.",
-          unplanned_title: "KEMASUKAN TIDAK DIRANCANG",
-          unplanned_desc: "Untuk keadaan kecemasan yang memerlukan rawatan segera.",
-          u_step1_title: "Dapatkan Rawatan Segera",
-          u_step1_desc: "Pergi terus ke Klinik atau Hospital terdekat. Jika perlu, ke unit Kecemasan (A&E).",
-          u_step2_title: "Penilaian oleh Pegawai Perubatan",
-          u_step2_desc: "Anda akan dinilai oleh Pegawai Perubatan yang akan menilai keadaan anda dan merujuk kepada pakar yang sesuai.",
-          u_step3_title: "Pemeriksaan oleh Pakar",
-          u_step3_desc: "Pakar akan memeriksa anda. Jika kemasukan ke hospital diperlukan, pakar melengkapkan Bahagian II Borang Pra-Kebenaran (PAF).",
-          u_step4_title: "Ujian Diagnostik",
-          u_step4_desc: "Jalani ujian diagnostik (cth: CT scan, ultrasound, ujian darah) mengikut keperluan pakar.",
-          u_step5_title: "Pendaftaran Masuk",
-          u_step5_desc: "Di kaunter pendaftaran, kemukakan Kad Pengenalan anda dan kad perubatan (jika ada) untuk tujuan pengesahan.",
-          u_step6_title: "Lengkapkan Borang PAF (Bahagian I)",
-          u_step6_desc: "Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit semasa kemasukan.",
-          u_step7_title: "Kelulusan & Surat Pra-Kebenaran (PAL)",
-          u_step7_desc: "Sila tunggu kelulusan dan Surat Pra-Kebenaran (PAL). Bil hospital akan dibayar terus oleh PruBSN tertakluk kepada syarat dan terma sijil anda.",
-          info_penting: "INFO PENTING",
-          u_info_1: "Jika anda dimasukkan ke Hospital Panel PruBSN, anda boleh menikmati pra-kebenaran* untuk perbelanjaan perubatan.",
-          u_info_2: "Jika dimasukkan ke hospital bukan panel, anda perlu menjelaskan bil hospital sebelum keluar dan membuat tuntutan untuk bayaran balik (tertakluk kepada syarat dan terma sijil anda).",
-          u_info_3: "Deposit biasanya meliputi caj sampingan dan bukan perubatan seperti caj telefon, eligibiliti bilik, ko-takaful dan deduktibel.",
-          planned_title: "KEMASUKAN DIRANCANG",
-          planned_desc: "Untuk rawatan atau pembedahan yang telah dijadualkan lebih awal.",
-          p_step1_title: "Maklumkan Lebih Awal kepada PruBSN",
-          p_step1_desc: "Maklumkan kepada Perkhidmatan Pelanggan atau Perunding Takaful anda sekurang-kurangnya 3 hari bekerja sebelum tarikh kemasukan yang dijadualkan.",
-          p_step2_title: "Hantar Dokumen",
-          p_step2_desc: "Kemukakan dokumen yang diperlukan seperti laporan perubatan, surat rujukan, dan anggaran kos.",
-          p_step3_title: "Penilaian oleh PruBSN",
-          p_step3_desc: "PruBSN akan menilai dokumen dan memberi kelulusan tertakluk kepada manfaat sijil anda.",
-          p_step4_title: "Kelulusan & Surat Pra-Kebenaran (PAL)",
-          p_step4_desc: "Setelah diluluskan, anda akan menerima Surat Pra-Kebenaran (PAL) yang menyatakan tempoh kelulusan dan anggaran amaun.",
-          p_step5_title: "Pendaftaran Masuk ke Hospital",
-          p_step5_desc: "Pada tarikh yang dijadualkan, kemukakan Kad Pengenalan dan kad perubatan (jika ada) serta surat PAL semasa pendaftaran.",
-          p_step6_title: "Lengkapkan Borang PAF (Bahagian I)",
-          p_step6_desc: "Lengkapkan Bahagian I Borang Pra-Kebenaran (PAF). Anda mungkin dikehendaki membayar deposit semasa kemasukan.",
-          p_step7_title: "Rawatan & Kelulusan Akhir",
-          p_step7_desc: "Terima rawatan seperti yang dijadualkan. Bil hospital akan dibayar terus oleh PruBSN tertakluk kepada syarat dan terma sijil anda.",
-          p_info_1: "Pastikan anda memaklumkan dan mendapatkan kelulusan awal untuk mengelakkan sebarang kelewatan.",
-          p_info_2: "Deposit biasanya meliputi caj sampingan dan bukan perubatan seperti caj telefon, eligibiliti bilik, ko-takaful dan deduktibel.",
-          adm_disclaimer: "*Tertakluk kepada syarat dan terma sijil anda.",
-
-          claim_badge: "Cara Buat Tuntutan",
-          claim_title: "Proses Tuntutan Yang Mudah & Telus",
-          claim_subtitle: "Ikuti 5 langkah ini untuk memastikan tuntutan anda diproses dengan lancar.",
-          step_1_title: "Hubungi Ejen",
-          step_1_desc: "Hubungi ejen atau pihak PruBSN Takaful.",
-          step_1_label: "Langkah 1",
-          step_2_title: "Sedia Dokumen",
-          step_2_desc: "Sediakan dokumen yang diperlukan untuk tuntutan.",
-          step_2_label: "Langkah 2",
-          step_3_title: "Hantar Tuntutan",
-          step_3_desc: "Hantar borang tuntutan kepada pihak PruBSN.",
-          step_3_label: "Langkah 3",
-          step_4_title: "Semakan Proses",
-          step_4_desc: "Pihak PruBSN Takaful memproses tuntutan.",
-          step_4_label: "Langkah 4",
-          step_5_title: "Keputusan Tuntutan",
-          step_5_desc: "Keputusan tuntutan akan dimaklumkan kepada anda.",
-          step_5_label: "Langkah 5",
-          svc_badge: "Perkhidmatan Pelanggan",
-          svc_title_1: "Perkhidmatan",
-          svc_title_2: "Sijil Takaful",
-          svc_subtitle: "Akses perkhidmatan sijil takaful anda secara online dengan mudah dan pantas.",
-          svc_card_1_title: "Hantar Dokumen Tuntutan",
-          svc_card_1_desc: "Muat naik dokumen tuntutan untuk semakan dan bantuan lanjut.",
-          svc_btn_1: "Hantar Dokumen",
-          svc_card_2_title: "Bayaran Sijil Takaful",
-          svc_card_2_desc: "Buat bayaran sijil takaful secara online dengan mudah dan selamat.",
-          svc_btn_2: "Bayar Sekarang",
-          svc_card_3_title: "PRUServices Web",
-          svc_card_3_desc: "Kemaskini maklumat sijil, semakan sijil dan urusan servis melalui laman web.",
-          svc_btn_3: "Buka PRUServices",
-          svc_card_4_title: "Senarai Hospital Panel",
-          svc_card_4_desc: "Semak senarai terkini hospital panel PruBSN di seluruh Malaysia.",
-          svc_btn_4: "Semak Hospital",
-          svc_card_5_title: "Muat Turun Aplikasi PruBSN",
-          svc_card_5_desc: "Urus sijil takaful, hantar tuntutan, dan diletakkan dalam satu aplikasi mudah alih. Muat turun aplikasi rasmi hari ini.",
-          form_claim_title: "Borang Tuntutan",
-          form_claim_subtitle: "Lengkapkan butiran di bawah untuk menghantar dokumen tuntutan kepada saya melalui WhatsApp.",
-          form_lbl_name: "Nama Penuh",
-          form_lbl_ic: "Nombor IC",
-          form_lbl_phone: "Nombor Telefon",
-          form_lbl_certno: "Nombor Sijil Takaful",
-          form_lbl_claimtype: "Jenis Tuntutan",
-          opt_claim_default: "-- Sila Pilih Jenis Tuntutan --",
-          opt_claim_accident: "Kemalangan",
-          opt_claim_followup: "Rawatan susulan",
-          opt_claim_vaccine: "Tuntutan vaksin",
-          opt_claim_physio: "Fisioterapi",
-          opt_claim_others: "Lain-lain",
-          form_lbl_other_type: "Sila nyatakan jenis tuntutan (Lain-lain)",
-          form_lbl_chronology: "Kronologi Ringkas",
-          form_claim_notice: "* Lampirkan gambar resit hospital/klinik dan surat doktor (jika ada) melalui mesej WhatsApp selepas borang ini dihantar.",
-          form_btn_submit: "Hantar Ke WhatsApp",
-          form_btn_cancel: "Batal & Tutup Borang",
-          agent_badge: "Kenali Ejen Anda",
-          agent_title_1: "Ejen",
-          agent_title_2: "Takaful",
-          agent_title_3: "Anda",
-          agent_subtitle: "Saya membantu anda dalam semakan tempoh menunggu, proses tuntutan takaful dan urusan kemasukan hospital supaya semuanya lebih mudah dan teratur.",
-          agent_certified: "Ejen Bertauliah",
-          agent_role: "Perunding Takaful PruBSN",
-          agent_bio: "Dengan pengalaman membantu ratusan keluarga Malaysia, saya komited untuk memberikan nasihat takaful yang jujur, telus, dan disesuaikan dengan keperluan serta bajet anda. Pelan yang tepat memberi ketenangan untuk anda dan orang tersayang.",
-          contact_phone_label: "Telefon",
-          contact_area_label: "Kawasan Khidmat",
-          contact_area_val: "Seluruh Malaysia",
-          agent_whatsapp_btn: "WhatsApp Sekarang",
-          footer_reg: "Perunding Takaful Berdaftar dengan PruBSN Takaful Berhad.",
-          footer_rights: "Hak Cipta Terpelihara.",
-          footer_portal: "Portal Servis Rasmi Fairuz Samsuddin"
-        },
-        en: {
-          page_title: "TAKAFUL SERVICES - Fairuz Samsuddin",
-          brand_title: "TAKAFUL SERVICES",
-          brand_sub: "by Fairuz Samsuddin",
-          nav_cert: "My Certificate",
-          nav_waiting: "Waiting Period",
-          nav_admission: "Hospital Admission",
-          nav_services: "Services",
-          nav_claim: "Claim",
-          nav_agent: "Agent",
-          hero_title_1: "TAKAFUL SERVICES",
-          hero_title_2: "FAIRUZ SAMSUDDIN",
-          hero_desc: "Check waiting periods, claim assistance, and takaful certificate services all in one place.",
-          hero_btn_check: "Check Waiting Period",
-          hero_btn_whatsapp: "WhatsApp Me",
-          cert_badge: "Personal Storage",
-          cert_title_1: "My Takaful",
-          cert_title_2: "Certificate",
-          cert_desc: "Save your takaful certificate number and active certificate date on this device for easier reference in the future.",
-          label_cert_name: "Certificate Holder Name",
-          label_cert_no: "Takaful Certificate Number",
-          label_cert_date: "Certificate Start Date",
-          btn_save_cert: "Save Certificate Info",
-          cert_note: "* This information is only stored in your browser device and is not sent to third parties.",
-          calc_badge: "Interactive Calculator",
-          calc_title: "Check Waiting Period Status",
-          calc_subtitle: "Enter your certificate date & treatment date to check protection eligibility according to official phases.",
-          calc_disclaimer: "*General reference. Subject to takaful certificate terms.",
-          calc_sidebar_top: "Takaful Certificate Info",
-          calc_sidebar_title: "Date Input",
-          calc_label_policy: "Certificate Approval Date (In-Force)",
-          calc_label_event: "Treatment / Incident Date",
-          calc_guide_title: "How to Use",
-          calc_guide_desc: "Approval date is automatically synced from the My Certificate section. Please select treatment date to view status.",
-          calc_initial_text: "Please fill in the treatment date to view protection eligibility status by phase here.",
-          timeline_badge: "Waiting Period",
-          timeline_title: "Takaful Protection Timeline",
-          timeline_desc: "The waiting period is the timeframe during which takaful protection is not yet fully in effect for certain illnesses or conditions.",
-          phase_1_tag: "Phase 1",
-          phase_1_sub: "Approved",
-          phase_1_desc: "Accident protection takes effect immediately from day one.",
-          phase_2_tag: "Phase 2",
-          phase_2_sub: "Medical: Common Illness",
-          phase_2_desc: "Medical card facilities can be used for inpatient treatment of common illnesses such as dengue, viral fever, diarrhea, etc.",
-          phase_3_tag: "Phase 3",
-          phase_3_sub: "Compensation: Critical",
-          phase_3_desc: "Critical illness compensation and waiver of contribution take effect.",
-          phase_4_tag: "Phase 4",
-          phase_4_sub: "Medical: Specific Illness",
-          phase_4_desc: "Comprehensive protection begins for all specific illnesses (Gallstones, Hypertension, Diabetes, Tumors, Sinus/Tonsils, Hernia, Endometriosis).",
-          phase_5_tag: "Phase 5",
-          phase_5_sub: "Investigation Period",
-          phase_5_desc: "During this period, the company has the right to investigate your health background if there are doubtful elements during medical card claims.",
-          day_text: "DAY",
-          days_text: "DAYS",
-          years_text: "YRS",
-          note_important: "IMPORTANT:",
-          note_desc: "Please understand the waiting period to ensure your takaful protection is more effective and provides proper benefits when needed.",
-          
-          /* KEMASUKAN HOSPITAL DICTIONARY */
-          adm_badge: "Hospital Admission",
-          adm_title: "Hospital Admission Guide",
-          adm_subtitle: "Steps to take for planned or emergency hospital admissions.",
-          unplanned_title: "UNPLANNED ADMISSION",
-          unplanned_desc: "For emergencies requiring immediate treatment.",
-          u_step1_title: "Seek Immediate Treatment",
-          u_step1_desc: "Go directly to the nearest Clinic or Hospital. If necessary, to the Emergency unit (A&E).",
-          u_step2_title: "Medical Officer Assessment",
-          u_step2_desc: "You will be assessed by a Medical Officer who will evaluate your condition and refer to appropriate specialists.",
-          u_step3_title: "Specialist Examination",
-          u_step3_desc: "A specialist will examine you. If admission is needed, they will complete Part II of the Pre-Authorization Form (PAF).",
-          u_step4_title: "Diagnostic Tests",
-          u_step4_desc: "Undergo diagnostic tests (e.g., CT scan, ultrasound, blood test) as required by the specialist.",
-          u_step5_title: "Admission Registration",
-          u_step5_desc: "At the registration counter, present your ID Card and medical card (if any) for verification.",
-          u_step6_title: "Complete PAF Form (Part I)",
-          u_step6_desc: "Complete Part I of the Pre-Authorization Form (PAF). You may be required to pay a deposit upon admission.",
-          u_step7_title: "Approval & PAL Letter",
-          u_step7_desc: "Wait for approval and the Pre-Authorization Letter (PAL). The hospital bill will be paid directly by PruBSN subject to certificate terms.",
-          info_penting: "IMPORTANT INFO",
-          u_info_1: "If admitted to a PruBSN Panel Hospital, you can enjoy pre-authorization* for medical expenses.",
-          u_info_2: "If admitted to a non-panel hospital, you must settle the bill before discharge and claim reimbursement (subject to certificate terms).",
-          u_info_3: "The deposit usually covers incidental and non-medical charges like phone calls, room eligibility, co-takaful, and deductibles.",
-          planned_title: "PLANNED ADMISSION",
-          planned_desc: "For treatments or surgeries scheduled in advance.",
-          p_step1_title: "Notify PruBSN in Advance",
-          p_step1_desc: "Notify Customer Service or your Takaful Consultant at least 3 working days prior to your scheduled admission.",
-          p_step2_title: "Submit Documents",
-          p_step2_desc: "Submit required documents such as medical reports, referral letters, and cost estimates.",
-          p_step3_title: "Assessment by PruBSN",
-          p_step3_desc: "PruBSN will assess the documents and grant approval subject to your certificate benefits.",
-          p_step4_title: "Approval & PAL Letter",
-          p_step4_desc: "Once approved, you will receive a Pre-Authorization Letter (PAL) stating the duration and amount approved.",
-          p_step5_title: "Hospital Admission",
-          p_step5_desc: "On the scheduled date, present your ID Card, medical card (if any), and PAL letter during registration.",
-          p_step6_title: "Complete PAF Form (Part I)",
-          p_step6_desc: "Complete Part I of the Pre-Authorization Form (PAF). You may be required to pay a deposit upon admission.",
-          p_step7_title: "Treatment & Final Approval",
-          p_step7_desc: "Receive scheduled treatment. The bill will be paid directly by PruBSN subject to certificate terms.",
-          p_info_1: "Ensure you notify and obtain early approval to avoid any delays.",
-          p_info_2: "The deposit usually covers incidental and non-medical charges like phone calls, room eligibility, co-takaful, and deductibles.",
-          adm_disclaimer: "*Subject to the terms and conditions of your certificate.",
-
-          claim_badge: "How to Claim",
-          claim_title: "Easy & Transparent Claim Process",
-          claim_subtitle: "Follow these 5 steps to ensure your claim is processed smoothly.",
-          step_1_title: "Contact Agent",
-          step_1_desc: "Contact your agent or PruBSN Takaful.",
-          step_1_label: "Step 1",
-          step_2_title: "Prepare Documents",
-          step_2_desc: "Prepare necessary documents for the claim.",
-          step_2_label: "Step 2",
-          step_3_title: "Submit Claim",
-          step_3_desc: "Submit claim form to PruBSN.",
-          step_3_label: "Step 3",
-          step_4_title: "Process Review",
-          step_4_desc: "PruBSN Takaful processes the claim.",
-          step_4_label: "Step 4",
-          step_5_title: "Claim Decision",
-          step_5_desc: "Claim decision will be notified to you.",
-          step_5_label: "Step 5",
-          svc_badge: "Customer Services",
-          svc_title_1: "Takaful Certificate",
-          svc_title_2: "Services",
-          svc_subtitle: "Access your takaful certificate services online easily and quickly.",
-          svc_card_1_title: "Submit Claim Document",
-          svc_card_1_desc: "Upload claim documents for review and further assistance.",
-          svc_btn_1: "Submit Document",
-          svc_card_2_title: "Takaful Certificate Payment",
-          svc_card_2_desc: "Make takaful certificate payments online easily and securely.",
-          svc_btn_2: "Pay Now",
-          svc_card_3_title: "PRUServices Web",
-          svc_card_3_desc: "Update takaful certificate info, check certificate, and service requests via web.",
-          svc_btn_3: "Open PRUServices",
-          svc_card_4_title: "Panel Hospital List",
-          svc_card_4_desc: "Check the latest list of PruBSN panel hospitals across Malaysia.",
-          svc_btn_4: "Check Hospital",
-          svc_card_5_title: "Download PruBSN App",
-          svc_card_5_desc: "Manage takaful certificates, submit claims, and view medical info in one mobile app.",
-          form_claim_title: "Claim Form",
-          form_claim_subtitle: "Complete the details below to send claim documents to me via WhatsApp.",
-          form_lbl_name: "Full Name",
-          form_lbl_ic: "IC Number",
-          form_lbl_phone: "Phone Number",
-          form_lbl_certno: "Certificate Number",
-          form_lbl_claimtype: "Claim Type",
-          opt_claim_default: "-- Please Select Claim Type --",
-          opt_claim_accident: "Accident",
-          opt_claim_followup: "Follow-up treatment",
-          opt_claim_vaccine: "Vaccine claim",
-          opt_claim_physio: "Physiotherapy",
-          opt_claim_others: "Others",
-          form_lbl_other_type: "Please specify claim type (Others)",
-          form_lbl_chronology: "Brief Chronology",
-          form_claim_notice: "* Attach hospital/clinic receipt images and doctor's letter (if any) via WhatsApp message after submitting this form.",
-          form_btn_submit: "Send to WhatsApp",
-          form_btn_cancel: "Cancel & Close Form",
-          agent_badge: "Meet Your Agent",
-          agent_title_1: "Your",
-          agent_title_2: "Takaful",
-          agent_title_3: "Agent",
-          agent_subtitle: "I help you with waiting period checks, takaful claim processes, and hospital admission arrangements to make everything simpler and more organized.",
-          agent_certified: "Certified Agent",
-          agent_role: "PruBSN Takaful Consultant",
-          agent_bio: "With experience helping hundreds of Malaysian families, I am committed to providing honest, transparent takaful advice tailored to your needs and budget. The right plan brings peace of mind for you and your loved ones.",
-          contact_phone_label: "Phone",
-          contact_area_label: "Service Area",
-          contact_area_val: "All Over Malaysia",
-          agent_whatsapp_btn: "WhatsApp Now",
-          footer_reg: "Registered Takaful Consultant with PruBSN Takaful Berhad.",
-          footer_rights: "All Rights Reserved.",
-          footer_portal: "Official Service Portal of Fairuz Samsuddin"
-        }
-      };
-
-      let currentLang = 'ms';
-
-      function toggleLanguage() {
-        currentLang = currentLang === 'ms' ? 'en' : 'ms';
-        document.getElementById('langText').innerText = currentLang === 'ms' ? 'EN' : 'BM';
-        document.getElementById('htmlTag').setAttribute('lang', currentLang);
-
-        if (translations[currentLang]['page_title']) {
-          document.getElementById('pageTitle').innerText = translations[currentLang]['page_title'];
-        }
-
-        const elements = document.querySelectorAll('[data-translate]');
-        elements.forEach(el => {
-          const key = el.getAttribute('data-translate');
-          if (translations[currentLang][key]) {
-            if(el.innerHTML.includes('<strong>')) {
-                let tempDiv = document.createElement('div');
-                tempDiv.innerHTML = translations[currentLang][key];
-                if(key.includes('u_info_1')) el.innerHTML = tempDiv.innerHTML.replace('Hospital Panel PruBSN', '<strong>Hospital Panel PruBSN</strong>').replace('PruBSN Panel Hospital', '<strong>PruBSN Panel Hospital</strong>');
-                else if(key.includes('u_info_2')) el.innerHTML = tempDiv.innerHTML.replace('hospital bukan panel', '<strong>hospital bukan panel</strong>').replace('non-panel hospital', '<strong>non-panel hospital</strong>');
-                else el.innerText = translations[currentLang][key];
-            } else {
-                el.innerText = translations[currentLang][key];
-            }
-          }
+        const formatter = new Intl.NumberFormat('en-MY', {
+            style: 'currency',
+            currency: 'MYR',
+            minimumFractionDigits: 2
         });
 
-        if (currentLang === 'en') {
-          document.getElementById('sijil-takaful-nama').placeholder = "Example: Abu Bakar";
-          document.getElementById('sijil-takaful-no').placeholder = "Example: 12345678";
-          document.getElementById('claim-nama').placeholder = "Your full name";
-          document.getElementById('claim-ic').placeholder = "Example: 900101-14-5555";
-          document.getElementById('claim-telefon').placeholder = "01x-xxx xxxx";
-          document.getElementById('claim-sijil-takaful').placeholder = "Enter certificate number (if known)";
-          document.getElementById('claim-jenis-lain').placeholder = "State briefly";
-          document.getElementById('claim-kronologi').placeholder = "Please briefly tell the chronology of the incident...";
-        } else {
-          document.getElementById('sijil-takaful-nama').placeholder = "Contoh: Abu Bakar";
-          document.getElementById('sijil-takaful-no').placeholder = "Contoh: 12345678";
-          document.getElementById('claim-nama').placeholder = "Nama penuh anda";
-          document.getElementById('claim-ic').placeholder = "Contoh: 900101-14-5555";
-          document.getElementById('claim-telefon').placeholder = "01x-xxx xxxx";
-          document.getElementById('claim-sijil-takaful').placeholder = "Masukkan nombor sijil takaful (jika tahu)";
-          document.getElementById('claim-jenis-lain').placeholder = "Nyatakan secara ringkas";
-          document.getElementById('claim-kronologi').placeholder = "Sila ceritakan kronologi kejadian secara ringkas...";
-        }
-      }
-
-      function toggleClaimForm() {
-        const claimFormSection = document.getElementById('claim-form-section');
-        claimFormSection.classList.remove('hidden');
-        setTimeout(() => { claimFormSection.scrollIntoView({ behavior: 'smooth' }); }, 50);
-      }
-
-      function checkJenisClaim() {
-        const claimJenis = document.getElementById('claim-jenis').value;
-        const claimLainContainer = document.getElementById('claim-lain-container');
-        const claimLainInput = document.getElementById('claim-jenis-lain');
-        if (claimJenis === 'Lain-lain' || claimJenis === 'Others') {
-          claimLainContainer.classList.remove('hidden'); claimLainInput.required = true;
-        } else {
-          claimLainContainer.classList.add('hidden'); claimLainInput.required = false;
-        }
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('lang') === 'en' || window.location.hash === '#en') {
-          toggleLanguage();
+        function getVal(id) {
+            const val = parseFloat(document.getElementById(id).value);
+            return isNaN(val) ? 0 : val;
         }
 
-        const icInput = document.getElementById('claim-ic');
-        if (icInput) {
-          icInput.addEventListener('input', function(e) {
-            let val = e.target.value.replace(/\D/g, '').substring(0, 12);
-            let formatted = val;
-            if (val.length > 6) formatted = val.substring(0, 6) + '-' + val.substring(6, 8);
-            if (val.length > 8) formatted = val.substring(0, 6) + '-' + val.substring(6, 8) + '-' + val.substring(8, 12);
-            e.target.value = formatted;
-          });
+        function setTxt(id, value) {
+            document.getElementById(id).innerText = formatter.format(value);
         }
 
-        const phoneInputs = [document.getElementById('telefon'), document.getElementById('claim-telefon')];
-        phoneInputs.forEach(phoneInput => {
-          if (phoneInput) {
-            phoneInput.addEventListener('input', function(e) {
-              let val = e.target.value.replace(/\D/g, '');
-              if (val.length < 2) val = '01';
-              else if (!val.startsWith('01')) val = '01' + val.substring(2);
-              e.target.value = val;
-            });
-          }
-        });
-
-        const btnSijilTakaful = document.getElementById('form-sijil-takaful');
-        const inputNama = document.getElementById('sijil-takaful-nama');
-        const inputNo = document.getElementById('sijil-takaful-no');
-        const inputTarikh = document.getElementById('sijil-takaful-tarikh');
-        const policyDate = document.getElementById('policy-date');
-        const eventDate = document.getElementById('event-date');
-        const calcResult = document.getElementById('calc-result-container');
-        
-        if(localStorage.getItem('f_sijil-takaful_nama')) inputNama.value = localStorage.getItem('f_sijil-takaful_nama');
-        if(localStorage.getItem('f_sijil-takaful_no')) inputNo.value = localStorage.getItem('f_sijil-takaful_no');
-        if(localStorage.getItem('f_sijil-takaful_tarikh')) {
-            const savedDate = localStorage.getItem('f_sijil-takaful_tarikh');
-            inputTarikh.value = savedDate;
-            if(policyDate) policyDate.value = savedDate;
-        }
-        
-        if(inputTarikh && policyDate) {
-          inputTarikh.addEventListener('input', () => {
-            policyDate.value = inputTarikh.value;
-            updateCalculator();
-          });
-          inputTarikh.addEventListener('change', () => {
-            policyDate.value = inputTarikh.value;
-            updateCalculator();
-          });
-        }
-
-        if (btnSijilTakaful) {
-          btnSijilTakaful.addEventListener('submit', (e) => {
-            e.preventDefault();
-            localStorage.setItem('f_sijil-takaful_nama', inputNama.value);
-            localStorage.setItem('f_sijil-takaful_no', inputNo.value);
-            localStorage.setItem('f_sijil-takaful_tarikh', inputTarikh.value);
-            if(policyDate) policyDate.value = inputTarikh.value;
-            const alertMsg = (currentLang === 'ms') ? 'Maklumat sijil takaful berjaya disimpan di peranti ini.' : 'Takaful certificate information successfully saved on this device.';
-            alert(alertMsg);
-          });
-        }
-
-        const updateCalculator = () => {
-          if (!policyDate || !eventDate || !calcResult || !policyDate.value || !eventDate.value) return;
-
-          const pDate = new Date(policyDate.value);
-          const eDate = new Date(eventDate.value);
-          const diffDays = Math.ceil((eDate - pDate) / (1000 * 60 * 60 * 24));
-          let resultHtml = '';
-
-          if (diffDays < 0) {
-            resultHtml = (currentLang === 'ms') 
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-600 mb-4 shadow-sm border border-red-200"><i class="fas fa-times text-2xl"></i></div><h3 class="text-xl font-bold text-gray-800">Tarikh Tidak Sah</h3><p class="text-sm font-medium text-gray-500 mt-2">Tarikh rawatan/kejadian tidak boleh sebelum tarikh sijil takaful lulus. Sila semak semula.</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-100 text-red-600 mb-4 shadow-sm border border-red-200"><i class="fas fa-times text-2xl"></i></div><h3 class="text-xl font-bold text-gray-800">Invalid Date</h3><p class="text-sm font-medium text-gray-500 mt-2">The treatment/incident date cannot be before the takaful certificate approval date. Please check again.</p></div>`;
-          } else if (diffDays < 1) {
-            resultHtml = (currentLang === 'ms')
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-shield-alt text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Fasa 1 (Hari 1)</span><h3 class="text-xl font-bold text-gray-800">Perlindungan Kemalangan</h3><p class="text-sm font-medium text-gray-500 mt-2">Sijil takaful anda baru berkuat kuasa. Perlindungan kemalangan terus aktif serta-merta.</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-shield-alt text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Phase 1 (Day 1)</span><h3 class="text-xl font-bold text-gray-800">Accident Protection</h3><p class="text-sm font-medium text-gray-500 mt-2">Your takaful certificate has just taken effect. Accident protection is active immediately.</p></div>`;
-          } else if (diffDays >= 1 && diffDays < 30) {
-            resultHtml = (currentLang === 'ms')
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-shield-alt text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Fasa 1 (Hari ${diffDays})</span><h3 class="text-xl font-bold text-gray-800">Perlindungan Kemalangan</h3><p class="text-sm font-medium text-gray-500 mt-2">Sijil takaful anda berusia <strong class="text-gray-900">${diffDays} hari</strong>. Perlindungan kemalangan aktif. Rawatan sakit biasa bermula selepas Hari ke-30.</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-shield-alt text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Phase 1 (${diffDays} Days)</span><h3 class="text-xl font-bold text-gray-800">Accident Protection</h3><p class="text-sm font-medium text-gray-500 mt-2">Your takaful certificate is <strong class="text-gray-900">${diffDays} days</strong> old. Accident protection active. Common illness treatment begins after Day 30.</p></div>`;
-          } else if (diffDays >= 30 && diffDays < 60) {
-            resultHtml = (currentLang === 'ms')
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-heartbeat text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Fasa 2 (${diffDays} Hari)</span><h3 class="text-xl font-bold text-gray-800">Medikal: Sakit Biasa</h3><p class="text-sm font-medium text-gray-500 mt-2">Sijil takaful anda berusia <strong class="text-gray-900">${diffDays} hari</strong>. Kad perubatan aktif untuk rawatan wad penyakit am (denggi, demam, dsb.).</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-heartbeat text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Phase 2 (${diffDays} Days)</span><h3 class="text-xl font-bold text-gray-800">Medical: Common Illness</h3><p class="text-sm font-medium text-gray-500 mt-2">Your takaful certificate is <strong class="text-gray-900">${diffDays} days</strong> old. Medical card active for common illness inpatient treatment (dengue, fever, etc.).</p></div>`;
-          } else if (diffDays >= 60 && diffDays < 120) {
-            resultHtml = (currentLang === 'ms')
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-shield-heart text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Fasa 3 (${diffDays} Hari)</span><h3 class="text-xl font-bold text-gray-800">Pampasan Sakit Kritikal</h3><p class="text-sm font-medium text-gray-500 mt-2">Sijil takaful anda berusia <strong class="text-gray-900">${diffDays} hari</strong>. Pampasan dan waiver sakit kritikal kini berkuat kuasa.</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-shield-heart text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Phase 3 (${diffDays} Days)</span><h3 class="text-xl font-bold text-gray-800">Critical Illness Compensation</h3><p class="text-sm font-medium text-gray-500 mt-2">Your takaful certificate is <strong class="text-gray-900">${diffDays} days</strong> old. Critical illness compensation and waiver are now in effect.</p></div>`;
-          } else if (diffDays >= 120 && diffDays < 730) {
-            resultHtml = (currentLang === 'ms')
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-stethoscope text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Fasa 4 (${diffDays} Hari)</span><h3 class="text-xl font-bold text-gray-800">Medikal: Sakit Spesifik</h3><p class="text-sm font-medium text-gray-500 mt-2">Sijil takaful anda berusia <strong class="text-gray-900">${diffDays} hari</strong>. Perlindungan menyeluruh untuk penyakit spesifik (batu karang, diabetes, hipertensi, dsb.) telah aktif.</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-stethoscope text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Phase 4 (${diffDays} Days)</span><h3 class="text-xl font-bold text-gray-800">Medical: Specific Illness</h3><p class="text-sm font-medium text-gray-500 mt-2">Your takaful certificate is <strong class="text-gray-900">${diffDays} days</strong> old. Comprehensive protection for specific illnesses (gallstones, diabetes, hypertension, etc.) is active.</p></div>`;
-          } else {
-            resultHtml = (currentLang === 'ms')
-              ? `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-check-circle text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Fasa 5 (2 Tahun+)</span><h3 class="text-xl font-bold text-gray-800">Lepas Tempoh Siasatan</h3><p class="text-sm font-medium text-gray-500 mt-2">Sijil takaful anda telah melepasi tempoh 2 tahun. Perlindungan penuh berjalan lancar dan stabil.</p></div>`
-              : `<div class="flex flex-col items-center justify-center text-center max-w-sm fade-in"><div class="flex h-16 w-16 items-center justify-center rounded-full bg-teal/20 text-teal mb-4 shadow-sm border border-teal/30"><i class="fas fa-check-circle text-2xl"></i></div><span class="inline-flex items-center gap-1 rounded-full bg-teal-soft px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-teal mb-2">Phase 5 (2 Years+)</span><h3 class="text-xl font-bold text-gray-800">Past Investigation Period</h3><p class="text-sm font-medium text-gray-500 mt-2">Your takaful certificate has passed the 2-year mark. Full protection runs smoothly and stably.</p></div>`;
-          }
-          calcResult.innerHTML = resultHtml;
-        };
-
-        if (policyDate) policyDate.addEventListener('change', updateCalculator);
-        if (eventDate) eventDate.addEventListener('change', updateCalculator);
-
-        const formHantarClaim = document.getElementById('form-hantar-claim');
-        
-        if (formHantarClaim) {
-          formHantarClaim.addEventListener('submit', function(e) {
-            e.preventDefault(); 
+        function calculateAll() {
+            const mIncome = getVal('monthly-income');
+            const mExpense = getVal('monthly-expense');
             
-            const nama = document.getElementById('claim-nama').value;
-            const ic = document.getElementById('claim-ic').value;
-            const telefon = document.getElementById('claim-telefon').value;
-            const sijil = document.getElementById('claim-sijil-takaful').value;
-            const jenis = document.getElementById('claim-jenis').value;
-            const jenisLain = document.getElementById('claim-jenis-lain').value;
-            const kronologi = document.getElementById('claim-kronologi').value;
+            const aIncome = mIncome * 12;
+            const mSurplus = mIncome - mExpense;
 
-            let finalJenis = jenis;
-            if (jenis === 'Lain-lain' || jenis === 'Others') {
-              finalJenis = `Lain-lain (${jenisLain})`;
-            }
+            setTxt('res-annual-income', aIncome);
+            setTxt('res-monthly-surplus', mSurplus);
+            
+            const surplusEl = document.getElementById('res-monthly-surplus');
+            surplusEl.className = mSurplus >= 0 ? 'result-value text-green' : 'result-value text-red';
 
-            const message = `*Borang Tuntutan (Claim Form)*\n\n` +
-                            `*Nama:* ${nama}\n` +
-                            `*IC:* ${ic}\n` +
-                            `*No Telefon:* ${telefon}\n` +
-                            `*No Sijil:* ${sijil}\n` +
-                            `*Jenis Tuntutan:* ${finalJenis}\n` +
-                            `*Kronologi:* ${kronologi}`;
+            const assets = getVal('asset-cash') + getVal('asset-property');
+            const liabilities = getVal('liability-house') + getVal('liability-personal');
+            const netWorth = assets - liabilities;
 
-            const encodedMessage = encodeURIComponent(message);
-            const waNumber = '60176213432';
-            window.open(`https://wa.me/${waNumber}?text=${encodedMessage}`, '_blank');
-          });
+            setTxt('res-total-assets', assets);
+            setTxt('res-total-liabilities', liabilities);
+            setTxt('res-net-worth', netWorth);
+
+            const incomeProtection = aIncome * 10;
+            const criticalIllness = aIncome * 5;
+            const debtSettlement = liabilities;
+            
+            const totalTarget = incomeProtection + debtSettlement;
+            
+            const budget = mIncome * 0.10;
+
+            setTxt('target-income-protection', incomeProtection);
+            setTxt('target-critical-illness', criticalIllness);
+            setTxt('target-debt-settlement', debtSettlement);
+            setTxt('target-total', totalTarget);
+            
+            document.getElementById('res-budget').innerText = `Budget (10%): ${formatter.format(budget)} / bln`;
         }
-      });
+
+        window.onload = calculateAll;
     </script>
-  </body>
+</body>
 </html>
