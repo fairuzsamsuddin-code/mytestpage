@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>FL360 Health Check | Your Financial Pulse</title>
+    <title>FS Consultancy Health Check | Your Financial Pulse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -164,7 +164,7 @@
             box-sizing: border-box;
         }
         .pdf-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 4px solid #8C1D40; padding-bottom: 15px; margin-bottom: 20px; }
-        .pdf-brand { font-size: 32px; font-weight: 800; color: #8C1D40; line-height: 1; }
+        .pdf-brand { font-size: 32px; font-weight: 800; color: #8C1D40; line-height: 1; display: flex; align-items: center; gap: 8px;}
         .pdf-report-type { font-size: 14px; font-weight: 600; color: #4B5563; text-transform: uppercase; letter-spacing: 1px; }
         .pdf-meta { text-align: right; font-size: 12px; color: #6B7280; }
         .pdf-confidential { color: #DC2626; font-weight: 700; border: 1px solid #DC2626; padding: 2px 6px; border-radius: 4px; display: inline-block; margin-bottom: 5px;}
@@ -204,40 +204,27 @@
         
         /* --- RESPONSIVE & MOBILE OPTIMIZATIONS --- */
         @media (max-width: 768px) {
-            /* Prevent iOS auto-zoom by ensuring input font size is at least 16px */
             input[type="text"], input[type="number"], select, .currency-input, .tvm-input, .cash-flow-input, .net-worth-input {
                 font-size: 16px !important;
             }
-            
-            /* Enhance touch targets for better interaction on mobile */
             .cash-flow-input, .tvm-input, .net-worth-input {
                 padding-top: 0.65rem !important;
                 padding-bottom: 0.65rem !important;
             }
-            
-            /* Optimize container padding for smaller screens */
             .section-container {
                 padding: 1.25rem !important;
                 margin-bottom: 1.5rem !important;
             }
-            
-            /* Prevent inputs from squishing too much in dense layouts (Needs Analysis) */
             .shrink-0 {
                 min-width: 140px;
             }
-            
-            /* Make ratio cards slightly tighter on mobile */
             .ratio-card {
                 padding: 1.25rem;
             }
-            
-            /* Adjust main heading for mobile */
             h1 {
                 font-size: 1.75rem !important;
                 line-height: 2rem !important;
             }
-            
-            /* Ensure tables scroll smoothly horizontally and don't wrap headers awkwardly */
             .overflow-x-auto {
                 -webkit-overflow-scrolling: touch;
                 padding-bottom: 0.5rem;
@@ -246,8 +233,6 @@
                 white-space: nowrap;
             }
         }
-        
-        /* Fix smooth scrolling momentum on iOS */
         html {
             -webkit-overflow-scrolling: touch;
         }
@@ -259,8 +244,9 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-                   <span class="text-xl font-black tracking-tight text-gray-900 hidden sm:inline-block">FL360 Health Check</span>
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                   <img src="FS-logo.png" alt="FS Consultancy Logo" class="h-8 w-auto object-contain">
+                   <span class="text-xl font-black tracking-tight text-gray-900 hidden sm:inline-block">FS Consultancy Health Check</span>
                 </div>
                 
                 <!-- New Tabbed Navigation -->
@@ -1162,7 +1148,7 @@
     </main>
 
     <footer class="text-center py-6 border-t border-gray-200 mt-8">
-        <p class="text-sm text-gray-500">FL360 Financial Health Check System | Standard Financial Planning Framework</p>
+        <p class="text-sm text-gray-500">FS Consultancy Health Check System | Standard Financial Planning Framework</p>
     </footer>
 
     <div id="pdf-container"></div>
@@ -1215,8 +1201,8 @@
                     if (navigator.share) {
                         try {
                             await navigator.share({
-                                title: 'FL360 Financial Health Check',
-                                text: 'Check out this comprehensive financial health report generated on FL360.',
+                                title: 'FS Consultancy Health Check',
+                                text: 'Check out this comprehensive financial health report generated via FS Consultancy.',
                                 url: window.location.href,
                             });
                         } catch (err) {
@@ -1394,7 +1380,7 @@
                     cashFlowCard.style.background = 'linear-gradient(135deg, #A22C5A, #8C1D40)';
                 }
 
-                // 3. Ratio Diagnostics (Hidden for brevity but calculated)
+                // 3. Ratio Diagnostics
                 let recHtml = '';
                 
                 function getDiagInfo(value, min, max, thresholds, isHigherBetter) {
@@ -1738,10 +1724,12 @@
                         <div class="pdf-page" style="padding: 0; height: 1131px; position: relative; display: flex; flex-direction: column; background: #ffffff;">
                             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 24px; background: #8C1D40;"></div>
                             <div style="flex: 1; display: flex; flex-direction: column; padding: 80px;">
-                                <div style="margin-top: 80px;">
-                                    <div style="font-size: 64px; font-weight: 900; color: #8C1D40; letter-spacing: -2px; line-height: 1;">FL360</div>
-                                    <div style="font-size: 14px; font-weight: 700; color: #4B5563; text-transform: uppercase; letter-spacing: 6px; margin-top: 12px;">Financial Advisory</div>
+                                <div style="margin-top: 80px; display: flex; align-items: center; gap: 16px;">
+                                    <img src="FS-logo.png" style="height: 72px; width: auto; object-fit: contain;">
+                                    <div style="font-size: 56px; font-weight: 900; color: #8C1D40; letter-spacing: -1.5px; line-height: 1;">FS Consultancy</div>
                                 </div>
+                                <div style="font-size: 14px; font-weight: 700; color: #4B5563; text-transform: uppercase; letter-spacing: 6px; margin-top: 16px;">Financial Advisory</div>
+                                
                                 <div style="margin-top: 160px; border-left: 8px solid #8C1D40; padding-left: 30px;">
                                     <h1 style="font-size: 48px; font-weight: 900; color: #111827; margin: 0 0 15px 0; line-height: 1.1; letter-spacing: -1px;">Comprehensive<br>Financial Health<br>Report</h1>
                                     <p style="font-size: 18px; color: #6B7280; font-weight: 500; margin: 0; line-height: 1.5; max-width: 500px;">A detailed evaluation of your current financial position, cash flow dynamics, and risk protection requirements.</p>
@@ -1765,7 +1753,13 @@
                         <!-- PAGE 2: Executive Summary & Gauges -->
                         <div class="pdf-page" style="margin-top: 20px;">
                             <div class="pdf-header">
-                                <div><div class="pdf-brand">FL360</div><div class="pdf-report-type">Executive Summary</div></div>
+                                <div>
+                                    <div class="pdf-brand" style="display: flex; align-items: center; gap: 10px;">
+                                        <img src="FS-logo.png" style="height: 24px; width: auto; object-fit: contain;">
+                                        <span>FS Consultancy</span>
+                                    </div>
+                                    <div class="pdf-report-type" style="margin-top: 4px;">Executive Summary</div>
+                                </div>
                                 <div class="pdf-meta"><div class="pdf-confidential">STRICTLY CONFIDENTIAL</div><div>Date Generated: <strong>${dateStr}</strong></div><div style="font-size: 10px; color: #9CA3AF; margin-top: 5px;">Page 2 of 7</div></div>
                             </div>
                             <div class="pdf-subject-info">
@@ -1795,7 +1789,13 @@
                         <!-- PAGE 3: Cash Flow Breakdown -->
                         <div class="pdf-page" style="margin-top: 20px;">
                             <div class="pdf-header" style="border-bottom: 2px solid #E5E7EB; margin-bottom: 30px; padding-bottom: 10px;">
-                                <div><div class="pdf-brand" style="font-size: 20px;">FL360</div></div><div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 3 of 7</div></div>
+                                <div>
+                                    <div class="pdf-brand" style="font-size: 20px; display: flex; align-items: center; gap: 8px;">
+                                        <img src="FS-logo.png" style="height: 20px; width: auto; object-fit: contain;">
+                                        <span>FS Consultancy</span>
+                                    </div>
+                                </div>
+                                <div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 3 of 7</div></div>
                             </div>
                             <div class="pdf-section">
                                 <div class="pdf-section-title" style="font-size: 16px; margin-bottom: 20px;">Monthly Cash Flow Breakdown</div>
@@ -1846,7 +1846,13 @@
                         <!-- PAGE 4: Net Worth Breakdown -->
                         <div class="pdf-page" style="margin-top: 20px;">
                             <div class="pdf-header" style="border-bottom: 2px solid #E5E7EB; margin-bottom: 30px; padding-bottom: 10px;">
-                                <div><div class="pdf-brand" style="font-size: 20px;">FL360</div></div><div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 4 of 7</div></div>
+                                <div>
+                                    <div class="pdf-brand" style="font-size: 20px; display: flex; align-items: center; gap: 8px;">
+                                        <img src="FS-logo.png" style="height: 20px; width: auto; object-fit: contain;">
+                                        <span>FS Consultancy</span>
+                                    </div>
+                                </div>
+                                <div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 4 of 7</div></div>
                             </div>
                             <div class="pdf-section">
                                 <div class="pdf-section-title" style="font-size: 16px; margin-bottom: 20px;">Statement of Financial Position</div>
@@ -1881,7 +1887,13 @@
                         <!-- PAGE 5: NEEDS ANALYSIS TVM Summary -->
                         <div class="pdf-page" style="margin-top: 20px;">
                             <div class="pdf-header" style="border-bottom: 2px solid #E5E7EB; margin-bottom: 30px; padding-bottom: 10px;">
-                                <div><div class="pdf-brand" style="font-size: 20px;">FL360</div></div><div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 5 of 7</div></div>
+                                <div>
+                                    <div class="pdf-brand" style="font-size: 20px; display: flex; align-items: center; gap: 8px;">
+                                        <img src="FS-logo.png" style="height: 20px; width: auto; object-fit: contain;">
+                                        <span>FS Consultancy</span>
+                                    </div>
+                                </div>
+                                <div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 5 of 7</div></div>
                             </div>
                             <div class="pdf-section">
                                 <div class="pdf-section-title" style="font-size: 16px; margin-bottom: 15px;">Detailed Needs Analysis Comparison</div>
@@ -1937,7 +1949,13 @@
                         <!-- PAGE 6: Income Protection Rule of Thumb -->
                         <div class="pdf-page" style="margin-top: 20px;">
                             <div class="pdf-header" style="border-bottom: 2px solid #E5E7EB; margin-bottom: 30px; padding-bottom: 10px;">
-                                <div><div class="pdf-brand" style="font-size: 20px;">FL360</div></div><div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 6 of 7</div></div>
+                                <div>
+                                    <div class="pdf-brand" style="font-size: 20px; display: flex; align-items: center; gap: 8px;">
+                                        <img src="FS-logo.png" style="height: 20px; width: auto; object-fit: contain;">
+                                        <span>FS Consultancy</span>
+                                    </div>
+                                </div>
+                                <div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 6 of 7</div></div>
                             </div>
                             <div class="pdf-section">
                                 <div class="pdf-section-title" style="font-size: 16px; margin-bottom: 15px;">Income Protection Assessment</div>
@@ -1961,7 +1979,13 @@
                         <!-- PAGE 7: Executive Insights & Recommendations -->
                         <div class="pdf-page" style="margin-top: 20px;">
                             <div class="pdf-header" style="border-bottom: 2px solid #E5E7EB; margin-bottom: 30px; padding-bottom: 10px;">
-                                <div><div class="pdf-brand" style="font-size: 20px;">FL360</div></div><div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 7 of 7</div></div>
+                                <div>
+                                    <div class="pdf-brand" style="font-size: 20px; display: flex; align-items: center; gap: 8px;">
+                                        <img src="FS-logo.png" style="height: 20px; width: auto; object-fit: contain;">
+                                        <span>FS Consultancy</span>
+                                    </div>
+                                </div>
+                                <div class="pdf-meta"><div>Subject: <strong>${clientName}</strong></div><div style="font-size: 10px; color: #9CA3AF;">Page 7 of 7</div></div>
                             </div>
                             
                             <div class="pdf-section">
@@ -2003,7 +2027,7 @@
                         pdf.addImage(imgData, 'PNG', xOffset, 0, renderWidth, imgHeight);
                     }
                     
-                    pdf.save(`FL360_Report_${clientName.replace(/\s+/g, '_')}.pdf`);
+                    pdf.save(`FSConsultancy_Report_${clientName.replace(/\s+/g, '_')}.pdf`);
                     
                 } catch (e) {
                     console.error(e);
