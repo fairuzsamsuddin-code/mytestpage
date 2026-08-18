@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FL360 Futura | Your Financial Story</title>
+    <title>FS Consultancy Futura | Your Financial Story</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -353,7 +353,7 @@
                 <div class="flex-shrink-0 mr-4 flex items-center gap-3">
                    <a href="#" class="flex items-center gap-2 text-xl font-bold tracking-tight" style="color: #8C1D40;">
                        <img src="FS-logo.png" alt="Logo" class="h-8 w-auto object-contain">
-                       <span>FL360 <span class="font-medium text-gray-500">Futura</span></span>
+                       <span>FS Consultancy <span class="font-medium text-gray-500">Futura</span></span>
                    </a>
                 </div>
                 
@@ -2708,7 +2708,7 @@
             if (shareButton) {
                 shareButton.addEventListener('click', async () => {
                     const shareData = {
-                        title: 'FL360 Futura | Your Financial Story',
+                        title: 'FS Consultancy Futura | Your Financial Story',
                         text: 'Explore your financial story and plan for the future with this interactive guide.',
                         url: window.location.href,
                     };
@@ -2857,7 +2857,7 @@
                             <div class="pdf-cover-deco-1"></div>
                             <div class="pdf-cover-deco-2"></div>
                             <img src="FS-logo.png" alt="Logo" class="pdf-cover-logo">
-                            <h1 class="pdf-cover-title">FL360 Futura</h1>
+                            <h1 class="pdf-cover-title">FS Consultancy Futura</h1>
                             <h2 class="pdf-cover-subtitle">Your Personal Financial Story</h2>
                             <div>
                                 <p class="pdf-cover-client-label">Prepared exclusively for</p>
@@ -2874,7 +2874,7 @@
                             <div class="pdf-header">
                                 <div class="logo-container">
                                     <img src="FS-logo.png" alt="Logo" class="logo-img">
-                                    <div class="logo">FL360 Futura</div>
+                                    <div class="logo">FS Consultancy Futura</div>
                                 </div>
                                 <div class="subtitle">Financial Plan Summary for ${data.clientName}</div>
                                 <div class="subtitle" style="font-size: 12px;">Generated on: ${today}</div>
@@ -3092,7 +3092,7 @@
                                 pdf.setFontSize(8);
                                 pdf.setTextColor(100);
                                 pdf.text(`Page ${i - 1} of ${pageCount - 1}`, docWidth / 2, docHeight - 7, { align: 'center' });
-                                pdf.text('FL360 Futura Financial Summary | Powered by Finalogy 360', margin, docHeight - 7);
+                                pdf.text('FS Consultancy Futura Financial Summary | Powered by Finalogy 360', margin, docHeight - 7);
                             }
                         };
                         
@@ -3146,7 +3146,7 @@
                         }
                         
                         addFooterToAllPages();
-                        pdf.save(`FL360-Futura-Summary-${plannerData.clientName.replace(/ /g, '_')}.pdf`);
+                        pdf.save(`FS Consultancy-Futura-Summary-${plannerData.clientName.replace(/ /g, '_')}.pdf`);
                         showToast('Beautiful PDF summary has been downloaded!');
 
                     } catch (error) {
