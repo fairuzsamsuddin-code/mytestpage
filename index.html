@@ -243,15 +243,18 @@
         </div>
 
         <!-- 3D Viewer Area -->
-        <!-- REPLACE THE 'src' ATTRIBUTE WITH YOUR VAN .glb FILE URL -->
+        <!-- ============================================================================================================== -->
+        <!-- TO USE YOUR OWN HI-ACE: Upload a .glb file to your server and paste the link inside the src="" quotes below! -->
+        <!-- ============================================================================================================== -->
         <model-viewer 
             id="van-3d-display"
-            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+            src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/CesiumMilkTruck/glTF-Binary/CesiumMilkTruck.glb" 
             alt="3D Model of Van HiAce" 
             camera-controls 
             auto-rotate 
             shadow-intensity="1"
-            exposure="1">
+            exposure="1"
+            camera-orbit="45deg 75deg 105%">
             
             <!-- Hotspots will be injected here by JS -->
 
@@ -275,17 +278,17 @@
 
     <script>
         // Data for the checklist. 
-        // 'position' represents X, Y, Z coordinates on the 3D model.
-        // You will need to tweak these numbers based on your specific .glb van model.
+        // I have updated these X, Y, Z coordinates to fit the shape of the placeholder truck.
+        // If you upload your own Hi-Ace .glb file, you might need to adjust these numbers slightly so they float on the exact right parts of the van.
         const checklistData = [
-            { id: 1, label: "Cek body keliling sebelum keluar dan balik", position: "0 1.5 0" },
-            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", position: "-1 0.3 1" }, 
-            { id: 3, label: "Cek Air Radiator", position: "0 0.6 2" },
-            { id: 4, label: "Minyak Engine", position: "0.4 0.8 1.5" },
-            { id: 5, label: "Minyak brake", position: "-0.4 0.8 1.5" },
-            { id: 6, label: "Minyak power steering", position: "0.2 0.8 1.6" },
-            { id: 7, label: "Angin tayar spare + toolset", position: "0 0.3 -2" },
-            { id: 8, label: "Car wash (selepas selesai urusan)", position: "0 2.5 0" }
+            { id: 1, label: "Cek body keliling sebelum keluar dan balik", position: "0 1.2 0" }, // Middle of body
+            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", position: "-1 0.4 1.2" }, // Front driver-side tire
+            { id: 3, label: "Cek Air Radiator", position: "0 0.8 2.2" }, // Front bumper/grille area
+            { id: 4, label: "Minyak Engine", position: "0.4 1.2 1.8" }, // Hood area (right)
+            { id: 5, label: "Minyak brake", position: "-0.4 1.2 1.8" }, // Hood area (left)
+            { id: 6, label: "Minyak power steering", position: "0.2 1.2 1.9" }, // Hood area (center)
+            { id: 7, label: "Angin tayar spare + toolset", position: "0 0.5 -2.2" }, // Rear undercarriage
+            { id: 8, label: "Car wash (selepas selesai urusan)", position: "0 2.5 0" } // Roof
         ];
 
         const modelViewer = document.getElementById('van-3d-display');
@@ -366,7 +369,7 @@
             
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
-            // Configuration for PDF. Added preserveDrawingBuffer to help capture WebGL 3D elements.
+            // Configuration for PDF
             const opt = {
                 margin:       0.5,
                 filename:     fileName,
