@@ -32,7 +32,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease; /* Smooth transition when resizing for PDF */
+            transition: all 0.3s ease;
         }
 
         /* Header Styles */
@@ -154,26 +154,31 @@
             border-bottom: none;
         }
 
-        /* Extracting Icons using CSS Sprites from icon.jpeg */
+        /* --- FIXED ICON ALIGNMENT --- */
         .item-icon {
             width: 45px;
             height: 45px;
             background-image: url('icon.jpeg');
-            background-size: auto 800%; 
+            /* Zoomed in slightly more to hide the original image borders */
+            background-size: auto 900%; 
             background-repeat: no-repeat;
             margin-right: 15px;
             border-radius: 50%;
-            border: 1px solid #eee;
+            background-color: white;
+            /* Removed the extra border so it doesn't clash with the icon's own circle */
         }
 
-        .icon-1 { background-position: 2% 0%; }
-        .icon-2 { background-position: 2% 14.28%; }
-        .icon-3 { background-position: 2% 28.57%; }
-        .icon-4 { background-position: 2% 42.85%; }
-        .icon-5 { background-position: 2% 57.14%; }
-        .icon-6 { background-position: 2% 71.42%; }
-        .icon-7 { background-position: 2% 85.71%; }
-        .icon-8 { background-position: 2% 100%; }
+        /* Shifted the X position left (e.g., -12px) to center the icon horizontally. 
+           Adjusted Y percentages slightly to align perfectly with the image rows. */
+        .icon-1 { background-position: -12px 1%; }
+        .icon-2 { background-position: -12px 15%; }
+        .icon-3 { background-position: -12px 29%; }
+        .icon-4 { background-position: -12px 43%; }
+        .icon-5 { background-position: -12px 57%; }
+        .icon-6 { background-position: -12px 71%; }
+        .icon-7 { background-position: -12px 86%; }
+        .icon-8 { background-position: -12px 99%; }
+        /* ---------------------------- */
 
         .item-label {
             flex: 1;
@@ -259,10 +264,7 @@
             background-color: #1a365d;
         }
 
-        /* ========================================================
-           PDF EXPORT MODE STYLES
-           These apply ONLY when exporting to guarantee 1-page fit
-        ======================================================== */
+        /* PDF Export Compression */
         .pdf-mode {
             padding: 15px !important;
         }
@@ -348,7 +350,6 @@
         <!-- Interactive 2D Van Map Area using van.jpeg -->
         <div class="van-display-container" id="van-display">
             <img src="van.jpeg" alt="Van Views">
-            <!-- Indicators injected by JS will absolute position over this image -->
         </div>
 
         <!-- Checklist Area -->
@@ -440,7 +441,6 @@
             const tripType = document.getElementById('trip-type').value;
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
-            // 1. Add the special class to compress the layout for exactly one page
             element.classList.add('pdf-mode');
 
             const opt = {
@@ -451,9 +451,7 @@
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            // 2. Generate PDF and wait for it to finish
             html2pdf().set(opt).from(element).save().then(() => {
-                // 3. Remove the class so the website returns to its normal viewing size
                 element.classList.remove('pdf-mode');
             });
         }
