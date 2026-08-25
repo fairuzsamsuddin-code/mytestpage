@@ -3,9 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist Van Hi Ace - Pengurusan Jenazah</title>
+    <title>Checklist Van Hi Ace 3D - Pengurusan Jenazah</title>
+    
     <!-- Include html2pdf.js for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Include Google's model-viewer for 3D integration -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
     <style>
         :root {
             --primary-color: #0b1a30;
@@ -22,7 +27,7 @@
             color: #333;
         }
 
-        /* Main Container - Styled to look like an A4 document */
+        /* Main Container */
         #document-container {
             max-width: 800px;
             margin: 0 auto;
@@ -81,37 +86,35 @@
             border-radius: 4px;
         }
 
-        /* Interactive Van Display */
-        .van-display {
-            position: relative;
+        /* 3D Viewer Styles */
+        model-viewer {
             width: 100%;
-            height: 300px;
+            height: 400px;
             background-color: #e9ecef;
             border-radius: 8px;
             margin-bottom: 30px;
-            /* REPLACE THE URL BELOW WITH A LINK TO YOUR VAN IMAGE */
-            background-image: url('https://images.unsplash.com/photo-1563810006240-620295ebbb60?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover;
-            background-position: center;
             border: 2px solid var(--primary-color);
+            --poster-color: #e9ecef;
         }
 
-        /* Indicators on the Van */
+        /* 3D Hotspot Indicators */
         .indicator {
-            position: absolute;
+            display: block;
             width: 30px;
             height: 30px;
             background-color: white;
             border: 2px solid #333;
             border-radius: 50%;
+            box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 16px;
-            transform: translate(-50%, -50%);
+            font-size: 14px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            cursor: pointer;
             transition: all 0.3s ease;
+            padding: 0;
         }
 
         .indicator.ok {
@@ -173,7 +176,7 @@
         }
 
         .remark-input {
-            display: none; /* Hidden by default */
+            display: none;
             margin-left: 15px;
             padding: 8px;
             border: 1px solid var(--danger-color);
@@ -183,11 +186,6 @@
         }
 
         /* Controls */
-        .controls {
-            margin-top: 30px;
-            text-align: center;
-        }
-
         .btn {
             background-color: var(--primary-color);
             color: white;
@@ -204,20 +202,16 @@
         .btn:hover {
             background-color: #1a365d;
         }
-
-        /* Hide elements when exporting to PDF */
-        .html2pdf__container {
-            padding: 0 !important;
-        }
     </style>
 </head>
 <body>
 
     <div style="text-align: center; margin-bottom: 20px;" id="no-print-area">
         <button class="btn" onclick="exportPDF()">🖨️ Export to PDF</button>
+        <p style="font-size: 12px; color: #666; margin-top: 5px;">*You can click and drag the 3D model to rotate it.</p>
     </div>
 
-    <!-- This container is what gets exported to PDF -->
+    <!-- Export Container -->
     <div id="document-container">
         
         <div class="header">
@@ -248,10 +242,20 @@
             </div>
         </div>
 
-        <!-- Interactive Van Area -->
-        <div class="van-display" id="van-display">
-            <!-- Indicators will be injected here by JS -->
-        </div>
+        <!-- 3D Viewer Area -->
+        <!-- REPLACE THE 'src' ATTRIBUTE WITH YOUR VAN .glb FILE URL -->
+        <model-viewer 
+            id="van-3d-display"
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" 
+            alt="3D Model of Van HiAce" 
+            camera-controls 
+            auto-rotate 
+            shadow-intensity="1"
+            exposure="1">
+            
+            <!-- Hotspots will be injected here by JS -->
+
+        </model-viewer>
 
         <div style="text-align: center; font-weight: bold; margin-bottom: 10px; color: #555;">
             --- CEK BODY KELILING SEBELUM KELUAR DAN BALIK ---
@@ -271,32 +275,40 @@
 
     <script>
         // Data for the checklist. 
-        // 'top' and 'left' control where the dot appears on the van image.
+        // 'position' represents X, Y, Z coordinates on the 3D model.
+        // You will need to tweak these numbers based on your specific .glb van model.
         const checklistData = [
-            { id: 1, label: "Cek body keliling sebelum keluar dan balik", top: "50%", left: "50%" },
-            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "85%", left: "20%" }, 
-            { id: 3, label: "Cek Air Radiator", top: "60%", left: "10%" },
-            { id: 4, label: "Minyak Engine", top: "50%", left: "15%" },
-            { id: 5, label: "Minyak brake", top: "45%", left: "20%" },
-            { id: 6, label: "Minyak power steering", top: "55%", left: "25%" },
-            { id: 7, label: "Angin tayar spare + toolset", top: "85%", left: "85%" },
-            { id: 8, label: "Car wash (selepas selesai urusan)", top: "15%", left: "50%" }
+            { id: 1, label: "Cek body keliling sebelum keluar dan balik", position: "0 1.5 0" },
+            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", position: "-1 0.3 1" }, 
+            { id: 3, label: "Cek Air Radiator", position: "0 0.6 2" },
+            { id: 4, label: "Minyak Engine", position: "0.4 0.8 1.5" },
+            { id: 5, label: "Minyak brake", position: "-0.4 0.8 1.5" },
+            { id: 6, label: "Minyak power steering", position: "0.2 0.8 1.6" },
+            { id: 7, label: "Angin tayar spare + toolset", position: "0 0.3 -2" },
+            { id: 8, label: "Car wash (selepas selesai urusan)", position: "0 2.5 0" }
         ];
 
-        const vanDisplay = document.getElementById('van-display');
+        const modelViewer = document.getElementById('van-3d-display');
         const checklistContainer = document.getElementById('checklist-container');
 
         // Initialize App
         function initApp() {
             checklistData.forEach(item => {
-                // 1. Create Indicators on the Van
-                const indicator = document.createElement('div');
-                indicator.className = 'indicator';
-                indicator.id = `indicator-${item.id}`;
-                indicator.style.top = item.top;
-                indicator.style.left = item.left;
-                indicator.innerText = item.id; // Default shows the number
-                vanDisplay.appendChild(indicator);
+                // 1. Create 3D Hotspots on the model-viewer
+                const hotspot = document.createElement('button');
+                hotspot.className = 'indicator';
+                hotspot.slot = `hotspot-${item.id}`;
+                hotspot.id = `indicator-${item.id}`;
+                hotspot.dataset.position = item.position;
+                hotspot.dataset.normal = "0 1 0"; // Points straight up
+                hotspot.innerText = item.id;
+                
+                // Clicking a 3D dot focuses the camera on it
+                hotspot.addEventListener('click', () => {
+                    modelViewer.cameraTarget = item.position;
+                });
+
+                modelViewer.appendChild(hotspot);
 
                 // 2. Create Checklist Rows
                 const row = document.createElement('div');
@@ -333,12 +345,16 @@
                 indicator.classList.add('ok');
                 indicator.innerHTML = '✔';
                 remarkInput.style.display = 'none';
-                remarkInput.value = ''; // Clear remark if changed back to OK
+                remarkInput.value = ''; 
             } else if (status === 'not-ok') {
                 indicator.classList.add('not-ok');
                 indicator.innerHTML = '✖';
                 remarkInput.style.display = 'block';
-                remarkInput.focus(); // Prompt driver to type issue
+                remarkInput.focus(); 
+                
+                // Optionally move the 3D camera to the issue when "Not OK" is clicked
+                const targetPosition = checklistData.find(item => item.id === id).position;
+                modelViewer.cameraTarget = targetPosition;
             }
         }
 
@@ -348,14 +364,14 @@
             const driverName = document.getElementById('driver-name').value || 'Unknown';
             const tripType = document.getElementById('trip-type').value;
             
-            // Generate filename based on driver and trip type
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
+            // Configuration for PDF. Added preserveDrawingBuffer to help capture WebGL 3D elements.
             const opt = {
                 margin:       0.5,
                 filename:     fileName,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                html2canvas:  { scale: 2, useCORS: true, logging: true },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
