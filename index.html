@@ -32,6 +32,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease; /* Smooth transition when resizing for PDF */
         }
 
         /* Header Styles */
@@ -153,12 +154,11 @@
             border-bottom: none;
         }
 
-        /* Extracting Icons using CSS Sprites from image_4.png */
+        /* Extracting Icons using CSS Sprites from icon.jpeg */
         .item-icon {
             width: 45px;
             height: 45px;
-            background-image: url('icon.jpg');
-            /* Scale the height to 800% because there are exactly 8 icons stacked vertically */
+            background-image: url('icon.jpeg');
             background-size: auto 800%; 
             background-repeat: no-repeat;
             margin-right: 15px;
@@ -166,7 +166,6 @@
             border: 1px solid #eee;
         }
 
-        /* Mapping the vertical position of each icon in image_4.png */
         .icon-1 { background-position: 2% 0%; }
         .icon-2 { background-position: 2% 14.28%; }
         .icon-3 { background-position: 2% 28.57%; }
@@ -190,7 +189,7 @@
         }
 
         .action-radio {
-            display: none; /* Hide actual radio circles */
+            display: none;
         }
 
         .action-btn {
@@ -211,7 +210,6 @@
         .action-btn.ok-btn { color: var(--success-color); }
         .action-btn.nok-btn { color: var(--danger-color); }
 
-        /* Checked States */
         .action-radio[value="ok"]:checked + .action-btn.ok-btn {
             background-color: var(--success-color);
             color: white;
@@ -244,12 +242,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Controls */
-        .controls {
-            margin-top: 30px;
-            text-align: center;
-        }
-
         .btn-print {
             background-color: var(--primary-color);
             color: white;
@@ -265,6 +257,50 @@
 
         .btn-print:hover {
             background-color: #1a365d;
+        }
+
+        /* ========================================================
+           PDF EXPORT MODE STYLES
+           These apply ONLY when exporting to guarantee 1-page fit
+        ======================================================== */
+        .pdf-mode {
+            padding: 15px !important;
+        }
+        .pdf-mode .header {
+            margin-bottom: 10px !important;
+            padding-bottom: 10px !important;
+        }
+        .pdf-mode .title h1 {
+            font-size: 24px !important;
+        }
+        .pdf-mode .title h2 {
+            font-size: 16px !important;
+        }
+        .pdf-mode .meta-info {
+            padding: 10px !important;
+        }
+        .pdf-mode .van-display-container {
+            margin-bottom: 15px !important;
+            padding: 5px 0 !important;
+        }
+        .pdf-mode .checklist-item {
+            padding: 4px 15px !important;
+        }
+        .pdf-mode .item-icon {
+            width: 35px !important;
+            height: 35px !important;
+            margin-right: 10px !important;
+        }
+        .pdf-mode .action-btn {
+            height: 30px !important;
+            width: 35px !important;
+        }
+        .pdf-mode .general-remark {
+            margin-top: 15px !important;
+            padding: 10px !important;
+        }
+        .pdf-mode .general-remark textarea {
+            min-height: 50px !important;
         }
     </style>
 </head>
@@ -305,13 +341,12 @@
             </div>
         </div>
 
-        <div style="text-align: center; font-weight: bold; margin-bottom: 10px; color: #555;">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 5px; color: #555;">
             --- PANDUAN LOKASI PEMERIKSAAN KENDERAAN ---
         </div>
 
-        <!-- Interactive 2D Van Map Area using image_3.png -->
+        <!-- Interactive 2D Van Map Area using van.jpeg -->
         <div class="van-display-container" id="van-display">
-            <!-- Referencing the exact image name requested -->
             <img src="van.jpeg" alt="Van Views">
             <!-- Indicators injected by JS will absolute position over this image -->
         </div>
@@ -330,17 +365,16 @@
     </div>
 
     <script>
-        // Data for the checklist. 
-        // 'top' and 'left' percentages map to locations on the 4-view image_3.png (Front, Left Side, Rear, Right Side)
+        // Data for the checklist mapping
         const checklistData = [
-            { id: 1, label: "Cek body keliling sebelum keluar Dan balik", top: "50%", left: "85%" }, // Placed on Right Side View
-            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "75%", left: "35%" }, // Placed on Left Side View Tires
-            { id: 3, label: "Cek Air Radiator", top: "65%", left: "9%" }, // Front View Grille
-            { id: 4, label: "Minyak Engine", top: "55%", left: "5%" }, // Front View Hood (Left)
-            { id: 5, label: "Minyak brake", top: "55%", left: "13%" }, // Front View Hood (Right)
-            { id: 6, label: "Minyak power steering", top: "55%", left: "9%" }, // Front View Hood (Center)
-            { id: 7, label: "Angin tayar spare + toolset", top: "85%", left: "61%" }, // Rear View Bottom
-            { id: 8, label: "Car wash (selepas selesai urusan)", top: "35%", left: "35%" } // Placed Over Body
+            { id: 1, label: "Cek body keliling sebelum keluar Dan balik", top: "50%", left: "85%" },
+            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "75%", left: "35%" }, 
+            { id: 3, label: "Cek Air Radiator", top: "65%", left: "9%" },
+            { id: 4, label: "Minyak Engine", top: "55%", left: "5%" }, 
+            { id: 5, label: "Minyak brake", top: "55%", left: "13%" }, 
+            { id: 6, label: "Minyak power steering", top: "55%", left: "9%" }, 
+            { id: 7, label: "Angin tayar spare + toolset", top: "85%", left: "61%" },
+            { id: 8, label: "Car wash (selepas selesai urusan)", top: "35%", left: "35%" } 
         ];
 
         const vanDisplay = document.getElementById('van-display');
@@ -349,7 +383,6 @@
         // Initialize App
         function initApp() {
             checklistData.forEach(item => {
-                // 1. Create Hotspots on the Van Image
                 const indicator = document.createElement('div');
                 indicator.className = 'indicator';
                 indicator.id = `indicator-${item.id}`;
@@ -358,7 +391,6 @@
                 indicator.innerText = item.id;
                 vanDisplay.appendChild(indicator);
 
-                // 2. Create Checklist Rows
                 const row = document.createElement('div');
                 row.className = 'checklist-item';
                 
@@ -366,19 +398,14 @@
                     <div class="item-icon icon-${item.id}"></div>
                     <div class="item-label">${item.label}</div>
                     <div class="item-actions">
-                        
-                        <!-- Checkmark (OK) Button -->
                         <label>
                             <input type="radio" name="item_${item.id}" value="ok" class="action-radio" onchange="handleSelection(${item.id}, 'ok')">
                             <span class="action-btn ok-btn">✔</span>
                         </label>
-                        
-                        <!-- X (Not OK) Button -->
                         <label>
                             <input type="radio" name="item_${item.id}" value="not-ok" class="action-radio" onchange="handleSelection(${item.id}, 'not-ok')">
                             <span class="action-btn nok-btn">✖</span>
                         </label>
-
                         <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
                     </div>
                 `;
@@ -391,32 +418,31 @@
             const indicator = document.getElementById(`indicator-${id}`);
             const remarkInput = document.getElementById(`remark-${id}`);
 
-            // Reset classes
             indicator.classList.remove('ok', 'not-ok');
 
             if (status === 'ok') {
                 indicator.classList.add('ok');
                 indicator.innerHTML = '✔';
                 remarkInput.style.display = 'none';
-                remarkInput.value = ''; // Clear remark
+                remarkInput.value = ''; 
             } else if (status === 'not-ok') {
                 indicator.classList.add('not-ok');
                 indicator.innerHTML = '✖';
                 remarkInput.style.display = 'block';
-                remarkInput.focus(); // Prompt user for input
+                remarkInput.focus(); 
             }
         }
 
-        // PDF Export Function using html2pdf.js
+        // PDF Export Function
         function exportPDF() {
             const element = document.getElementById('document-container');
             const driverName = document.getElementById('driver-name').value || 'Unknown';
             const tripType = document.getElementById('trip-type').value;
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
-            // Note: If PDF export fails to load images, it is likely because 
-            // you are opening the HTML file directly from your computer (file://). 
-            // Running it through a local web server solves browser security restrictions for canvas drawing.
+            // 1. Add the special class to compress the layout for exactly one page
+            element.classList.add('pdf-mode');
+
             const opt = {
                 margin:       0.3,
                 filename:     fileName,
@@ -425,11 +451,13 @@
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            // Generate and Download
-            html2pdf().set(opt).from(element).save();
+            // 2. Generate PDF and wait for it to finish
+            html2pdf().set(opt).from(element).save().then(() => {
+                // 3. Remove the class so the website returns to its normal viewing size
+                element.classList.remove('pdf-mode');
+            });
         }
 
-        // Run on load
         window.onload = initApp;
     </script>
 </body>
