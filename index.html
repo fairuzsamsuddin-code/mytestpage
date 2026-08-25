@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist Van Hi Ace 3D - Pengurusan Jenazah</title>
+    <title>Checklist Van Hi Ace - Pengurusan Jenazah</title>
     
     <!-- Include html2pdf.js for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <!-- Include Google's model-viewer for 3D integration -->
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
     <style>
         :root {
@@ -29,7 +26,7 @@
 
         /* Main Container */
         #document-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             padding: 40px;
@@ -64,7 +61,8 @@
             border: 2px solid #ccc;
             padding: 15px;
             border-radius: 8px;
-            width: 300px;
+            width: 320px;
+            background-color: #fcfcfc;
         }
 
         .input-group {
@@ -74,47 +72,52 @@
         }
 
         .input-group label {
-            width: 100px;
+            width: 110px;
             font-weight: bold;
             font-size: 14px;
         }
 
         .input-group input, .input-group select {
             flex: 1;
-            padding: 5px;
+            padding: 6px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
 
-        /* 3D Viewer Styles */
-        model-viewer {
+        /* 2D Van Display */
+        .van-display-container {
+            position: relative;
             width: 100%;
-            height: 400px;
-            background-color: #e9ecef;
-            border-radius: 8px;
             margin-bottom: 30px;
             border: 2px solid var(--primary-color);
-            --poster-color: #e9ecef;
+            border-radius: 8px;
+            background-color: white;
+            padding: 20px 0;
         }
 
-        /* 3D Hotspot Indicators */
-        .indicator {
+        .van-display-container img {
+            width: 100%;
             display: block;
-            width: 30px;
-            height: 30px;
+            height: auto;
+        }
+
+        /* Indicators on the Van */
+        .indicator {
+            position: absolute;
+            width: 28px;
+            height: 28px;
             background-color: white;
             border: 2px solid #333;
             border-radius: 50%;
-            box-sizing: border-box;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-            cursor: pointer;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
-            padding: 0;
+            z-index: 10;
         }
 
         .indicator.ok {
@@ -133,65 +136,126 @@
         .checklist-container {
             width: 100%;
             border-collapse: collapse;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .checklist-item {
             display: flex;
             align-items: center;
-            padding: 12px 0;
+            padding: 10px 15px;
             border-bottom: 1px solid #ddd;
+            background-color: white;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
         }
 
-        .item-number {
-            background-color: var(--primary-color);
-            color: white;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 4px;
-            font-weight: bold;
+        /* Extracting Icons using CSS Sprites from image_4.png */
+        .item-icon {
+            width: 45px;
+            height: 45px;
+            background-image: url('image_4.png');
+            /* Scale the height to 800% because there are exactly 8 icons stacked vertically */
+            background-size: auto 800%; 
+            background-repeat: no-repeat;
             margin-right: 15px;
+            border-radius: 50%;
+            border: 1px solid #eee;
         }
+
+        /* Mapping the vertical position of each icon in image_4.png */
+        .icon-1 { background-position: 2% 0%; }
+        .icon-2 { background-position: 2% 14.28%; }
+        .icon-3 { background-position: 2% 28.57%; }
+        .icon-4 { background-position: 2% 42.85%; }
+        .icon-5 { background-position: 2% 57.14%; }
+        .icon-6 { background-position: 2% 71.42%; }
+        .icon-7 { background-position: 2% 85.71%; }
+        .icon-8 { background-position: 2% 100%; }
 
         .item-label {
             flex: 1;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
+        /* Action Buttons (✔ / ✖) */
         .item-actions {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
 
-        .radio-label {
-            cursor: pointer;
-            display: flex;
+        .action-radio {
+            display: none; /* Hide actual radio circles */
+        }
+
+        .action-btn {
+            display: inline-flex;
+            justify-content: center;
             align-items: center;
-            gap: 5px;
+            width: 40px;
+            height: 35px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
             font-weight: bold;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .action-btn.ok-btn { color: var(--success-color); }
+        .action-btn.nok-btn { color: var(--danger-color); }
+
+        /* Checked States */
+        .action-radio[value="ok"]:checked + .action-btn.ok-btn {
+            background-color: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .action-radio[value="not-ok"]:checked + .action-btn.nok-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
         }
 
         .remark-input {
             display: none;
-            margin-left: 15px;
+            margin-left: 10px;
             padding: 8px;
             border: 1px solid var(--danger-color);
             border-radius: 4px;
-            width: 250px;
+            width: 200px;
             background-color: #fff8f8;
+            font-family: inherit;
+        }
+
+        /* General Remark Box */
+        .general-remark {
+            margin-top: 30px; 
+            border: 2px solid var(--primary-color); 
+            border-radius: 8px; 
+            padding: 15px;
+            background-color: #f9f9f9;
         }
 
         /* Controls */
-        .btn {
+        .controls {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .btn-print {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 12px 25px;
-            font-size: 16px;
+            padding: 12px 30px;
+            font-size: 18px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
@@ -199,7 +263,7 @@
             transition: background 0.3s;
         }
 
-        .btn:hover {
+        .btn-print:hover {
             background-color: #1a365d;
         }
     </style>
@@ -207,8 +271,7 @@
 <body>
 
     <div style="text-align: center; margin-bottom: 20px;" id="no-print-area">
-        <button class="btn" onclick="exportPDF()">🖨️ Export to PDF</button>
-        <p style="font-size: 12px; color: #666; margin-top: 5px;">*You can click and drag the 3D model to rotate it.</p>
+        <button class="btn-print" onclick="exportPDF()">🖨️ Export Completed Checklist to PDF</button>
     </div>
 
     <!-- Export Container -->
@@ -242,26 +305,15 @@
             </div>
         </div>
 
-        <!-- 3D Viewer Area -->
-        <!-- ============================================================================================================== -->
-        <!-- TO USE YOUR OWN HI-ACE: Upload a .glb file to your server and paste the link inside the src="" quotes below! -->
-        <!-- ============================================================================================================== -->
-        <model-viewer 
-            id="van-3d-display"
-            src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/CesiumMilkTruck/glTF-Binary/CesiumMilkTruck.glb" 
-            alt="3D Model of Van HiAce" 
-            camera-controls 
-            auto-rotate 
-            shadow-intensity="1"
-            exposure="1"
-            camera-orbit="45deg 75deg 105%">
-            
-            <!-- Hotspots will be injected here by JS -->
-
-        </model-viewer>
-
         <div style="text-align: center; font-weight: bold; margin-bottom: 10px; color: #555;">
-            --- CEK BODY KELILING SEBELUM KELUAR DAN BALIK ---
+            --- PANDUAN LOKASI PEMERIKSAAN KENDERAAN ---
+        </div>
+
+        <!-- Interactive 2D Van Map Area using image_3.png -->
+        <div class="van-display-container" id="van-display">
+            <!-- Referencing the exact image name requested -->
+            <img src="image_3.png" alt="Van Views">
+            <!-- Indicators injected by JS will absolute position over this image -->
         </div>
 
         <!-- Checklist Area -->
@@ -269,66 +321,64 @@
             <!-- Checklist items will be injected here by JS -->
         </div>
 
-        <div style="margin-top: 30px; border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px;">
-            <h3 style="margin-top: 0; color: var(--primary-color);">GENERAL REMARK :</h3>
-            <textarea style="width: 100%; min-height: 80px; border: none; resize: none; font-family: inherit;" placeholder="Tulis sebarang nota tambahan di sini..."></textarea>
+        <!-- General Remarks -->
+        <div class="general-remark">
+            <h3 style="margin-top: 0; margin-bottom: 10px; color: var(--primary-color);">GENERAL REMARK :</h3>
+            <textarea style="width: 100%; min-height: 80px; border: 1px solid #ccc; border-radius: 4px; padding: 10px; resize: none; font-family: inherit; box-sizing: border-box;" placeholder="Tulis sebarang nota tambahan atau kerosakan di sini..."></textarea>
         </div>
 
     </div>
 
     <script>
         // Data for the checklist. 
-        // I have updated these X, Y, Z coordinates to fit the shape of the placeholder truck.
-        // If you upload your own Hi-Ace .glb file, you might need to adjust these numbers slightly so they float on the exact right parts of the van.
+        // 'top' and 'left' percentages map to locations on the 4-view image_3.png (Front, Left Side, Rear, Right Side)
         const checklistData = [
-            { id: 1, label: "Cek body keliling sebelum keluar dan balik", position: "0 1.2 0" }, // Middle of body
-            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", position: "-1 0.4 1.2" }, // Front driver-side tire
-            { id: 3, label: "Cek Air Radiator", position: "0 0.8 2.2" }, // Front bumper/grille area
-            { id: 4, label: "Minyak Engine", position: "0.4 1.2 1.8" }, // Hood area (right)
-            { id: 5, label: "Minyak brake", position: "-0.4 1.2 1.8" }, // Hood area (left)
-            { id: 6, label: "Minyak power steering", position: "0.2 1.2 1.9" }, // Hood area (center)
-            { id: 7, label: "Angin tayar spare + toolset", position: "0 0.5 -2.2" }, // Rear undercarriage
-            { id: 8, label: "Car wash (selepas selesai urusan)", position: "0 2.5 0" } // Roof
+            { id: 1, label: "Cek body keliling sebelum keluar Dan balik", top: "50%", left: "85%" }, // Placed on Right Side View
+            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "75%", left: "35%" }, // Placed on Left Side View Tires
+            { id: 3, label: "Cek Air Radiator", top: "65%", left: "9%" }, // Front View Grille
+            { id: 4, label: "Minyak Engine", top: "55%", left: "5%" }, // Front View Hood (Left)
+            { id: 5, label: "Minyak brake", top: "55%", left: "13%" }, // Front View Hood (Right)
+            { id: 6, label: "Minyak power steering", top: "55%", left: "9%" }, // Front View Hood (Center)
+            { id: 7, label: "Angin tayar spare + toolset", top: "85%", left: "61%" }, // Rear View Bottom
+            { id: 8, label: "Car wash (selepas selesai urusan)", top: "35%", left: "35%" } // Placed Over Body
         ];
 
-        const modelViewer = document.getElementById('van-3d-display');
+        const vanDisplay = document.getElementById('van-display');
         const checklistContainer = document.getElementById('checklist-container');
 
         // Initialize App
         function initApp() {
             checklistData.forEach(item => {
-                // 1. Create 3D Hotspots on the model-viewer
-                const hotspot = document.createElement('button');
-                hotspot.className = 'indicator';
-                hotspot.slot = `hotspot-${item.id}`;
-                hotspot.id = `indicator-${item.id}`;
-                hotspot.dataset.position = item.position;
-                hotspot.dataset.normal = "0 1 0"; // Points straight up
-                hotspot.innerText = item.id;
-                
-                // Clicking a 3D dot focuses the camera on it
-                hotspot.addEventListener('click', () => {
-                    modelViewer.cameraTarget = item.position;
-                });
-
-                modelViewer.appendChild(hotspot);
+                // 1. Create Hotspots on the Van Image
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                indicator.id = `indicator-${item.id}`;
+                indicator.style.top = item.top;
+                indicator.style.left = item.left;
+                indicator.innerText = item.id;
+                vanDisplay.appendChild(indicator);
 
                 // 2. Create Checklist Rows
                 const row = document.createElement('div');
                 row.className = 'checklist-item';
                 
                 row.innerHTML = `
-                    <div class="item-number">${item.id}</div>
+                    <div class="item-icon icon-${item.id}"></div>
                     <div class="item-label">${item.label}</div>
                     <div class="item-actions">
-                        <label class="radio-label" style="color: var(--success-color);">
-                            <input type="radio" name="item_${item.id}" value="ok" onchange="handleSelection(${item.id}, 'ok')">
-                            OK
+                        
+                        <!-- Checkmark (OK) Button -->
+                        <label>
+                            <input type="radio" name="item_${item.id}" value="ok" class="action-radio" onchange="handleSelection(${item.id}, 'ok')">
+                            <span class="action-btn ok-btn">✔</span>
                         </label>
-                        <label class="radio-label" style="color: var(--danger-color);">
-                            <input type="radio" name="item_${item.id}" value="not-ok" onchange="handleSelection(${item.id}, 'not-ok')">
-                            Not OK
+                        
+                        <!-- X (Not OK) Button -->
+                        <label>
+                            <input type="radio" name="item_${item.id}" value="not-ok" class="action-radio" onchange="handleSelection(${item.id}, 'not-ok')">
+                            <span class="action-btn nok-btn">✖</span>
                         </label>
+
                         <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
                     </div>
                 `;
@@ -348,16 +398,12 @@
                 indicator.classList.add('ok');
                 indicator.innerHTML = '✔';
                 remarkInput.style.display = 'none';
-                remarkInput.value = ''; 
+                remarkInput.value = ''; // Clear remark
             } else if (status === 'not-ok') {
                 indicator.classList.add('not-ok');
                 indicator.innerHTML = '✖';
                 remarkInput.style.display = 'block';
-                remarkInput.focus(); 
-                
-                // Optionally move the 3D camera to the issue when "Not OK" is clicked
-                const targetPosition = checklistData.find(item => item.id === id).position;
-                modelViewer.cameraTarget = targetPosition;
+                remarkInput.focus(); // Prompt user for input
             }
         }
 
@@ -366,23 +412,24 @@
             const element = document.getElementById('document-container');
             const driverName = document.getElementById('driver-name').value || 'Unknown';
             const tripType = document.getElementById('trip-type').value;
-            
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
-            // Configuration for PDF
+            // Note: If PDF export fails to load images, it is likely because 
+            // you are opening the HTML file directly from your computer (file://). 
+            // Running it through a local web server solves browser security restrictions for canvas drawing.
             const opt = {
-                margin:       0.5,
+                margin:       0.3,
                 filename:     fileName,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, logging: true },
+                html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            // Trigger download
+            // Generate and Download
             html2pdf().set(opt).from(element).save();
         }
 
-        // Run initialization on load
+        // Run on load
         window.onload = initApp;
     </script>
 </body>
