@@ -2,7 +2,7 @@
 <html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checklist Van Hi Ace - Pengurusan Jenazah</title>
     
     <!-- Include html2pdf.js for PDF export -->
@@ -20,19 +20,18 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
             margin: 0;
-            padding: 10px;
+            padding: 20px;
             color: #333;
         }
 
         /* Main Container */
         #document-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
-            padding: 20px;
+            padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
         }
 
         /* Header Styles */
@@ -41,22 +40,20 @@
             justify-content: space-between;
             align-items: flex-start;
             border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 15px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
         }
 
         .title h1 {
             margin: 0;
-            font-size: 26px;
+            font-size: 32px;
             color: var(--primary-color);
             text-transform: uppercase;
         }
         
         .title h2 {
             margin: 0;
-            font-size: 16px;
+            font-size: 20px;
             color: #555;
         }
 
@@ -64,91 +61,59 @@
             border: 2px solid #ccc;
             padding: 15px;
             border-radius: 8px;
-            width: 100%;
-            max-width: 400px;
-            background-color: #fcfcfc;
-            box-sizing: border-box;
+            width: 300px;
         }
 
         .input-group {
             margin-bottom: 10px;
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
         }
 
         .input-group label {
-            width: 110px;
+            width: 100px;
             font-weight: bold;
             font-size: 14px;
-            margin-bottom: 5px;
         }
 
         .input-group input, .input-group select {
             flex: 1;
-            min-width: 150px;
-            padding: 10px;
+            padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
-            font-size: 16px;
         }
 
-        /* Swipe Hint in BM */
-        .swipe-hint {
-            text-align: center;
-            font-size: 14px;
-            color: var(--primary-color);
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: none; 
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
-        }
-
-        /* 2D Van Display - Mobile Scrollable */
-        .van-scroll-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            border: 2px solid var(--primary-color);
-            border-radius: 8px;
-            background-color: white;
-            margin-bottom: 25px;
-        }
-
-        .van-display-container {
+        /* Interactive Van Display specifically tuned for the 4-view image */
+        .van-display {
             position: relative;
-            min-width: 750px;
-            padding: 10px 0;
-        }
-
-        .van-display-container img {
             width: 100%;
-            display: block;
-            height: auto;
-            pointer-events: none;
+            height: 550px; /* Taller height to accommodate 4 views */
+            background-color: #ffffff; /* White to match the image background */
+            border-radius: 8px;
+            margin-bottom: 30px;
+            /* USING THE FILENAME REQUESTED */
+            background-image: url('van_view.jpeg');
+            background-size: contain; /* Ensures the whole 4-way image fits without cropping */
+            background-repeat: no-repeat;
+            background-position: center;
+            border: 2px solid var(--primary-color);
         }
 
-        /* --- SMALLER INDICATORS SO THEY DON'T BLOCK THE VAN --- */
+        /* Indicators on the Van */
         .indicator {
             position: absolute;
-            width: 10px; 
-            height: 10px;
+            width: 28px;
+            height: 28px;
             background-color: white;
-            border: 1.5px solid #333;
+            border: 2px solid #333;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 7px; /* Smaller font to fit nicely */
+            font-size: 14px;
             transform: translate(-50%, -50%);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
             z-index: 10;
         }
@@ -169,215 +134,94 @@
         .checklist-container {
             width: 100%;
             border-collapse: collapse;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
         }
 
         .checklist-item {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
+            padding: 12px 0;
             border-bottom: 1px solid #ddd;
-            background-color: white;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .checklist-item:last-child {
-            border-bottom: none;
         }
 
         .item-number {
-            width: 32px;
-            height: 32px;
             background-color: var(--primary-color);
             color: white;
+            width: 30px;
+            height: 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
+            border-radius: 4px;
             font-weight: bold;
-            font-size: 16px;
-            flex-shrink: 0;
+            margin-right: 15px;
         }
 
         .item-label {
             flex: 1;
-            min-width: 200px;
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        /* Action Buttons (✔ / ✖) */
         .item-actions {
             display: flex;
             gap: 15px;
             align-items: center;
-            flex-wrap: wrap;
         }
 
-        .action-radio {
-            display: none;
-        }
-
-        .action-btn {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 50px;
-            height: 40px;
-            border: 2px solid #ccc;
-            border-radius: 6px;
+        .radio-label {
             cursor: pointer;
-            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
             font-weight: bold;
-            background: white;
-            transition: all 0.2s;
-        }
-
-        .action-btn.ok-btn { color: var(--success-color); }
-        .action-btn.nok-btn { color: var(--danger-color); }
-
-        .action-radio[value="ok"]:checked + .action-btn.ok-btn {
-            background-color: var(--success-color);
-            color: white;
-            border-color: var(--success-color);
-        }
-
-        .action-radio[value="not-ok"]:checked + .action-btn.nok-btn {
-            background-color: var(--danger-color);
-            color: white;
-            border-color: var(--danger-color);
         }
 
         .remark-input {
             display: none;
-            padding: 10px;
+            margin-left: 15px;
+            padding: 8px;
             border: 1px solid var(--danger-color);
             border-radius: 4px;
-            width: 100%;
-            max-width: 250px;
+            width: 250px;
             background-color: #fff8f8;
-            font-family: inherit;
-            font-size: 14px;
         }
 
-        /* General Remark Box */
-        .general-remark {
-            margin-top: 20px; 
-            border: 2px solid var(--primary-color); 
-            border-radius: 8px; 
-            padding: 15px;
-            background-color: #f9f9f9;
+        /* Controls */
+        .controls {
+            margin-top: 30px;
+            text-align: center;
         }
 
-        .btn-print {
+        .btn {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 8px;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             transition: background 0.3s;
-            width: 100%;
-            max-width: 400px;
         }
 
-        .btn-print:hover {
+        .btn:hover {
             background-color: #1a365d;
         }
 
-        @media (max-width: 768px) {
-            .swipe-hint {
-                display: block;
-            }
-            .item-actions {
-                width: 100%;
-                justify-content: flex-start;
-            }
-            .remark-input {
-                max-width: 100%;
-            }
-        }
-
-        /* ========================================================
-           PDF EXPORT MODE STYLES
-        ======================================================== */
-        .pdf-mode {
-            padding: 15px !important;
-            max-width: none !important;
-        }
-        .pdf-mode .header {
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            margin-bottom: 10px !important;
-            padding-bottom: 10px !important;
-        }
-        .pdf-mode .title h1 {
-            font-size: 24px !important;
-        }
-        .pdf-mode .meta-info {
-            width: 320px !important;
-            padding: 10px !important;
-        }
-        .pdf-mode .swipe-hint {
-            display: none !important;
-        }
-        .pdf-mode .van-scroll-wrapper {
-            overflow: visible !important;
-            border: 2px solid var(--primary-color) !important;
-            margin-bottom: 15px !important;
-        }
-        .pdf-mode .van-display-container {
-            min-width: 100% !important;
-            padding: 5px 0 !important;
-        }
-        .pdf-mode .checklist-item {
-            flex-wrap: nowrap !important;
-            padding: 4px 15px !important;
-        }
-        .pdf-mode .item-actions {
-            width: auto !important;
-        }
-        .pdf-mode .action-btn {
-            height: 30px !important;
-            width: 35px !important;
-            font-size: 16px !important;
-        }
-        .pdf-mode .item-number {
-            width: 25px !important;
-            height: 25px !important;
-            font-size: 14px !important;
-        }
-        .pdf-mode .indicator {
-            width: 16px !important;
-            height: 16px !important;
-            font-size: 9px !important;
-            border-width: 1px !important;
-        }
-        .pdf-mode .remark-input {
-            width: 200px !important;
-        }
-        .pdf-mode .general-remark {
-            margin-top: 15px !important;
-            padding: 10px !important;
-        }
-        .pdf-mode .general-remark textarea {
-            min-height: 50px !important;
+        /* Hide elements when exporting to PDF */
+        .html2pdf__container {
+            padding: 0 !important;
         }
     </style>
 </head>
 <body>
 
     <div style="text-align: center; margin-bottom: 20px;" id="no-print-area">
-        <button class="btn-print" onclick="exportPDF()">🖨️ Muat Turun Checklist (PDF)</button>
+        <button class="btn" onclick="exportPDF()">🖨️ Export to PDF</button>
     </div>
 
-    <!-- Export Container -->
+    <!-- This container is what gets exported to PDF -->
     <div id="document-container">
         
         <div class="header">
@@ -389,8 +233,8 @@
                 <div class="input-group">
                     <label>Perjalanan:</label>
                     <select id="trip-type">
-                        <option value="PERGI">PERGI</option>
-                        <option value="BALIK">BALIK</option>
+                        <option value="PERGI">PERGI (Departure)</option>
+                        <option value="BALIK">BALIK (Return)</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -408,15 +252,13 @@
             </div>
         </div>
 
-        <!-- Swipe instruction in English as requested -->
-        <div class="swipe-hint">↔️Swipe skrin ke kiri/kanan untuk melihat van penuh </div>
+        <!-- Interactive Van Area -->
+        <div class="van-display" id="van-display">
+            <!-- Indicators will be injected here by JS -->
+        </div>
 
-        <!-- Interactive 2D Van Map inside a scroll wrapper -->
-        <div class="van-scroll-wrapper">
-            <div class="van-display-container" id="van-display">
-                <img src="van.jpeg" alt="Van Views">
-                <!-- Indicators injected by JS will absolute position over this image -->
-            </div>
+        <div style="text-align: center; font-weight: bold; margin-bottom: 10px; color: #555;">
+            --- CEK BODY KELILING SEBELUM KELUAR DAN BALIK ---
         </div>
 
         <!-- Checklist Area -->
@@ -424,25 +266,39 @@
             <!-- Checklist items will be injected here by JS -->
         </div>
 
-        <!-- General Remarks -->
-        <div class="general-remark">
-            <h3 style="margin-top: 0; margin-bottom: 10px; color: var(--primary-color); font-size: 16px;">CATATAN AM (GENERAL REMARK) :</h3>
-            <textarea style="width: 100%; min-height: 80px; border: 1px solid #ccc; border-radius: 4px; padding: 10px; resize: none; font-family: inherit; box-sizing: border-box;" placeholder="Tulis sebarang nota tambahan atau kerosakan di sini..."></textarea>
+        <div style="margin-top: 30px; border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px;">
+            <h3 style="margin-top: 0; color: var(--primary-color);">GENERAL REMARK :</h3>
+            <textarea style="width: 100%; min-height: 80px; border: none; resize: none; font-family: inherit;" placeholder="Tulis sebarang nota tambahan di sini..."></textarea>
         </div>
 
     </div>
 
     <script>
-        // Data for the checklist mapping
+        // Data for the checklist mapped to the 4 views in van_view.jpeg
         const checklistData = [
-            { id: 1, label: "Cek body keliling sebelum keluar Dan balik", top: "50%", left: "85%" },
-            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "75%", left: "35%" }, 
-            { id: 3, label: "Cek Air Radiator", top: "65%", left: "9%" },
-            { id: 4, label: "Minyak Engine", top: "55%", left: "5%" }, 
-            { id: 5, label: "Minyak brake", top: "55%", left: "13%" }, 
-            { id: 6, label: "Minyak power steering", top: "55%", left: "9%" }, 
-            { id: 7, label: "Angin tayar spare + toolset", top: "85%", left: "61%" },
-            { id: 8, label: "Car wash (selepas selesai urusan)", top: "35%", left: "35%" } 
+            // Bottom-Right image (Left Side View) - Center body
+            { id: 1, label: "Cek body keliling sebelum keluar dan balik", top: "70%", left: "66%" },
+            
+            // Bottom-Right image (Left Side View) - Front Tire
+            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "86%", left: "52%" }, 
+            
+            // Top-Left image (Front View) - Grille area
+            { id: 3, label: "Cek Air Radiator", top: "25%", left: "17%" },
+            
+            // Top-Left image (Front View) - Left under hood
+            { id: 4, label: "Minyak Engine", top: "33%", left: "10%" },
+            
+            // Top-Left image (Front View) - Right under hood
+            { id: 5, label: "Minyak brake", top: "33%", left: "24%" },
+            
+            // Top-Left image (Front View) - Center under hood
+            { id: 6, label: "Minyak power steering", top: "37%", left: "17%" },
+            
+            // Bottom-Left image (Rear View) - Bottom bumper/undercarriage
+            { id: 7, label: "Angin tayar spare + toolset", top: "88%", left: "17%" },
+            
+            // Top-Right image (Right Side View) - Top Roof
+            { id: 8, label: "Car wash (selepas selesai urusan)", top: "8%", left: "66%" }
         ];
 
         const vanDisplay = document.getElementById('van-display');
@@ -451,16 +307,16 @@
         // Initialize App
         function initApp() {
             checklistData.forEach(item => {
-                // Render Indicator Dots
+                // 1. Create Indicators on the Van
                 const indicator = document.createElement('div');
                 indicator.className = 'indicator';
                 indicator.id = `indicator-${item.id}`;
                 indicator.style.top = item.top;
                 indicator.style.left = item.left;
-                indicator.innerText = item.id;
+                indicator.innerText = item.id; // Default shows the number
                 vanDisplay.appendChild(indicator);
 
-                // Render Checklist Row
+                // 2. Create Checklist Rows
                 const row = document.createElement('div');
                 row.className = 'checklist-item';
                 
@@ -468,13 +324,13 @@
                     <div class="item-number">${item.id}</div>
                     <div class="item-label">${item.label}</div>
                     <div class="item-actions">
-                        <label>
-                            <input type="radio" name="item_${item.id}" value="ok" class="action-radio" onchange="handleSelection(${item.id}, 'ok')">
-                            <span class="action-btn ok-btn">✔</span>
+                        <label class="radio-label" style="color: var(--success-color);">
+                            <input type="radio" name="item_${item.id}" value="ok" onchange="handleSelection(${item.id}, 'ok')">
+                            OK
                         </label>
-                        <label>
-                            <input type="radio" name="item_${item.id}" value="not-ok" class="action-radio" onchange="handleSelection(${item.id}, 'not-ok')">
-                            <span class="action-btn nok-btn">✖</span>
+                        <label class="radio-label" style="color: var(--danger-color);">
+                            <input type="radio" name="item_${item.id}" value="not-ok" onchange="handleSelection(${item.id}, 'not-ok')">
+                            Not OK
                         </label>
                         <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
                     </div>
@@ -488,45 +344,44 @@
             const indicator = document.getElementById(`indicator-${id}`);
             const remarkInput = document.getElementById(`remark-${id}`);
 
+            // Reset classes
             indicator.classList.remove('ok', 'not-ok');
 
             if (status === 'ok') {
                 indicator.classList.add('ok');
                 indicator.innerHTML = '✔';
                 remarkInput.style.display = 'none';
-                remarkInput.value = ''; 
+                remarkInput.value = ''; // Clear remark if changed back to OK
             } else if (status === 'not-ok') {
                 indicator.classList.add('not-ok');
                 indicator.innerHTML = '✖';
                 remarkInput.style.display = 'block';
-                remarkInput.focus(); 
+                remarkInput.focus(); // Prompt driver to type issue
             }
         }
 
-        // PDF Export Function
+        // PDF Export Function using html2pdf.js
         function exportPDF() {
             const element = document.getElementById('document-container');
             const driverName = document.getElementById('driver-name').value || 'Unknown';
             const tripType = document.getElementById('trip-type').value;
+            
+            // Generate filename based on driver and trip type
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
-            // Force layout to A4 format
-            element.classList.add('pdf-mode');
-
             const opt = {
-                margin:       0.3,
+                margin:       0.5,
                 filename:     fileName,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true },
                 jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(element).save().then(() => {
-                // Restore mobile layout after PDF generation
-                element.classList.remove('pdf-mode');
-            });
+            // Trigger download
+            html2pdf().set(opt).from(element).save();
         }
 
+        // Run initialization on load
         window.onload = initApp;
     </script>
 </body>
