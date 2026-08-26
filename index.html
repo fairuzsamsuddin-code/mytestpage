@@ -168,11 +168,10 @@
 
         .checklist-item {
             display: flex;
-            align-items: center;
-            padding: 8px 0;
+            align-items: flex-start; /* Keeps the number aligned with the top of the text */
+            padding: 12px 0;
             border-bottom: 1px solid #eee;
-            flex-wrap: wrap;
-            gap: 15px; /* Adds consistent spacing between all items */
+            gap: 15px;
         }
 
         .item-number {
@@ -187,6 +186,29 @@
             font-weight: bold;
             flex-shrink: 0;
             border: 1px solid var(--gold-color);
+            margin-top: 2px; /* Slight visual adjustment to match text baseline */
+        }
+
+        .item-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* Spacing between label and buttons */
+        }
+
+        .item-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--primary-color);
+            line-height: 1.4;
+        }
+
+        .item-bottom-row {
+            display: flex;
+            justify-content: flex-end; /* Aligns the actions to the right */
+            align-items: center;
+            width: 100%;
+            gap: 15px;
         }
 
         .item-actions {
@@ -194,13 +216,6 @@
             gap: 8px;
             align-items: center;
             flex-shrink: 0;
-        }
-
-        .item-label {
-            flex: 1 1 200px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--primary-color);
         }
 
         /* Custom Check/Cross Buttons */
@@ -244,10 +259,10 @@
 
         .remark-input {
             display: none;
+            flex: 1; /* Allows the remark input to stretch and take up available space on the left */
             padding: 8px;
             border: 1px solid var(--danger-color);
             border-radius: 4px;
-            width: 200px;
             background-color: #fff8f8;
             font-size: 13px;
         }
@@ -371,24 +386,28 @@
                 indicator.innerText = item.id; 
                 vanDisplay.appendChild(indicator);
 
-                // 2. Create Checklist Rows with Reordered Layout (Number -> Buttons -> Label -> Remark)
+                // 2. Create Checklist Rows with Reordered Layout
                 const row = document.createElement('div');
                 row.className = 'checklist-item';
                 
                 row.innerHTML = `
                     <div class="item-number">${item.id}</div>
-                    <div class="item-actions">
-                        <label class="radio-btn">
-                            <input type="radio" name="item_${item.id}" value="ok" onchange="handleSelection(${item.id}, 'ok')">
-                            <span style="color: #ccc;">✔</span>
-                        </label>
-                        <label class="radio-btn">
-                            <input type="radio" name="item_${item.id}" value="not-ok" onchange="handleSelection(${item.id}, 'not-ok')">
-                            <span style="color: #ccc;">✖</span>
-                        </label>
+                    <div class="item-content">
+                        <div class="item-label">${item.label}</div>
+                        <div class="item-bottom-row">
+                            <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
+                            <div class="item-actions">
+                                <label class="radio-btn">
+                                    <input type="radio" name="item_${item.id}" value="ok" onchange="handleSelection(${item.id}, 'ok')">
+                                    <span style="color: #ccc;">✔</span>
+                                </label>
+                                <label class="radio-btn">
+                                    <input type="radio" name="item_${item.id}" value="not-ok" onchange="handleSelection(${item.id}, 'not-ok')">
+                                    <span style="color: #ccc;">✖</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="item-label">${item.label}</div>
-                    <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
                 `;
                 checklistContainer.appendChild(row);
             });
@@ -415,7 +434,7 @@
             }
         }
 
-        // PDF Export Function using html2pdf.js - Fixed scroll offset issue
+        // PDF Export Function using html2pdf.js
         function exportPDF() {
             const element = document.getElementById('document-container');
             const driverName = document.getElementById('driver-name').value || 'Unknown';
@@ -435,19 +454,17 @@
                 html2canvas:  { 
                     scale: 2, 
                     useCORS: true,
-                    scrollY: 0, // <--- This forces the screenshot to start at the absolute top of the page
-                    windowY: 0  // <--- Ensures the window offset doesn't ruin the PDF capture
+                    scrollY: 0,
+                    windowY: 0
                 },
-                // This custom format array guarantees it will NOT break into a second page
                 jsPDF:        { unit: 'px', format: [pdfWidth, pdfHeight], orientation: 'portrait' }
             };
 
             html2pdf().set(opt).from(element).save();
         }
 
-        // Run initialization on load
-        window.onload = initApp;
+        // Run initialization
+        initApp();
     </script>
 </body>
 </html>
-
