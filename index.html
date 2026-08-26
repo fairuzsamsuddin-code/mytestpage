@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checklist Van Hi Ace - Pengurusan Jenazah</title>
+    <title>Checklist Van Hi Ace - MGKL Prihatin</title>
     
     <!-- Include html2pdf.js for PDF export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
         :root {
-            --primary-color: #0b1a30;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --bg-color: #f4f7f6;
+            /* Corporate Theme Colors: Black and Gold */
+            --primary-color: #000000; /* Black */
+            --gold-color: #D4AF37; /* Corporate Gold */
+            --success-color: #28a745; /* Kept standard for UI clarity */
+            --danger-color: #dc3545;  /* Kept standard for UI clarity */
+            --bg-color: #f8f9fa;
         }
 
         body {
@@ -32,44 +34,57 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 8px solid var(--gold-color);
         }
 
-        /* Header Styles - Fixed to wrap correctly on smaller screens */
+        /* Header Styles - Flex layout to accommodate the logo */
         .header {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: flex-start;
-            border-bottom: 3px solid var(--primary-color);
+            align-items: center;
+            border-bottom: 3px solid var(--gold-color);
             padding-bottom: 20px;
             margin-bottom: 20px;
             gap: 20px;
         }
 
-        .title {
-            flex: 1 1 300px;
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1 1 350px;
+        }
+
+        /* Logo Styling */
+        .org-logo {
+            max-height: 80px;
+            max-width: 150px;
+            object-fit: contain;
         }
 
         .title h1 {
             margin: 0 0 5px 0;
-            font-size: 28px;
+            font-size: 26px;
             color: var(--primary-color);
             text-transform: uppercase;
             line-height: 1.1;
+            letter-spacing: 0.5px;
         }
         
         .title h2 {
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
             color: #555;
+            font-weight: 600;
         }
 
         .meta-info {
-            flex: 1 1 300px;
-            border: 2px solid #ccc;
+            flex: 1 1 250px;
+            border: 2px solid var(--gold-color);
             padding: 15px;
             border-radius: 8px;
-            background-color: #fafafa;
+            background-color: #fffdf5; /* Very subtle gold tint */
         }
 
         .input-group {
@@ -82,6 +97,7 @@
             width: 100px;
             font-weight: bold;
             font-size: 13px;
+            color: var(--primary-color);
         }
 
         .input-group input, .input-group select {
@@ -92,20 +108,19 @@
             font-size: 14px;
         }
 
-        /* Interactive Van Display - Fixed aspect ratio removes dead space */
+        /* Interactive Van Display - Locked Aspect Ratio */
         .van-display {
             position: relative;
             width: 100%;
-            /* 1.45 aspect ratio closely matches the 4-view image dimensions */
-            aspect-ratio: 1.45; 
+            aspect-ratio: 1.45; /* Matches the 4-view image dimensions perfectly */
             background-color: #ffffff;
             border-radius: 8px;
             margin-bottom: 20px;
             background-image: url('van_view.jpeg');
-            background-size: 100% 100%; /* Forces image to fit container perfectly */
+            background-size: 100% 100%; 
             background-repeat: no-repeat;
             background-position: center;
-            border: 2px solid var(--primary-color);
+            border: 2px solid var(--gold-color);
         }
 
         /* Indicators on the Van */
@@ -114,7 +129,8 @@
             width: 26px;
             height: 26px;
             background-color: white;
-            border: 2px solid #333;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -156,7 +172,7 @@
 
         .item-number {
             background-color: var(--primary-color);
-            color: white;
+            color: var(--gold-color);
             width: 28px;
             height: 28px;
             display: flex;
@@ -165,12 +181,14 @@
             border-radius: 4px;
             font-weight: bold;
             flex-shrink: 0;
+            border: 1px solid var(--gold-color);
         }
 
         .item-label {
             flex: 1 1 200px;
             font-size: 15px;
             font-weight: 500;
+            color: var(--primary-color);
         }
 
         .item-actions {
@@ -187,7 +205,7 @@
         }
 
         .radio-btn input {
-            display: none; /* Hide default radio button */
+            display: none; 
         }
 
         .radio-btn span {
@@ -231,20 +249,22 @@
 
         /* Controls */
         .btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
+            background-color: var(--gold-color);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
             padding: 12px 25px;
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn:hover {
-            background-color: #1a365d;
+            background-color: var(--primary-color);
+            color: var(--gold-color);
+            border-color: var(--gold-color);
         }
 
         /* Hide elements when exporting to PDF */
@@ -263,10 +283,17 @@
     <div id="document-container">
         
         <div class="header">
-            <div class="title">
-                <h1>CHECKLIST VAN HI ACE</h1>
-                <h2>Perkhidmatan Van Jenazah</h2>
+            <div class="brand-section">
+                <!-- Replace 'mgkl_logo.png' with your actual logo file name -->
+                <!-- The 'onerror' part just loads a dummy logo if you haven't added yours yet -->
+                <img src="mgkl_logo.png" alt="MGKL Prihatin Logo" class="org-logo" onerror="this.src='https://placehold.co/150x80/000000/D4AF37?text=MGKL+PRIHATIN'">
+                
+                <div class="title">
+                    <h1>CHECKLIST VAN HI ACE</h1>
+                    <h2>Perkhidmatan Van Jenazah</h2>
+                </div>
             </div>
+            
             <div class="meta-info">
                 <div class="input-group">
                     <label>Perjalanan:</label>
@@ -295,7 +322,7 @@
             <!-- Indicators will be injected here by JS -->
         </div>
 
-        <div style="text-align: center; font-weight: bold; margin-bottom: 15px; color: #555; padding-top: 10px;">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); padding-top: 10px;">
             --- CEK BODY KELILING SEBELUM KELUAR DAN BALIK ---
         </div>
 
@@ -304,35 +331,35 @@
             <!-- Checklist items will be injected here by JS -->
         </div>
 
-        <div style="margin-top: 25px; border: 2px solid var(--primary-color); border-radius: 8px; padding: 15px;">
+        <div style="margin-top: 25px; border: 2px solid var(--gold-color); border-radius: 8px; padding: 15px; background-color: #fffdf5;">
             <h3 style="margin-top: 0; margin-bottom: 10px; color: var(--primary-color); font-size: 16px;">GENERAL REMARK :</h3>
-            <textarea style="width: 100%; min-height: 60px; border: none; resize: none; font-family: inherit; font-size: 14px;" placeholder="Tulis sebarang nota tambahan di sini..."></textarea>
+            <textarea style="width: 100%; min-height: 60px; border: none; background: transparent; resize: none; font-family: inherit; font-size: 14px;" placeholder="Tulis sebarang nota tambahan di sini..."></textarea>
         </div>
 
     </div>
 
     <script>
-        // Recalibrated Data specifically for a stretched 100%x100% container mapping of van_view.jpeg
+        // Data specifically mapped and recalibrated for van_view.jpeg
         const checklistData = [
             // 1. Bottom-Right image (Left Side View) - Center body
             { id: 1, label: "Cek body keliling sebelum keluar dan balik", top: "75%", left: "75%" },
             
-            // 2. Bottom-Right image (Left Side View) - Front Tire
-            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "88%", left: "63%" }, 
+            // 2. Bottom-Right image (Left Side View) - Front Tire (Recalibrated)
+            { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "89%", left: "61%" }, 
             
-            // 3. Top-Left image (Front View) - Grille area
-            { id: 3, label: "Cek Air Radiator", top: "25%", left: "25%" },
+            // 3. Top-Left image (Front View) - Grille Area (Radiator)
+            { id: 3, label: "Cek Air Radiator", top: "37%", left: "25%" },
             
-            // 4. Top-Left image (Front View) - Left under hood
-            { id: 4, label: "Minyak Engine", top: "35%", left: "18%" },
+            // 4. Top-Left image (Front View) - Left Side under hood (Engine Oil)
+            { id: 4, label: "Minyak Engine", top: "28%", left: "15%" },
             
-            // 5. Top-Left image (Front View) - Right under hood
-            { id: 5, label: "Minyak brake", top: "35%", left: "32%" },
+            // 5. Top-Left image (Front View) - Right Side under hood (Brake fluid)
+            { id: 5, label: "Minyak brake", top: "28%", left: "35%" },
             
-            // 6. Top-Left image (Front View) - Center under hood
-            { id: 6, label: "Minyak power steering", top: "38%", left: "25%" },
+            // 6. Top-Left image (Front View) - Center Top under hood (Power steering)
+            { id: 6, label: "Minyak power steering", top: "20%", left: "25%" },
             
-            // 7. Bottom-Left image (Rear View) - Bottom undercarriage
+            // 7. Bottom-Left image (Rear View) - Bottom undercarriage (Spare tire)
             { id: 7, label: "Angin tayar spare + toolset", top: "90%", left: "25%" },
             
             // 8. Top-Right image (Right Side View) - Top Roof
