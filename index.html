@@ -63,7 +63,7 @@
             object-fit: contain;
         }
 
-        /* Added MORE padding so the title has breathing space from the right edge */
+        /* Breathing space for title */
         .title {
             padding-right: 40px;
         }
@@ -89,7 +89,7 @@
             border: 2px solid var(--gold-color);
             padding: 15px;
             border-radius: 8px;
-            background-color: #fffdf5; /* Very subtle gold tint */
+            background-color: #fffdf5;
         }
 
         .input-group {
@@ -131,8 +131,8 @@
         /* Indicators on the Van */
         .indicator {
             position: absolute;
-            width: 15px;
-            height: 15px;
+            width: 26px;
+            height: 26px;
             background-color: white;
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
@@ -141,7 +141,7 @@
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 9px;
+            font-size: 13px;
             transform: translate(-50%, -50%);
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
@@ -172,7 +172,7 @@
             padding: 8px 0;
             border-bottom: 1px solid #eee;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px; /* Adds consistent spacing between all items */
         }
 
         .item-number {
@@ -189,18 +189,18 @@
             border: 1px solid var(--gold-color);
         }
 
+        .item-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
         .item-label {
             flex: 1 1 200px;
             font-size: 15px;
             font-weight: 500;
             color: var(--primary-color);
-        }
-
-        .item-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            flex-wrap: wrap;
         }
 
         /* Custom Check/Cross Buttons */
@@ -280,17 +280,12 @@
 </head>
 <body>
 
-    <div style="text-align: center; margin-bottom: 20px;" id="no-print-area">
-        <button class="btn" onclick="exportPDF()">🖨️ Export to PDF</button>
-    </div>
-
     <!-- Export Container -->
     <div id="document-container">
         
         <div class="header">
             <div class="brand-section">
-                <!-- Replace 'mgkl_logo.png' with your actual logo file name -->
-                <!-- The 'onerror' part just loads a dummy logo if you haven't added yours yet -->
+                <!-- Logo -->
                 <img src="mgklprihatin.jpeg" alt="MGKL Prihatin Logo" class="org-logo" onerror="this.src='https://placehold.co/150x80/000000/D4AF37?text=MGKL+PRIHATIN'">
                 
                 <div class="title">
@@ -343,31 +338,21 @@
 
     </div>
 
+    <!-- Export Button Moved to the Bottom -->
+    <div style="text-align: center; margin-top: 30px; margin-bottom: 40px;" id="no-print-area">
+        <button class="btn" onclick="exportPDF()">🖨️ Export to PDF</button>
+    </div>
+
     <script>
         // Data mapped and recalibrated for van_view.jpeg
         const checklistData = [
-            // 1. Bottom-Right image (Left Side View) - Center body
             { id: 1, label: "Cek body keliling sebelum keluar dan balik", top: "75%", left: "75%" },
-            
-            // 2. Bottom-Right image (Left Side View) - Right in front of the front tire
             { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "89%", left: "57%" }, 
-            
-            // 3. Top-Left image (Front View) - Shifted left to center on front van
             { id: 3, label: "Cek Air Radiator", top: "42%", left: "18%" },
-            
-            // 4. Top-Left image (Front View) - Shifted left
             { id: 4, label: "Minyak Engine", top: "34%", left: "10%" },
-            
-            // 5. Top-Left image (Front View) - Shifted left
             { id: 5, label: "Minyak brake", top: "34%", left: "26%" },
-            
-            // 6. Top-Left image (Front View) - Shifted left
             { id: 6, label: "Minyak power steering", top: "26%", left: "18%" },
-            
-            // 7. Bottom-Left image (Rear View) - Bottom undercarriage (Spare tire)
             { id: 7, label: "Angin tayar spare + toolset", top: "90%", left: "25%" },
-            
-            // 8. Top-Right image (Right Side View) - Top Roof
             { id: 8, label: "Car wash (selepas selesai urusan)", top: "8%", left: "75%" }
         ];
 
@@ -386,13 +371,12 @@
                 indicator.innerText = item.id; 
                 vanDisplay.appendChild(indicator);
 
-                // 2. Create Checklist Rows with Checkmark/X icons
+                // 2. Create Checklist Rows with Reordered Layout (Number -> Buttons -> Label -> Remark)
                 const row = document.createElement('div');
                 row.className = 'checklist-item';
                 
                 row.innerHTML = `
                     <div class="item-number">${item.id}</div>
-                    <div class="item-label">${item.label}</div>
                     <div class="item-actions">
                         <label class="radio-btn">
                             <input type="radio" name="item_${item.id}" value="ok" onchange="handleSelection(${item.id}, 'ok')">
@@ -402,8 +386,9 @@
                             <input type="radio" name="item_${item.id}" value="not-ok" onchange="handleSelection(${item.id}, 'not-ok')">
                             <span style="color: #ccc;">✖</span>
                         </label>
-                        <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
                     </div>
+                    <div class="item-label">${item.label}</div>
+                    <input type="text" class="remark-input" id="remark-${item.id}" placeholder="Nyatakan isu / Remark...">
                 `;
                 checklistContainer.appendChild(row);
             });
@@ -430,7 +415,7 @@
             }
         }
 
-        // PDF Export Function using html2pdf.js - Updated for strict single-page export
+        // PDF Export Function using html2pdf.js - Strict single-page export
         function exportPDF() {
             const element = document.getElementById('document-container');
             const driverName = document.getElementById('driver-name').value || 'Unknown';
