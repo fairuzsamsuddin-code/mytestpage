@@ -1,7 +1,3 @@
-Ah, I know exactly why that is happening!
-Because I moved the "Export to PDF" button to the very bottom of the page, you have to scroll down to click it. The PDF generator library (html2pdf.js) takes a "snapshot" of the page, but it sometimes gets confused by your scroll position. It captures the blank space above your scroll view and pushes the actual content to the bottom of the PDF.
-To fix this, we just need to add a strict rule to the PDF export function (scrollY: 0 and windowY: 0) that tells the generator to "snap back to the very top" before taking the picture, regardless of where you scrolled to click the button.
-Here is the fully fixed code. You can copy and paste this to replace your current file.
 <!DOCTYPE html>
 <html lang="ms">
 <head>
