@@ -443,9 +443,9 @@
             // Generate filename based on driver and trip type
             const fileName = `Checklist_Van_${tripType}_${driverName.replace(/\s+/g, '_')}.pdf`;
 
-            // Calculate actual height of the element to force a single page pdf
-            const pdfWidth = element.offsetWidth;
-            const pdfHeight = element.offsetHeight + 20; // adding 20px padding
+            // Calculate actual height of the element using scrollHeight to prevent cut off
+            const pdfWidth = element.scrollWidth;
+            const pdfHeight = element.scrollHeight + 60; // adding 60px padding for safety margin
 
             const opt = {
                 margin:       0,
@@ -455,7 +455,8 @@
                     scale: 2, 
                     useCORS: true,
                     scrollY: 0,
-                    windowY: 0
+                    windowY: 0,
+                    height: pdfHeight // Forces html2canvas to capture the entire height
                 },
                 jsPDF:        { unit: 'px', format: [pdfWidth, pdfHeight], orientation: 'portrait' }
             };
