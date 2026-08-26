@@ -1,3 +1,7 @@
+Ah, I know exactly why that is happening!
+Because I moved the "Export to PDF" button to the very bottom of the page, you have to scroll down to click it. The PDF generator library (html2pdf.js) takes a "snapshot" of the page, but it sometimes gets confused by your scroll position. It captures the blank space above your scroll view and pushes the actual content to the bottom of the PDF.
+To fix this, we just need to add a strict rule to the PDF export function (scrollY: 0 and windowY: 0) that tells the generator to "snap back to the very top" before taking the picture, regardless of where you scrolled to click the button.
+Here is the fully fixed code. You can copy and paste this to replace your current file.
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -131,8 +135,8 @@
         /* Indicators on the Van */
         .indicator {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 26px;
+            height: 26px;
             background-color: white;
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
@@ -141,7 +145,7 @@
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 7px;
+            font-size: 13px;
             transform: translate(-50%, -50%);
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
             transition: all 0.3s ease;
@@ -289,7 +293,7 @@
                 <img src="mgklprihatin.jpeg" alt="MGKL Prihatin Logo" class="org-logo" onerror="this.src='https://placehold.co/150x80/000000/D4AF37?text=MGKL+PRIHATIN'">
                 
                 <div class="title">
-                    <h2>Checklist</h2>
+                    <h1>CHECKLIST</h1>
                     <h2>Van Jenazah</h2>
                 </div>
             </div>
@@ -298,8 +302,8 @@
                 <div class="input-group">
                     <label>Perjalanan:</label>
                     <select id="trip-type">
-                        <option value="Pergi">Pergi (Departure)</option>
-                        <option value="Balik">Balik (Return)</option>
+                        <option value="PERGI">PERGI (Departure)</option>
+                        <option value="BALIK">BALIK (Return)</option>
                     </select>
                 </div>
                 <div class="input-group">
@@ -307,7 +311,7 @@
                     <input type="text" id="driver-name" placeholder="Isi nama...">
                 </div>
                 <div class="input-group">
-                    <label>Nama Co-Pilot:</label>
+                    <label>Nama Ko Pilot:</label>
                     <input type="text" id="copilot-name" placeholder="Isi nama...">
                 </div>
                 <div class="input-group">
@@ -323,7 +327,7 @@
         </div>
 
         <div style="text-align: center; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); padding-top: 5px;">
-            CHECK KELILING VAN SEBELUM KELUAR DAN BALIK
+            --- CEK BODY KELILING SEBELUM KELUAR DAN BALIK ---
         </div>
 
         <!-- Checklist Area -->
@@ -346,7 +350,7 @@
     <script>
         // Data mapped and recalibrated for van_view.jpeg
         const checklistData = [
-            { id: 1, label: "Cek keliling van sebelum keluar dan balik", top: "75%", left: "75%" },
+            { id: 1, label: "Cek body keliling sebelum keluar dan balik", top: "75%", left: "75%" },
             { id: 2, label: "Cek 4pcs Tayar (angin 220psi)", top: "89%", left: "57%" }, 
             { id: 3, label: "Cek Air Radiator", top: "42%", left: "18%" },
             { id: 4, label: "Minyak Engine", top: "34%", left: "10%" },
@@ -415,7 +419,7 @@
             }
         }
 
-        // PDF Export Function using html2pdf.js - Strict single-page export
+        // PDF Export Function using html2pdf.js - Fixed scroll offset issue
         function exportPDF() {
             const element = document.getElementById('document-container');
             const driverName = document.getElementById('driver-name').value || 'Unknown';
@@ -432,7 +436,12 @@
                 margin:       0,
                 filename:     fileName,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                html2canvas:  { 
+                    scale: 2, 
+                    useCORS: true,
+                    scrollY: 0, // <--- This forces the screenshot to start at the absolute top of the page
+                    windowY: 0  // <--- Ensures the window offset doesn't ruin the PDF capture
+                },
                 // This custom format array guarantees it will NOT break into a second page
                 jsPDF:        { unit: 'px', format: [pdfWidth, pdfHeight], orientation: 'portrait' }
             };
@@ -445,3 +454,4 @@
     </script>
 </body>
 </html>
+
