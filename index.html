@@ -62,14 +62,6 @@
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
         
-        /* CSS Grid System for Form Responsiveness */
-        .grid-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-        @media (min-width: 768px) {
-            .grid-row-2 { grid-template-columns: repeat(2, 1fr); }
-            .grid-row-3 { grid-template-columns: repeat(3, 1fr); }
-            #resultsGrid { grid-template-columns: repeat(3, 1fr); }
-        }
-        
         /* Glassmorphism Components */
         .glass-nav { 
             background: var(--nav-bg); 
@@ -120,17 +112,6 @@
         .btn-pdf:hover { background: #0f172a; box-shadow: 0 6px 25px rgba(30,41,59,0.5); }
         
         /* Animations */
-        @keyframes fadeOutLoader {
-            0% { opacity: 1; visibility: visible; }
-            99% { opacity: 0; visibility: visible; }
-            100% { opacity: 0; visibility: hidden; z-index: -1; }
-        }
-        #opening-sequence {
-            animation: fadeOutLoader 0.6s ease-out forwards;
-            animation-delay: 1.2s; /* Will automatically disappear after 1.2s */
-            pointer-events: none;
-        }
-
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
@@ -146,7 +127,7 @@
         .animate-float { animation: float 6s ease-in-out infinite; }
         
         /* Result Cards */
-        .result-card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.5s; display: flex; flex-direction: column; }
+        .result-card { background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; text-align: center; transition: all 0.5s; }
         .result-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(217,0,13,0.2); }
         .result-icon { width: 3.5rem; height: 3.5rem; margin: 0 auto 1rem auto; border-radius: 50%; background: rgba(217,0,13,0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
         .result-icon-teal { background: rgba(0,129,131,0.1); color: var(--teal); }
@@ -156,7 +137,7 @@
         /* Infotip Container */
         .infotip-box { 
             display: none; position: absolute; bottom: 100%; left: 50%; z-index: 50; margin-bottom: 0.75rem; 
-            width: 320px; transform: translateX(-50%); border-radius: 0.75rem; background: #18181b; 
+            width: 300px; transform: translateX(-50%); border-radius: 0.75rem; background: #18181b; 
             border: 1px solid rgba(255, 255, 255, 0.15); padding: 1rem; text-align: left; font-size: 0.75rem; 
             line-height: 1.5; color: #f4f4f5; box-shadow: 0 10px 25px rgba(0,0,0,0.8); text-transform: none; font-weight: normal; 
         }
@@ -211,8 +192,8 @@
 
 <body>
 
-    <!-- Opening Animation Sequence (Pure CSS) -->
-    <div id="opening-sequence" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: #09090b;">
+    <!-- Opening Animation Sequence -->
+    <div id="opening-sequence" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: #09090b; transition: opacity 1s ease;">
         <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
             <div style="position: absolute; width: 10rem; height: 10rem; background: rgba(217,0,13,0.2); border-radius: 50%; filter: blur(40px);"></div>
             <i class="fas fa-shield-halved" style="font-size: 3rem; color: white; z-index: 10; margin-bottom: 1.5rem; opacity: 0; animation: fadeInUp 0.8s ease-out forwards; text-shadow: 0 0 15px rgba(255,255,255,0.3);"></i>
@@ -243,7 +224,7 @@
     <main style="flex-grow: 1; max-width: 64rem; margin: 0 auto; width: 100%; padding: 3rem 1rem; position: relative; z-index: 10;">
 
         <!-- Calculator Section -->
-        <section id="kalkulator-keperluan" class="glass-card reveal active" style="border-radius: 2.5rem; overflow: visible;">
+        <section id="kalkulator-keperluan" class="glass-card reveal" style="border-radius: 2.5rem; overflow: visible;">
             
             <div style="position: relative; overflow: hidden; border-top-left-radius: 2.5rem; border-top-right-radius: 2.5rem; padding: 2.5rem; text-align: center; border-bottom: 1px solid var(--border-color);">
                 <div style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(0,129,131,0.15) 0%, transparent 70%); opacity: 0.6;"></div>
@@ -263,7 +244,7 @@
                 <form id="needsCalculatorForm" class="glass-input-container" style="display: flex; flex-direction: column; gap: 2rem;">
                     
                     <!-- Basic Details Row -->
-                    <div class="grid-row grid-row-2">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_name">Nama Penuh</span>
@@ -281,7 +262,7 @@
                     <div style="height: 1px; width: 100%; background: var(--border-color); margin: 0.5rem 0;"></div>
 
                     <!-- Row 1: Income / Expense / Debt -->
-                    <div class="grid-row grid-row-3">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_income">Pendapatan Bulanan</span>
@@ -290,7 +271,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-income" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_income"><strong>📝 Isikan:</strong> Gaji bersih bulanan, hasil sewa, & sebarang sumber kewangan yang stabil.<br><br><strong>💡 Sebab:</strong> Berfungsi sebagai nilai asas untuk mengira jumlah penggantian pendapatan keluarga sekiranya musibah menimpa anda.</span>
+                                        <span data-translate="tip_income"><strong>📝 Isikan:</strong> Gaji bersih bulanan, hasil sewa, & pendapatan lain.<br><br><strong>💡 Sebab:</strong> Sebagai asas kiraan jumlah penggantian pendapatan keluarga anda jika berlaku musibah.</span>
                                     </div>
                                 </div>
                             </label>
@@ -307,7 +288,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-expenses" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_expenses"><strong>📝 Isikan:</strong> Jumlah bil tetap, komitmen hutang, & keperluan hidup harian.<br><br><strong>💡 Sebab:</strong> Bagi memastikan cadangan Takaful yang dibina nanti sejajar dengan lebihan aliran tunai (cash flow) agar premiumnya tidak membebankan poket anda.</span>
+                                        <span data-translate="tip_expenses"><strong>📝 Isikan:</strong> Jumlah komitmen & perbelanjaan tetap (ansuran, bil, barang dapur, Takaful).<br><br><strong>💡 Sebab:</strong> Untuk memastikan cadangan pelan perlindungan tidak membebankan aliran tunai (semakan kelayakan asas).</span>
                                     </div>
                                 </div>
                             </label>
@@ -324,7 +305,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-debt" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_debt"><strong>📝 Isikan:</strong> Baki hutang peribadi, kad kredit, dan pinjaman lain.<br><br><strong>⚠️ Peringatan Penting:</strong> Jangan masukkan hutang yang telah dilindungi polisi Takaful/Insurans sepenuhnya (seperti pinjaman perumahan berserta MRTT/MLTT atau kereta dengan Auto-Life).<br><br><strong>💡 Sebab:</strong> Keluarga tidak wajar ditinggalkan bersama bebanan hutang yang belum diselesaikan.</span>
+                                        <span data-translate="tip_debt"><strong>📝 Isikan:</strong> Baki terkini hutang sedia ada (peribadi, kad kredit).<br><br><strong>⚠️ Nota Penting:</strong> Jangan masukkan hutang yang telah mempunyai perlindungan Takaful/Insurans secara penuh (seperti pinjaman perumahan ber-MLTT/MRTT atau pinjaman kereta ber-autolife).</span>
                                     </div>
                                 </div>
                             </label>
@@ -338,7 +319,7 @@
                     <div style="height: 1px; width: 100%; background: var(--border-color); margin: 0.5rem 0;"></div>
 
                     <!-- Row 2: Life / Hibah & Inflation -->
-                    <div class="grid-row grid-row-3">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_exist_life">Perlindungan Hayat/Hibah Sedia Ada</span>
@@ -347,7 +328,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-exist-life" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_exist_life"><strong>📝 Isikan:</strong> Pampasan kematian/hilang upaya kekal (Hibah) dari polisi sedia ada anda (peribadi atau majikan).<br><br><strong>💡 Sebab:</strong> Nilai sedia ada ini akan ditolak dari keperluan sebenar untuk mencari baki (Gap) kekosongan perlindungan.</span>
+                                        <span data-translate="tip_exist_life"><strong>📝 Isikan:</strong> Jumlah pampasan nyawa / hibah dari polisi sedia ada.<br><br><strong>💡 Sebab:</strong> Akan ditolak dari jumlah keseluruhan yang diperlukan untuk mengira baki kekosongan (gap) perlindungan.</span>
                                     </div>
                                 </div>
                             </label>
@@ -364,7 +345,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-life-years" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_life_years"><strong>📝 Isikan:</strong> Tempoh masa sasaran tanggungan keluarga.<br><br><strong>💡 Panduan Utama:</strong> Sila ambil kira bilangan tahun yang diperlukan untuk menyara <strong>anak bongsu</strong> sehingga anak tersebut menamatkan pengajian tinggi dan berjaya mendapat pekerjaan bagi menyara diri sendiri.</span>
+                                        <span data-translate="tip_life_years"><strong>📝 Isikan:</strong> Tempoh masa sasaran tanggungan.<br><br><strong>💡 Panduan Utama:</strong> Sila ambil kira bilangan tahun yang diperlukan untuk menyara anak bongsu sehingga anak tersebut mencapai umur tamat pengajian tinggi dan mendapat pekerjaan bagi berdikari.</span>
                                     </div>
                                 </div>
                             </label>
@@ -373,15 +354,16 @@
                                 <span style="position: absolute; right: 1rem; top: 0.85rem; color: var(--text-muted); font-size: 0.85rem; font-weight: 700;" data-translate="calc_years">Tahun</span>
                             </div>
                         </div>
+                        <!-- Variable: Inflation -->
                         <div style="position: relative;">
                             <label class="form-label">
-                                <span data-translate="calc_inflation">Kadar Inflasi Am (%)</span>
+                                <span data-translate="calc_inflation">Kadar Inflasi Tahunan</span>
                                 <div style="position: relative; display: inline-flex; align-items: center; margin-left: 0.5rem;">
                                     <button type="button" onclick="toggleTooltip(event, 'tip-inflation')" style="background:none; border:none; cursor:pointer;">
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-inflation" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_inflation"><strong>📝 Isikan:</strong> Kadar purata inflasi kos sara hidup (Biasa: 3% - 5%).<br><br><strong>💡 Sebab:</strong> RM1,000 hari ini tidak sama nilainya pada 10 tahun akan datang. Mengambil kira inflasi adalah wajib untuk unjuran kewangan yang logik dan realistik.</span>
+                                        <span data-translate="tip_inflation"><strong>📝 Isikan:</strong> Kadar inflasi kos sara hidup umum (Cadangan: 3% - 5%).<br><br><strong>💡 Sebab:</strong> Membantu unjuran masa hadapan kos tanggungan keluarga menjadi lebih realistik.</span>
                                     </div>
                                 </div>
                             </label>
@@ -393,7 +375,7 @@
                     </div>
 
                     <!-- Row 3: CI -->
-                    <div class="grid-row grid-row-2">
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_exist_ci">Perlindungan Sakit Kritikal Sedia Ada</span>
@@ -402,7 +384,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-exist-ci" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_exist_ci"><strong>📝 Isikan:</strong> Pampasan lump sum Penyakit Kritikal (CI) dari polisi semasa.<br><br><strong>💡 Sebab:</strong> Pesakit kritikal sering terpaksa berehat panjang dari kerja. Wang pampasan ini bertindak menggantikan pendapatan yang hilang bagi menyara kelangsungan hidup.</span>
+                                        <span data-translate="tip_exist_ci"><strong>📝 Isikan:</strong> Pampasan lump sum Penyakit Kritikal (CI) sedia ada.<br><br><strong>💡 Sebab:</strong> Menggantikan pendapatan ketika pesakit menjalani fasa rawatan panjang.</span>
                                     </div>
                                 </div>
                             </label>
@@ -419,7 +401,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-ci-years" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_ci_years"><strong>📝 Isikan:</strong> Cadangan tempoh masa berehat untuk rawatan perubatan tanpa bekerja (Disyorkan: 3 - 5 Tahun).</span>
+                                        <span data-translate="tip_ci_years"><strong>📝 Isikan:</strong> Tempoh cuti rehat dari bekerja (Cadangan: 3 - 5 tahun).</span>
                                     </div>
                                 </div>
                             </label>
@@ -430,8 +412,8 @@
                         </div>
                     </div>
 
-                    <!-- Row 4: Medical Gap (Modified for 10-year logic) -->
-                    <div class="grid-row grid-row-2">
+                    <!-- Row 4: Medical & Medical Inflation -->
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_exist_med">Had Perubatan Sedia Ada</span>
@@ -440,7 +422,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-exist-med" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_exist_med"><strong>📝 Isikan:</strong> Had bil hospital tahunan (annual limit) kad perubatan sedia ada anda.<br><br><strong>💡 Sebab:</strong> Had ini akan digunakan sebagai penanda aras (baseline) untuk mengunjurkan keperluan perubatan masa hadapan, melihat kepada kos rawatan yang sentiasa meningkat. (Biarkan 0 jika belum ada polisi).</span>
+                                        <span data-translate="tip_exist_med"><strong>📝 Isikan:</strong> Had perlindungan tahunan kad perubatan sedia ada.</span>
                                     </div>
                                 </div>
                             </label>
@@ -451,13 +433,31 @@
                         </div>
                         <div style="position: relative;">
                             <label class="form-label">
+                                <span data-translate="calc_target_med">Sasaran Had Perubatan</span>
+                                <div style="position: relative; display: inline-flex; align-items: center; margin-left: 0.5rem;">
+                                    <button type="button" onclick="toggleTooltip(event, 'tip-target-med')" style="background:none; border:none; cursor:pointer;">
+                                        <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
+                                    </button>
+                                    <div id="tip-target-med" class="info-tooltip infotip-box">
+                                        <span data-translate="tip_target_med"><strong>📝 Isikan:</strong> Sasaran had bil hospital tahunan (Cth: RM200,000).<br><br><strong>📊 Asas Pengiraan & DOSM:</strong> Unjuran dikira berdasarkan baki umur sehingga <strong>80 tahun</strong>. Menurut data DOSM (2024–2026), purata jangka hayat rakyat Malaysia mencecah 75.5 tahun, dan unjuran usia sehingga 80 tahun memastikan perlindungan kesihatan berterusan di usia emas.</span>
+                                    </div>
+                                </div>
+                            </label>
+                            <div style="position: relative;">
+                                <span style="position: absolute; left: 1rem; top: 0.85rem; color: var(--text-muted); font-size: 0.85rem; font-weight: 700;">RM</span>
+                                <input type="text" inputmode="numeric" id="calcTargetMed" class="calc-currency form-input" style="padding-left: 3rem;" placeholder="200,000" required>
+                            </div>
+                        </div>
+                        <!-- Variable: Medical Inflation -->
+                        <div style="position: relative;">
+                            <label class="form-label">
                                 <span data-translate="calc_med_inflation">Kadar Inflasi Perubatan (%)</span>
                                 <div style="position: relative; display: inline-flex; align-items: center; margin-left: 0.5rem;">
                                     <button type="button" onclick="toggleTooltip(event, 'tip-med-inf')" style="background:none; border:none; cursor:pointer;">
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-med-inf" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_med_inf"><strong>📝 Isikan:</strong> Kadar inflasi khusus untuk sektor penjagaan kesihatan swasta (Lalai: 12%).<br><br><strong>💡 Fakta Rasmi:</strong> Inflasi bil hospital swasta di Malaysia merekodkan peningkatan yang tinggi secara purata antara 12% hingga 15% setiap tahun berbanding kebanyakan negara Asia yang lain.</span>
+                                        <span data-translate="tip_med_inf"><strong>📝 Isikan:</strong> Kadar inflasi kos perubatan khas (Lalai: 12%).<br><br><strong>💡 Nota:</strong> Inflasi kos perubatan di Malaysia dilaporkan berada pada tahap tinggi antara 12% hingga 15% (BNM). Anda boleh melaraskan kadar ini mengikut kesesuaian.</span>
                                     </div>
                                 </div>
                             </label>
@@ -483,8 +483,8 @@
                             <div class="result-icon"><i class="fas fa-heartbeat"></i></div>
                             <h5 class="result-title" data-translate="calc_res_life">Keperluan Hayat / Hibah</h5>
                             <div id="resLifeReq" class="result-amount">RM 0</div>
-                            <div id="resLifeGap" style="margin-top: 1rem; font-size: 0.75rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 9999px; display: inline-block; width: max-content; margin-left: auto; margin-right: auto;">Gap: RM 0</div>
-                            <p id="descLife" style="margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; text-align: left; border-top: 1px solid var(--border-color); padding-top: 1rem; flex-grow: 1;"></p>
+                            <div id="resLifeGap" style="margin-top: 1rem; font-size: 0.75rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 9999px; display: inline-block;">Gap: RM 0</div>
+                            <p id="descLife" style="margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; text-align: left; border-top: 1px solid var(--border-color); padding-top: 1rem;"></p>
                         </div>
                         
                         <!-- Result: CI -->
@@ -492,17 +492,17 @@
                             <div class="result-icon"><i class="fas fa-user-shield"></i></div>
                             <h5 class="result-title" data-translate="calc_res_ci">Keperluan Sakit Kritikal</h5>
                             <div id="resCIReq" class="result-amount">RM 0</div>
-                            <div id="resCIGap" style="margin-top: 1rem; font-size: 0.75rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 9999px; display: inline-block; width: max-content; margin-left: auto; margin-right: auto;">Gap: RM 0</div>
-                            <p id="descCI" style="margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; text-align: left; border-top: 1px solid var(--border-color); padding-top: 1rem; flex-grow: 1;"></p>
+                            <div id="resCIGap" style="margin-top: 1rem; font-size: 0.75rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 9999px; display: inline-block;">Gap: RM 0</div>
+                            <p id="descCI" style="margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; text-align: left; border-top: 1px solid var(--border-color); padding-top: 1rem;"></p>
                         </div>
                         
                         <!-- Result: Medical -->
                         <div class="result-card">
                             <div class="result-icon result-icon-teal"><i class="fas fa-file-medical"></i></div>
-                            <h5 class="result-title" data-translate="calc_res_med">Unjuran Perubatan (10 Tahun)</h5>
+                            <h5 class="result-title" data-translate="calc_res_med">Sasaran Had Perubatan</h5>
                             <div id="resMedReq" class="result-amount">RM 0</div>
-                            <div id="resMedGap" style="margin-top: 1rem; font-size: 0.75rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 9999px; display: inline-block; width: max-content; margin-left: auto; margin-right: auto;">Gap: RM 0</div>
-                            <p id="descMed" style="margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; text-align: left; border-top: 1px solid var(--border-color); padding-top: 1rem; flex-grow: 1;"></p>
+                            <div id="resMedGap" style="margin-top: 1rem; font-size: 0.75rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 9999px; display: inline-block;">Gap: RM 0</div>
+                            <p id="descMed" style="margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); line-height: 1.6; text-align: left; border-top: 1px solid var(--border-color); padding-top: 1rem;"></p>
                         </div>
                     </div>
 
@@ -579,7 +579,7 @@
                         <tr style="background: #f1f5f9;">
                             <th style="padding: 2px 4px; border: 1px solid #cbd5e1; text-align: left; color: #0f172a;" id="pdfTh1">Kategori</th>
                             <th style="padding: 2px 4px; border: 1px solid #cbd5e1; text-align: right; color: #0f172a;" id="pdfTh2">Sedia Ada (RM)</th>
-                            <th style="padding: 2px 4px; border: 1px solid #cbd5e1; text-align: right; color: #0f172a;" id="pdfTh3">Unjuran Keperluan (RM)</th>
+                            <th style="padding: 2px 4px; border: 1px solid #cbd5e1; text-align: right; color: #0f172a;" id="pdfTh3">Sasaran Keperluan (RM)</th>
                             <th style="padding: 2px 4px; border: 1px solid #cbd5e1; text-align: right; color: #0f172a;" id="pdfTh4">Kekurangan / Gap (RM)</th>
                         </tr>
                     </thead>
@@ -648,6 +648,27 @@
     </div>
 
     <script>
+        // Desktop Grid Adjustment
+        if (window.innerWidth >= 768) {
+            document.getElementById('needsCalculatorForm').style.gridTemplateColumns = 'repeat(3, 1fr)';
+            for(let i=0; i<8; i++) {
+                if(document.getElementById('needsCalculatorForm').children[i])
+                    document.getElementById('needsCalculatorForm').children[i].style.gridColumn = 'span 3';
+            }
+            document.getElementById('resultsGrid').style.gridTemplateColumns = 'repeat(3, 1fr)';
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('opening-sequence');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.remove();
+                    document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+                }, 1000);
+            }, 2000);
+        });
+
         const translations = {
             ms: {
                 anim_title: "Kalkulator Perlindungan",
@@ -666,14 +687,15 @@
                 calc_exist_ci: "Perlindungan Sakit Kritikal Sedia Ada",
                 calc_ci_years: "Sokongan Sakit Kritikal",
                 calc_exist_med: "Had Perubatan Sedia Ada",
-                calc_inflation: "Kadar Inflasi Am (%)",
+                calc_target_med: "Sasaran Had Perubatan",
+                calc_inflation: "Kadar Inflasi Tahunan",
                 calc_med_inflation: "Kadar Inflasi Perubatan (%)",
                 calc_years: "Tahun",
                 calc_btn: "Kira Keperluan Semasa",
                 calc_res_title: "Ringkasan Keperluan Perlindungan Anda",
                 calc_res_life: "Keperluan Hayat / Hibah",
                 calc_res_ci: "Keperluan Sakit Kritikal",
-                calc_res_med: "Unjuran Perubatan (10 Tahun)",
+                calc_res_med: "Sasaran Had Perubatan",
                 calc_shortfall: "Kekurangan: ",
                 calc_covered: "Dilindungi Penuh",
                 calc_disclaimer: "* Anggaran ini telah diselaraskan dengan faktor inflasi sebagai rujukan asas kewangan anda.",
@@ -689,7 +711,7 @@
                 pdf_sub4: "Meter Tahap Pencapaian Perlindungan",
                 pdf_th1: "Kategori",
                 pdf_th2: "Sedia Ada (RM)",
-                pdf_th3: "Unjuran Keperluan (RM)",
+                pdf_th3: "Sasaran Keperluan (RM)",
                 pdf_th4: "Kekurangan / Gap (RM)",
                 pdf_td1: "Hayat / Hibah",
                 pdf_td2: "Sakit Kritikal",
@@ -699,16 +721,17 @@
                 status_mod: "STATUS PERLINDUNGAN: SEDERHANA (ADA KEKURANGAN)",
                 status_crit: "STATUS PERLINDUNGAN: KRITIKAL (PERLU DITAMBAHBAIK)",
 
-                tip_income: "<strong>📝 Isikan:</strong> Gaji bersih bulanan, hasil sewa, & sebarang sumber kewangan yang stabil.<br><br><strong>💡 Sebab:</strong> Berfungsi sebagai nilai asas untuk mengira penggantian pendapatan keluarga sekiranya musibah menimpa anda.",
-                tip_expenses: "<strong>📝 Isikan:</strong> Jumlah bil tetap, komitmen hutang, & keperluan hidup harian.<br><br><strong>💡 Sebab:</strong> Bagi memastikan cadangan Takaful yang dibina nanti sejajar dengan lebihan aliran tunai (cash flow) agar tidak membebankan poket anda.",
-                tip_debt: "<strong>📝 Isikan:</strong> Baki hutang peribadi, kad kredit, dan pinjaman lain.<br><br><strong>⚠️ Peringatan Penting:</strong> Jangan masukkan hutang yang telah dilindungi polisi Takaful/Insurans sepenuhnya (seperti pinjaman perumahan berserta MRTT/MLTT atau kereta dengan Auto-Life).<br><br><strong>💡 Sebab:</strong> Keluarga tidak wajar ditinggalkan bersama bebanan hutang yang belum diselesaikan.",
-                tip_exist_life: "<strong>📝 Isikan:</strong> Pampasan kematian/hilang upaya kekal (Hibah) dari polisi sedia ada.<br><br><strong>💡 Sebab:</strong> Nilai ini akan ditolak dari keperluan sebenar untuk mencari baki (Gap) yang tinggal.",
-                tip_life_years: "<strong>📝 Isikan:</strong> Tempoh masa sasaran tanggungan keluarga.<br><br><strong>💡 Panduan Utama:</strong> Sila ambil kira bilangan tahun yang diperlukan untuk menyara <strong>anak bongsu</strong> sehingga anak tersebut menamatkan pengajian tinggi dan mendapat pekerjaan bagi menyara diri sendiri.",
-                tip_inflation: "<strong>📝 Isikan:</strong> Kadar purata inflasi kos sara hidup (Biasa: 3% - 5%).<br><br><strong>💡 Sebab:</strong> RM1,000 hari ini tidak sama nilainya pada 10 tahun akan datang. Elemen ini penting untuk unjuran kewangan realistik.",
-                tip_exist_ci: "<strong>📝 Isikan:</strong> Pampasan lump sum Penyakit Kritikal (CI) dari polisi semasa.<br><br><strong>💡 Sebab:</strong> Pesakit kritikal sering terpaksa berehat panjang dari kerja. Wang ini menggantikan pendapatan yang hilang.",
-                tip_ci_years: "<strong>📝 Isikan:</strong> Cadangan tempoh masa rehat berubat (Disyorkan: 3 - 5 Tahun).",
-                tip_exist_med: "<strong>📝 Isikan:</strong> Had bil hospital tahunan (annual limit) kad perubatan sedia ada anda.<br><br><strong>💡 Sebab:</strong> Had ini akan digunakan sebagai penanda aras (baseline) untuk mengunjurkan keperluan perubatan masa hadapan, melihat kepada kos rawatan yang sentiasa meningkat. (Biarkan 0 jika belum ada polisi).",
-                tip_med_inf: "<strong>📝 Isikan:</strong> Kadar inflasi khusus untuk sektor perubatan (Lalai: 12%).<br><br><strong>💡 Fakta Rasmi:</strong> Inflasi bil hospital swasta di Malaysia merekodkan peningkatan tinggi secara purata antara 12% hingga 15% setiap tahun berbanding negara Asia lain."
+                tip_income: "<strong>📝 Isikan:</strong> Gaji bersih bulanan, hasil sewa, & pendapatan lain.<br><br><strong>💡 Sebab:</strong> Sebagai asas kiraan jumlah penggantian pendapatan keluarga anda jika berlaku musibah.",
+                tip_expenses: "<strong>📝 Isikan:</strong> Jumlah komitmen & perbelanjaan tetap.",
+                tip_debt: "<strong>📝 Isikan:</strong> Baki terkini hutang sedia ada (peribadi, kad kredit).<br><br><strong>⚠️ Nota Penting:</strong> Jangan masukkan hutang yang telah mempunyai perlindungan Takaful/Insurans secara penuh (seperti pinjaman perumahan ber-MLTT/MRTT atau pinjaman kereta ber-autolife).",
+                tip_exist_life: "<strong>📝 Isikan:</strong> Jumlah pampasan nyawa dari polisi sedia ada.",
+                tip_life_years: "<strong>📝 Isikan:</strong> Tempoh masa sasaran tanggungan.<br><br><strong>💡 Panduan Utama:</strong> Sila ambil kira bilangan tahun yang diperlukan untuk menyara anak bongsu sehingga anak tersebut mencapai umur tamat pengajian tinggi dan mendapat pekerjaan bagi berdikari.",
+                tip_inflation: "<strong>📝 Isikan:</strong> Kadar inflasi kos sara hidup umum.",
+                tip_exist_ci: "<strong>📝 Isikan:</strong> Pampasan CI sedia ada.",
+                tip_ci_years: "<strong>📝 Isikan:</strong> Tempoh rehat bekerja (Cadangan: 3 - 5 tahun).",
+                tip_exist_med: "<strong>📝 Isikan:</strong> Had tahunan kad perubatan sedia ada.",
+                tip_target_med: "<strong>📝 Isikan:</strong> Sasaran had bil hospital tahunan.<br><br><strong>📊 Asas Pengiraan & DOSM:</strong> Unjuran dikira berdasarkan baki umur sehingga <strong>80 tahun</strong>. Menurut data DOSM (2024–2026), purata jangka hayat rakyat Malaysia mencecah 75.5 tahun, dan unjuran usia sehingga 80 tahun memastikan perlindungan kesihatan berterusan di usia emas.",
+                tip_med_inf: "<strong>📝 Isikan:</strong> Kadar inflasi kos perubatan khusus (Lalai: 12%).<br><br><strong>💡 Nota:</strong> Inflasi kos perubatan di Malaysia dilaporkan berada pada tahap tinggi antara 12% hingga 15% (BNM)."
             },
             en: {
                 anim_title: "Protection Calculator",
@@ -727,14 +750,15 @@
                 calc_exist_ci: "Existing Critical Illness Protection",
                 calc_ci_years: "CI Income Support Needed",
                 calc_exist_med: "Existing Annual Med Limit",
-                calc_inflation: "General Inflation Rate (%)",
+                calc_target_med: "Target Med Limit",
+                calc_inflation: "Annual Inflation Rate",
                 calc_med_inflation: "Medical Inflation Rate (%)",
                 calc_years: "Years",
                 calc_btn: "Calculate Current Needs",
                 calc_res_title: "Your Protection Needs Summary",
                 calc_res_life: "Life / Hibah Needs",
                 calc_res_ci: "Critical Illness Needs",
-                calc_res_med: "Medical Projection (10 Years)",
+                calc_res_med: "Target Medical Limit",
                 calc_shortfall: "Shortfall: ",
                 calc_covered: "Fully Covered",
                 calc_disclaimer: "* This estimate has been adjusted for inflation factors as a basic financial reference.",
@@ -750,7 +774,7 @@
                 pdf_sub4: "Protection Achievement Meters",
                 pdf_th1: "Category",
                 pdf_th2: "Existing (RM)",
-                pdf_th3: "Projected Need (RM)",
+                pdf_th3: "Target Required (RM)",
                 pdf_th4: "Shortfall / Gap (RM)",
                 pdf_td1: "Life / Hibah",
                 pdf_td2: "Critical Illness",
@@ -760,16 +784,17 @@
                 status_mod: "PROTECTION STATUS: MODERATE (GAPS EXIST)",
                 status_crit: "PROTECTION STATUS: CRITICAL (NEEDS IMPROVEMENT)",
 
-                tip_income: "<strong>📝 Fill in:</strong> Net monthly salary, rental, & other steady income.<br><br><strong>💡 Reason:</strong> Serves as the baseline to calculate your family's income replacement in case of tragedy.",
-                tip_expenses: "<strong>📝 Fill in:</strong> Fixed commitments & monthly living expenses.<br><br><strong>💡 Reason:</strong> Ensures future Takaful proposals align with your cash flow and don't burden you financially.",
-                tip_debt: "<strong>📝 Fill in:</strong> Current outstanding personal debts (e.g. loans, credit cards).<br><br><strong>⚠️ Important:</strong> Do not include debts fully covered by Takaful/Insurance (such as mortgages with MLTT/MRTT or car loans with auto-life).<br><br><strong>💡 Reason:</strong> Your family shouldn't inherit unpaid debts.",
-                tip_exist_life: "<strong>📝 Fill in:</strong> Life/Hibah coverage from existing policies.<br><br><strong>💡 Reason:</strong> Deducted from your actual required amount to find the final gap.",
-                tip_life_years: "<strong>📝 Fill in:</strong> Target support period.<br><br><strong>💡 Key Guide:</strong> Consider the number of years needed to support your <strong>youngest child</strong> until they finish tertiary education and secure a job.",
-                tip_inflation: "<strong>📝 Fill in:</strong> General inflation rate of living costs (Typical: 3% - 5%).<br><br><strong>💡 Reason:</strong> Provides realistic projections for future living costs.",
-                tip_exist_ci: "<strong>📝 Fill in:</strong> Current CI lump sum coverage payout.<br><br><strong>💡 Reason:</strong> Critical illness forces patients to take long rests. This replaces lost income.",
+                tip_income: "<strong>📝 Fill in:</strong> Net monthly salary, rental, & other steady income.",
+                tip_expenses: "<strong>📝 Fill in:</strong> Fixed commitments & monthly expenses.",
+                tip_debt: "<strong>📝 Fill in:</strong> Current outstanding debt balances (personal loans, credit cards).<br><br><strong>⚠️ Important Note:</strong> Do not include debts fully covered by Takaful/Insurance (such as mortgages with MLTT/MRTT or car loans with auto-life).",
+                tip_exist_life: "<strong>📝 Fill in:</strong> Life/Hibah coverage from existing policies.",
+                tip_life_years: "<strong>📝 Fill in:</strong> Target support period.<br><br><strong>💡 Key Guide:</strong> Consider the number of years needed to support your youngest child until graduation and independent employment.",
+                tip_inflation: "<strong>📝 Fill in:</strong> General inflation rate of living costs.",
+                tip_exist_ci: "<strong>📝 Fill in:</strong> Current CI lump sum coverage payout.",
                 tip_ci_years: "<strong>📝 Fill in:</strong> Recovery period taking off work (Rule of thumb: 3 - 5 yrs).",
-                tip_exist_med: "<strong>📝 Fill in:</strong> The annual limit of your existing medical card.<br><br><strong>💡 Reason:</strong> Used as a benchmark to project future healthcare requirements against rapid medical inflation. (Leave as 0 if uninsured).",
-                tip_med_inf: "<strong>📝 Fill in:</strong> Specific medical inflation rate (Default: 12%).<br><br><strong>💡 Fact:</strong> Private medical cost inflation in Malaysia is reported high, averaging 12% to 15% annually compared to other Asian nations."
+                tip_exist_med: "<strong>📝 Fill in:</strong> Existing annual medical card limit.",
+                tip_target_med: "<strong>📝 Fill in:</strong> Desired annual limit.<br><br><strong>📊 Calculation & DOSM Basis:</strong> Projected based on remaining years until age <strong>80</strong>. According to DOSM data (2024–2026), Malaysia's average life expectancy reaches 75.5 years, and targeting up to age 80 ensures continued healthcare coverage into golden years.",
+                tip_med_inf: "<strong>📝 Fill in:</strong> Special medical inflation rate (Default: 12%).<br><br><strong>💡 Note:</strong> Medical cost inflation in Malaysia is reported high between 12% to 15% (BNM)."
             }
         };
 
@@ -870,7 +895,6 @@
             const income = parseCurrencyInput(document.getElementById('calcIncome').value);
             const expenses = parseCurrencyInput(document.getElementById('calcExpenses').value);
             const debt = parseCurrencyInput(document.getElementById('calcDebt').value);
-            
             const existingLife = parseCurrencyInput(document.getElementById('calcExistLife').value);
             const lifeYears = parseFloat(document.getElementById('calcLifeYears').value) || 0;
             
@@ -878,6 +902,7 @@
             const ciYears = parseFloat(document.getElementById('calcCIYears').value) || 0;
             
             const existingMedical = parseCurrencyInput(document.getElementById('calcExistMed').value);
+            const desiredMedical = parseCurrencyInput(document.getElementById('calcTargetMed').value);
             
             const inflationRate = parseFloat(document.getElementById('calcInflation').value) || 0;
             const infDecimal = inflationRate / 100;
@@ -891,32 +916,30 @@
 
             const incomeAnnual = income * 12;
 
-            // Life Required
             const lifeInfFactor = Math.pow(1 + infDecimal, lifeYears > 0 ? lifeYears / 2 : 0);
             const lifeRequired = ((incomeAnnual * lifeInfFactor) * lifeYears) + debt;
             const lifeGap = lifeRequired - existingLife;
 
-            // CI Required
             const ciInfFactor = Math.pow(1 + infDecimal, ciYears > 0 ? ciYears / 2 : 0);
             const ciRequired = (incomeAnnual * ciInfFactor) * ciYears;
             const ciGap = ciRequired - existingCI;
 
-            // Medical 10-Year Projection Logic
-            // If existing is 0 (no baseline), default to an industry generic average of 100,000 for realistic projection.
-            const baseMedical = existingMedical > 0 ? existingMedical : 100000;
-            const medCompoundFactor = Math.pow(1 + medInfDecimal, 10); 
-            const medicalRequired = baseMedical * medCompoundFactor;
+            // Medical Calculation based on Life Expectancy up to age 80
+            const targetLifeExpectancy = 80;
+            const remainingYearsForMedical = Math.max(1, targetLifeExpectancy - clientAge);
+            const medInfFactor = Math.pow(1 + medInfDecimal, remainingYearsForMedical);
+            const medicalRequired = desiredMedical * medInfFactor;
             const medicalGap = medicalRequired - existingMedical;
 
-            // Update UI Screen Results (Descriptions)
-            const descLifeMs = `<strong>Asas Kiraan:</strong> Menggantikan pendapatan tahunan untuk ${lifeYears} tahun (selepas inflasi ${inflationRate}%), ditambah dengan perlindungan hutang RM ${debt.toLocaleString('en-MY')}.`;
-            const descLifeEn = `<strong>Calculation Basis:</strong> Replacing annual income for ${lifeYears} years (after ${inflationRate}% inflation), plus debt clearance of RM ${debt.toLocaleString('en-MY')}.`;
+            // Update UI Screen Results
+            const descLifeMs = `<strong>Kenapa Jumlah Ini?:</strong> Menggantikan pendapatan tahunan anda untuk ${lifeYears} tahun (selari penyelarasan inflasi ${inflationRate}%), ditambah dengan penyelesaian hutang tertunggak (RM ${debt.toLocaleString('en-MY')}).`;
+            const descLifeEn = `<strong>Why This Amount?:</strong> Replacing your annual income for ${lifeYears} years (adjusted for ${inflationRate}% inflation), plus clearing outstanding debts (RM ${debt.toLocaleString('en-MY')}).`;
 
-            const descCIMs = `<strong>Asas Kiraan:</strong> Pembiayaan pendapatan anda selama ${ciYears} tahun beserta kenaikan kos sara hidup (${inflationRate}% inflasi).`;
-            const descCIEn = `<strong>Calculation Basis:</strong> Replacing income for ${ciYears} years along with rising living costs (${inflationRate}% inflation).`;
+            const descCIMs = `<strong>Kenapa Jumlah Ini?:</strong> Menggantikan pendapatan anda selama ${ciYears} tahun beserta kenaikan kos sara hidup (${inflationRate}% inflasi).`;
+            const descCIEn = `<strong>Why This Amount?:</strong> Replacing your income for ${ciYears} years along with rising living costs (${inflationRate}% inflation).`;
 
-            const descMedMs = `<strong>Kenapa 10 Tahun?:</strong> Unjuran ini dikira secara spesifik untuk 10 tahun kerana lanskap teknologi dan kos perubatan berubah drastik. Pelan kad perubatan secara fitrahnya <strong>wajib disemak (review) dan dinaik taraf setiap dekad</strong>. Bagi mengekalkan kuasa beli dan akses rawatan setara dengan perlindungan sedia ada (berasaskan inflasi perubatan ${medInflationRate}%), inilah sasaran nilai baharu yang anda perlukan.`;
-            const descMedEn = `<strong>Why 10 Years?:</strong> A 10-year projection is utilized because medical technology and treatment costs evolve drastically. Medical plans naturally <strong>require reviews and upgrades every decade</strong>. To maintain the purchasing power equivalent to your current limit (factoring ${medInflationRate}% medical inflation), this is the projected target you will need.`;
+            const descMedMs = `<strong>Kenapa Jumlah Ini?:</strong> Unjuran kos sehingga umur 80 tahun (${remainingYearsForMedical} tahun baki) menggunakan kadar inflasi perubatan ${medInflationRate}%.`;
+            const descMedEn = `<strong>Why This Amount?:</strong> Projected cost up to age 80 (${remainingYearsForMedical} remaining years) using a medical inflation rate of ${medInflationRate}%.`;
 
             const resultsDiv = document.getElementById('calcResults');
             
