@@ -62,6 +62,14 @@
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
         
+        /* CSS Grid System for Form Responsiveness */
+        .grid-row { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 768px) {
+            .grid-row-2 { grid-template-columns: repeat(2, 1fr); }
+            .grid-row-3 { grid-template-columns: repeat(3, 1fr); }
+            #resultsGrid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
         /* Glassmorphism Components */
         .glass-nav { 
             background: var(--nav-bg); 
@@ -112,6 +120,17 @@
         .btn-pdf:hover { background: #0f172a; box-shadow: 0 6px 25px rgba(30,41,59,0.5); }
         
         /* Animations */
+        @keyframes fadeOutLoader {
+            0% { opacity: 1; visibility: visible; }
+            99% { opacity: 0; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; z-index: -1; }
+        }
+        #opening-sequence {
+            animation: fadeOutLoader 0.6s ease-out forwards;
+            animation-delay: 1.2s; /* Will automatically disappear after 1.2s */
+            pointer-events: none;
+        }
+
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
@@ -192,8 +211,8 @@
 
 <body>
 
-    <!-- Opening Animation Sequence -->
-    <div id="opening-sequence" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: #09090b; transition: opacity 1s ease;">
+    <!-- Opening Animation Sequence (Pure CSS) -->
+    <div id="opening-sequence" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: #09090b;">
         <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
             <div style="position: absolute; width: 10rem; height: 10rem; background: rgba(217,0,13,0.2); border-radius: 50%; filter: blur(40px);"></div>
             <i class="fas fa-shield-halved" style="font-size: 3rem; color: white; z-index: 10; margin-bottom: 1.5rem; opacity: 0; animation: fadeInUp 0.8s ease-out forwards; text-shadow: 0 0 15px rgba(255,255,255,0.3);"></i>
@@ -224,7 +243,7 @@
     <main style="flex-grow: 1; max-width: 64rem; margin: 0 auto; width: 100%; padding: 3rem 1rem; position: relative; z-index: 10;">
 
         <!-- Calculator Section -->
-        <section id="kalkulator-keperluan" class="glass-card reveal" style="border-radius: 2.5rem; overflow: visible;">
+        <section id="kalkulator-keperluan" class="glass-card reveal active" style="border-radius: 2.5rem; overflow: visible;">
             
             <div style="position: relative; overflow: hidden; border-top-left-radius: 2.5rem; border-top-right-radius: 2.5rem; padding: 2.5rem; text-align: center; border-bottom: 1px solid var(--border-color);">
                 <div style="position: absolute; inset: 0; background: radial-gradient(circle at 50% 0%, rgba(0,129,131,0.15) 0%, transparent 70%); opacity: 0.6;"></div>
@@ -244,7 +263,7 @@
                 <form id="needsCalculatorForm" class="glass-input-container" style="display: flex; flex-direction: column; gap: 2rem;">
                     
                     <!-- Basic Details Row -->
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                    <div class="grid-row grid-row-2">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_name">Nama Penuh</span>
@@ -262,7 +281,7 @@
                     <div style="height: 1px; width: 100%; background: var(--border-color); margin: 0.5rem 0;"></div>
 
                     <!-- Row 1: Income / Expense / Debt -->
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                    <div class="grid-row grid-row-3">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_income">Pendapatan Bulanan</span>
@@ -271,7 +290,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-income" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_income"><strong>📝 Isikan:</strong> Gaji bersih bulanan, hasil sewa, & sebarang sumber kewangan yang stabil.<br><br><strong>💡 Sebab:</strong> Berfungsi sebagai nilai asas untuk mengira penggantian pendapatan keluarga sekiranya musibah menimpa anda.</span>
+                                        <span data-translate="tip_income"><strong>📝 Isikan:</strong> Gaji bersih bulanan, hasil sewa, & sebarang sumber kewangan yang stabil.<br><br><strong>💡 Sebab:</strong> Berfungsi sebagai nilai asas untuk mengira jumlah penggantian pendapatan keluarga sekiranya musibah menimpa anda.</span>
                                     </div>
                                 </div>
                             </label>
@@ -288,7 +307,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-expenses" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_expenses"><strong>📝 Isikan:</strong> Jumlah bil tetap, komitmen hutang, & keperluan hidup harian.<br><br><strong>💡 Sebab:</strong> Bagi memastikan cadangan Takaful yang dibina nanti sejajar dengan lebihan aliran tunai (cash flow) agar tidak membebankan poket anda.</span>
+                                        <span data-translate="tip_expenses"><strong>📝 Isikan:</strong> Jumlah bil tetap, komitmen hutang, & keperluan hidup harian.<br><br><strong>💡 Sebab:</strong> Bagi memastikan cadangan Takaful yang dibina nanti sejajar dengan lebihan aliran tunai (cash flow) agar premiumnya tidak membebankan poket anda.</span>
                                     </div>
                                 </div>
                             </label>
@@ -319,7 +338,7 @@
                     <div style="height: 1px; width: 100%; background: var(--border-color); margin: 0.5rem 0;"></div>
 
                     <!-- Row 2: Life / Hibah & Inflation -->
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                    <div class="grid-row grid-row-3">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_exist_life">Perlindungan Hayat/Hibah Sedia Ada</span>
@@ -328,7 +347,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-exist-life" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_exist_life"><strong>📝 Isikan:</strong> Pampasan kematian/hilang upaya kekal (Hibah) dari polisi sedia ada.<br><br><strong>💡 Sebab:</strong> Nilai ini akan ditolak dari keperluan sebenar untuk mencari baki (Gap) yang tinggal.</span>
+                                        <span data-translate="tip_exist_life"><strong>📝 Isikan:</strong> Pampasan kematian/hilang upaya kekal (Hibah) dari polisi sedia ada anda (peribadi atau majikan).<br><br><strong>💡 Sebab:</strong> Nilai sedia ada ini akan ditolak dari keperluan sebenar untuk mencari baki (Gap) kekosongan perlindungan.</span>
                                     </div>
                                 </div>
                             </label>
@@ -345,7 +364,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-life-years" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_life_years"><strong>📝 Isikan:</strong> Tempoh masa sasaran tanggungan keluarga.<br><br><strong>💡 Panduan Utama:</strong> Sila ambil kira bilangan tahun yang diperlukan untuk menyara <strong>anak bongsu</strong> sehingga anak tersebut menamatkan pengajian tinggi dan mendapat pekerjaan bagi menyara diri sendiri.</span>
+                                        <span data-translate="tip_life_years"><strong>📝 Isikan:</strong> Tempoh masa sasaran tanggungan keluarga.<br><br><strong>💡 Panduan Utama:</strong> Sila ambil kira bilangan tahun yang diperlukan untuk menyara <strong>anak bongsu</strong> sehingga anak tersebut menamatkan pengajian tinggi dan berjaya mendapat pekerjaan bagi menyara diri sendiri.</span>
                                     </div>
                                 </div>
                             </label>
@@ -362,7 +381,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-inflation" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_inflation"><strong>📝 Isikan:</strong> Kadar purata inflasi kos sara hidup (Biasa: 3% - 5%).<br><br><strong>💡 Sebab:</strong> RM1,000 hari ini tidak sama nilainya pada 10 tahun akan datang. Elemen ini penting untuk unjuran kewangan realistik.</span>
+                                        <span data-translate="tip_inflation"><strong>📝 Isikan:</strong> Kadar purata inflasi kos sara hidup (Biasa: 3% - 5%).<br><br><strong>💡 Sebab:</strong> RM1,000 hari ini tidak sama nilainya pada 10 tahun akan datang. Mengambil kira inflasi adalah wajib untuk unjuran kewangan yang logik dan realistik.</span>
                                     </div>
                                 </div>
                             </label>
@@ -374,7 +393,7 @@
                     </div>
 
                     <!-- Row 3: CI -->
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                    <div class="grid-row grid-row-2">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_exist_ci">Perlindungan Sakit Kritikal Sedia Ada</span>
@@ -383,7 +402,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-exist-ci" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_exist_ci"><strong>📝 Isikan:</strong> Pampasan lump sum Penyakit Kritikal (CI) dari polisi semasa.<br><br><strong>💡 Sebab:</strong> Pesakit kritikal sering terpaksa berehat panjang dari kerja. Wang ini menggantikan pendapatan yang hilang.</span>
+                                        <span data-translate="tip_exist_ci"><strong>📝 Isikan:</strong> Pampasan lump sum Penyakit Kritikal (CI) dari polisi semasa.<br><br><strong>💡 Sebab:</strong> Pesakit kritikal sering terpaksa berehat panjang dari kerja. Wang pampasan ini bertindak menggantikan pendapatan yang hilang bagi menyara kelangsungan hidup.</span>
                                     </div>
                                 </div>
                             </label>
@@ -400,7 +419,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-ci-years" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_ci_years"><strong>📝 Isikan:</strong> Cadangan tempoh masa rehat berubat (Disyorkan: 3 - 5 Tahun).</span>
+                                        <span data-translate="tip_ci_years"><strong>📝 Isikan:</strong> Cadangan tempoh masa berehat untuk rawatan perubatan tanpa bekerja (Disyorkan: 3 - 5 Tahun).</span>
                                     </div>
                                 </div>
                             </label>
@@ -412,7 +431,7 @@
                     </div>
 
                     <!-- Row 4: Medical Gap (Modified for 10-year logic) -->
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;" id="medicalRow">
+                    <div class="grid-row grid-row-2">
                         <div style="position: relative;">
                             <label class="form-label">
                                 <span data-translate="calc_exist_med">Had Perubatan Sedia Ada</span>
@@ -421,7 +440,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-exist-med" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_exist_med"><strong>📝 Isikan:</strong> Had bil hospital tahunan (annual limit) kad perubatan sedia ada anda.<br><br><strong>💡 Sebab:</strong> Had ini akan digunakan sebagai penanda aras (baseline) untuk mengunjurkan keperluan perubatan masa hadapan, melihat kepada kos yang sentiasa meningkat. (Biarkan 0 jika belum ada polisi).</span>
+                                        <span data-translate="tip_exist_med"><strong>📝 Isikan:</strong> Had bil hospital tahunan (annual limit) kad perubatan sedia ada anda.<br><br><strong>💡 Sebab:</strong> Had ini akan digunakan sebagai penanda aras (baseline) untuk mengunjurkan keperluan perubatan masa hadapan, melihat kepada kos rawatan yang sentiasa meningkat. (Biarkan 0 jika belum ada polisi).</span>
                                     </div>
                                 </div>
                             </label>
@@ -438,7 +457,7 @@
                                         <i class="fas fa-info-circle" style="color: var(--text-muted); font-size: 0.9rem;"></i>
                                     </button>
                                     <div id="tip-med-inf" class="info-tooltip infotip-box">
-                                        <span data-translate="tip_med_inf"><strong>📝 Isikan:</strong> Kadar inflasi khusus untuk sektor perubatan (Lalai: 12%).<br><br><strong>💡 Fakta Rasmi:</strong> Inflasi bil hospital swasta di Malaysia merekodkan peningkatan tinggi secara purata antara 12% hingga 15% setiap tahun berbanding negara Asia lain.</span>
+                                        <span data-translate="tip_med_inf"><strong>📝 Isikan:</strong> Kadar inflasi khusus untuk sektor penjagaan kesihatan swasta (Lalai: 12%).<br><br><strong>💡 Fakta Rasmi:</strong> Inflasi bil hospital swasta di Malaysia merekodkan peningkatan yang tinggi secara purata antara 12% hingga 15% setiap tahun berbanding kebanyakan negara Asia yang lain.</span>
                                     </div>
                                 </div>
                             </label>
@@ -629,32 +648,6 @@
     </div>
 
     <script>
-        // Desktop Grid Adjustment
-        if (window.innerWidth >= 768) {
-            document.getElementById('needsCalculatorForm').style.gridTemplateColumns = 'repeat(2, 1fr)';
-            // Make row 1 to 3 span full
-            document.getElementById('needsCalculatorForm').children[0].style.gridColumn = 'span 2';
-            document.getElementById('needsCalculatorForm').children[1].style.gridColumn = 'span 2';
-            document.getElementById('needsCalculatorForm').children[2].style.gridColumn = 'span 2';
-            document.getElementById('needsCalculatorForm').children[3].style.gridColumn = 'span 2';
-            document.getElementById('needsCalculatorForm').children[4].style.gridColumn = 'span 2';
-            // Medical row (children[5]) has 2 items, perfectly fits in 2 columns.
-            document.getElementById('medicalRow').style.gridTemplateColumns = 'repeat(2, 1fr)';
-            
-            document.getElementById('resultsGrid').style.gridTemplateColumns = 'repeat(3, 1fr)';
-        }
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const loader = document.getElementById('opening-sequence');
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.remove();
-                    document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
-                }, 1000);
-            }, 2000);
-        });
-
         const translations = {
             ms: {
                 anim_title: "Kalkulator Perlindungan",
@@ -909,10 +902,10 @@
             const ciGap = ciRequired - existingCI;
 
             // Medical 10-Year Projection Logic
-            // If existing is 0 (no baseline), default to an industry average of 100,000 for realistic projection.
+            // If existing is 0 (no baseline), default to an industry generic average of 100,000 for realistic projection.
             const baseMedical = existingMedical > 0 ? existingMedical : 100000;
-            const medInfFactor = Math.pow(1 + medInfDecimal, 10); // Calculate strictly for 10 years
-            const medicalRequired = baseMedical * medInfFactor;
+            const medCompoundFactor = Math.pow(1 + medInfDecimal, 10); 
+            const medicalRequired = baseMedical * medCompoundFactor;
             const medicalGap = medicalRequired - existingMedical;
 
             // Update UI Screen Results (Descriptions)
@@ -922,8 +915,8 @@
             const descCIMs = `<strong>Asas Kiraan:</strong> Pembiayaan pendapatan anda selama ${ciYears} tahun beserta kenaikan kos sara hidup (${inflationRate}% inflasi).`;
             const descCIEn = `<strong>Calculation Basis:</strong> Replacing income for ${ciYears} years along with rising living costs (${inflationRate}% inflation).`;
 
-            const descMedMs = `<strong>Kenapa 10 Tahun?:</strong> Unjuran 10 tahun digunakan secara meluas kerana lanskap teknologi dan inflasi kos perubatan berubah drastik. Pelan kad perubatan secara fitrahnya <strong>wajib disemak (review) dan dinaik taraf setiap dekad</strong>. Bagi mengekalkan kuasa beli dan akses setara dengan tahap perlindungan sedia ada anda (berasaskan inflasi ${medInflationRate}%), anda memerlukan sasaran nilai baharu dalam tempoh sedekad.`;
-            const descMedEn = `<strong>Why 10 Years?:</strong> A 10-year projection is utilized because medical technology and treatment costs evolve drastically. Medical plans naturally <strong>require reviews and upgrades every decade</strong>. To maintain the purchasing power equivalent to your current limit (factoring ${medInflationRate}% inflation), you will need the projected target within the next decade.`;
+            const descMedMs = `<strong>Kenapa 10 Tahun?:</strong> Unjuran ini dikira secara spesifik untuk 10 tahun kerana lanskap teknologi dan kos perubatan berubah drastik. Pelan kad perubatan secara fitrahnya <strong>wajib disemak (review) dan dinaik taraf setiap dekad</strong>. Bagi mengekalkan kuasa beli dan akses rawatan setara dengan perlindungan sedia ada (berasaskan inflasi perubatan ${medInflationRate}%), inilah sasaran nilai baharu yang anda perlukan.`;
+            const descMedEn = `<strong>Why 10 Years?:</strong> A 10-year projection is utilized because medical technology and treatment costs evolve drastically. Medical plans naturally <strong>require reviews and upgrades every decade</strong>. To maintain the purchasing power equivalent to your current limit (factoring ${medInflationRate}% medical inflation), this is the projected target you will need.`;
 
             const resultsDiv = document.getElementById('calcResults');
             
