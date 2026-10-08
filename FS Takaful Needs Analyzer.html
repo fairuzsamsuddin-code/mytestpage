@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<title>FS Takaful Needs Analyzer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{brand:'#D9000D',teal:'#008183'}}}}</script>
+<style type="text/tailwindcss">
+:root{--bg:#0a0a0d;--fg:#f3f3f6;--mut:#9b9ba8;--glass:rgba(255,255,255,.05);--line:rgba(255,255,255,.1);--red:#D9000D;--teal:#008183;--tealt:#19b9bb;--redt:#ff4a55;--amber:#e8a317}
+@media (prefers-color-scheme:light){:root{--bg:#f4f4f7;--fg:#14141a;--mut:#5b5b68;--glass:rgba(255,255,255,.75);--line:rgba(0,0,0,.1);--tealt:#008183;--redt:#D9000D}}
+html{scroll-behavior:smooth;scroll-padding-top:5rem}
+body{background:var(--bg);color:var(--fg);font-family:Inter,system-ui,sans-serif;min-height:100%;
+background-image:radial-gradient(ellipse 60% 40% at 15% 0%,rgba(217,0,13,.22),transparent),radial-gradient(ellipse 50% 40% at 90% 30%,rgba(0,129,131,.22),transparent);background-attachment:fixed}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@layer components{
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:1.25rem;box-shadow:0 10px 40px rgba(0,0,0,.18)}
+.nav-glass{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;border-radius:0 0 1.25rem 1.25rem}
+.muted{color:var(--mut)}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.glow{position:relative}
+.glow::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;opacity:.8;background:linear-gradient(120deg,var(--red),var(--teal),var(--red));background-size:300% 100%;animation:flow 7s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.tilt{transition:transform .15s ease-out;transform-style:preserve-3d;will-change:transform}
+.inp{width:100%;background:rgba(127,127,127,.1);border:1px solid var(--line);border-radius:.8rem;padding:.7rem .9rem .7rem 2.6rem;color:var(--fg);outline:none;transition:border-color .2s,box-shadow .2s}
+.inp.plain{padding-left:.9rem}
+.inp:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,129,131,.35),0 0 18px rgba(0,129,131,.35)}
+.pre{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);font-size:.75rem;color:var(--mut);pointer-events:none}
+.tipw{position:relative}
+.tipb{width:1.2rem;height:1.2rem;border-radius:9999px;font-size:.7rem;font-weight:700;background:var(--teal);color:#fff;line-height:1}
+.tip{position:absolute;right:0;top:1.7rem;width:15rem;z-index:30;padding:.7rem .8rem;font-size:.75rem;line-height:1.35;border-radius:.8rem;background:#16161c;color:#eee;border:1px solid var(--teal);box-shadow:0 8px 30px rgba(0,0,0,.5);opacity:0;visibility:hidden;transform:translateY(-4px);transition:.2s}
+.tipw:hover .tip,.tipw.open .tip{opacity:1;visibility:visible;transform:none}
+.btn{border-radius:9999px;padding:.85rem 1.6rem;font-weight:600;color:#fff;background:linear-gradient(110deg,var(--red),#a3000a);box-shadow:0 0 24px rgba(217,0,13,.5);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 0 36px rgba(217,0,13,.75)}
+.btn.alt{background:linear-gradient(110deg,var(--teal),#005e60);box-shadow:0 0 24px rgba(0,129,131,.5)}
+.bar{height:.6rem;border-radius:9999px;background:rgba(127,127,127,.22);overflow:hidden}
+.bar>i{display:block;height:100%;width:0;border-radius:inherit;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.pill{font-size:.7rem;font-weight:700;padding:.15rem .6rem;border-radius:9999px}
+}
+@layer components{.lg{padding:.3rem .8rem;border-radius:9999px;color:var(--mut);transition:.2s}.lg.on{background:var(--teal);color:#fff;box-shadow:0 0 14px rgba(0,129,131,.6)}}
+@layer utilities{
+.g-red{background:linear-gradient(90deg,var(--red),var(--redt))}
+.g-teal{background:linear-gradient(90deg,var(--teal),var(--tealt))}
+.g-amb{background:linear-gradient(90deg,#b97a00,var(--amber))}
+.text-grad{background:linear-gradient(100deg,var(--redt),var(--tealt));-webkit-background-clip:text;background-clip:text;color:transparent}
+}
+@keyframes flow{to{background-position:300% 0}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.glow::before{animation:none}}
+</style>
+</head>
+<body>
+<nav class="glass nav-glass">
+ <div class="max-w-5xl mx-auto px-5 py-3 flex items-center justify-between">
+  <div class="font-bold tracking-tight text-lg"><span class="text-grad">FS Takaful</span> Needs Analyzer</div>
+  <div class="flex items-center gap-4"><div class="hidden sm:flex gap-5 text-sm muted"><a href="#form" data-i18n>Client Details</a><a href="#benchmarks" data-i18n>Benchmarks</a><a href="#results" data-i18n>Results</a></div><div class="glass flex p-0.5 text-xs font-bold" style="border-radius:9999px" role="group" aria-label="Language"><button id="lm" class="lg" type="button">BM</button><button id="le" class="lg" type="button">EN</button></div></div>
+ </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-5 pb-24">
+ <header class="py-14 text-center reveal">
+  <p class="text-sm tracking-widest uppercase text-teal font-semibold" style="color:var(--tealt)" data-i18n>Protection planning, simplified</p>
+  <h1 class="text-4xl sm:text-6xl font-extrabold mt-3 leading-tight"><span data-i18n>How much takaful</span><br><span class="text-grad" data-i18n>does your family really need?</span></h1>
+  <p class="muted max-w-xl mx-auto mt-4" data-i18n>Enter the client's current position. The analyzer projects needs with 3% general and 12% medical inflation and shows the gap to close.</p>
+  <a href="#form" class="btn inline-block mt-7" data-i18n>Start Analysis</a>
+ </header>
+
+ <section id="form" class="space-y-6"></section>
+ <div class="text-center mt-8 flex flex-wrap gap-3 justify-center reveal">
+  <button id="calc" class="btn" data-i18n>Calculate Protection Needs</button>
+  <button id="reset" class="btn alt" data-i18n>Reset</button>
+ </div>
+ <p id="err" class="text-center mt-3 text-sm" style="color:var(--redt)"></p>
+
+ <section id="benchmarks" class="mt-20 reveal">
+  <h2 class="text-2xl font-bold mb-1" data-i18n>Inflation &amp; Industry Benchmarks</h2>
+  <p class="muted text-sm mb-5" data-i18n>Planning rules of thumb used by this calculator. Rates in red are the fixed assumptions.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" id="bm"></div>
+ </section>
+
+ <section id="results" class="mt-20 hidden"></section>
+</main>
+
+<script>
+const GEN=.03,MED=.12,RET=.05,REPL=.7,FINAL=25000,CIYRS=5,MEDYRS=10;
+let lang='ms',last=null;
+const MS={
+'Client Details':'Butiran Klien','Benchmarks':'Penanda Aras','Results':'Keputusan',
+'Protection planning, simplified':'Perancangan perlindungan, dipermudahkan',
+'How much takaful':'Berapa banyak takaful','does your family really need?':'yang sebenarnya diperlukan keluarga anda?',
+"Enter the client's current position. The analyzer projects needs with 3% general and 12% medical inflation and shows the gap to close.":'Masukkan kedudukan kewangan semasa klien. Penganalisis ini menganggar keperluan dengan inflasi am 3% dan inflasi perubatan 12%, serta menunjukkan jurang yang perlu ditutup.',
+'Start Analysis':'Mulakan Analisis','Calculate Protection Needs':'Kira Keperluan Perlindungan','Reset':'Set Semula',
+'Inflation &amp; Industry Benchmarks':'Inflasi &amp; Penanda Aras Industri',
+'Planning rules of thumb used by this calculator. Rates in red are the fixed assumptions.':'Panduan perancangan yang digunakan kalkulator ini. Kadar berwarna merah ialah andaian tetap.',
+'About the client':'Mengenai klien','Client name':'Nama klien','Current age':'Umur semasa','Planned retirement age':'Umur persaraan yang dirancang',
+'Full name as it should appear on the report.':'Nama penuh seperti yang akan dipaparkan dalam laporan.',
+'Used to work out how many working years of income the family would lose.':'Digunakan untuk mengira bilangan tahun pendapatan yang akan hilang daripada keluarga.',
+'Usually 55–60. Income is protected until this age.':'Biasanya 55–60. Pendapatan dilindungi sehingga umur ini.',
+'Income & expenses (monthly)':'Pendapatan & perbelanjaan (bulanan)','Monthly gross income':'Pendapatan kasar bulanan','Monthly household expenses':'Perbelanjaan isi rumah bulanan','Monthly debt instalments':'Ansuran hutang bulanan',
+'Include salary, regular commission and stable side income. Use average of the last 12 months.':'Termasuk gaji, komisen tetap dan pendapatan sampingan yang stabil. Gunakan purata 12 bulan lepas.',
+'Food, utilities, rent or housing, transport, children, insurance. Exclude debt instalments.':'Makanan, utiliti, sewa atau perumahan, pengangkutan, anak-anak, insurans. Kecualikan ansuran hutang.',
+'Home financing, car, personal and card payments combined. Ask for the statement if unsure.':'Jumlah bayaran bulanan pembiayaan rumah, kereta, peribadi dan kad. Minta penyata jika tidak pasti.',
+'Debts & savings':'Hutang & simpanan','Total outstanding debts':'Jumlah hutang tertunggak','Savings & liquid investments':'Simpanan & pelaburan mudah cair',
+'Remaining balance of all financing and loans (house, car, personal, cards). Not the monthly instalment.':'Baki tertunggak semua pembiayaan dan pinjaman (rumah, kereta, peribadi, kad). Bukan ansuran bulanan.',
+'Cash, fixed deposits, unit trusts, ASB. Exclude EPF and property. Emergency fund is reserved first.':'Wang tunai, simpanan tetap, unit amanah, ASB. Kecualikan KWSP dan hartanah. Dana kecemasan diketepikan dahulu.',
+'Future goals':'Matlamat masa depan',"Children's education cost (today's value)":'Kos pendidikan anak (nilai hari ini)','Years until education is needed':'Tahun sebelum pendidikan diperlukan','Major illness treatment cost (today)':'Kos rawatan penyakit kritikal (hari ini)',
+"Total for all children, in today's prices, covering the years the family still needs to fund. Enter 0 if none.":'Jumlah untuk semua anak, mengikut harga hari ini, bagi tahun yang masih perlu dibiayai. Masukkan 0 jika tiada.',
+'Average years until the first major expense (college or university).':'Purata tahun sehingga perbelanjaan besar pertama (kolej atau universiti).',
+'Cost of treating a serious illness such as cancer or heart surgery. Private hospitals commonly range RM 150,000–500,000.':'Kos merawat penyakit kritikal seperti kanser atau pembedahan jantung. Hospital swasta biasanya RM 150,000–500,000.',
+'Existing takaful coverage':'Perlindungan takaful sedia ada','Death / TPD coverage':'Perlindungan Kematian / TPD','Critical illness coverage':'Perlindungan penyakit kritikal','Medical card annual limit':'Had tahunan kad perubatan',
+'Total sum covered across all certificates (family and mortgage takaful). Add employer group cover if the client confirms it.':'Jumlah dilindungi merentasi semua sijil (keluarga dan takaful gadai janji). Tambah perlindungan kumpulan majikan jika klien mengesahkannya.',
+'Total critical illness benefit across all certificates, including riders.':'Jumlah faedah penyakit kritikal merentasi semua sijil, termasuk rider.',
+'Annual limit of the medical plan. Lifetime limits do not replace this figure.':'Had tahunan pelan perubatan. Had seumur hidup tidak menggantikan angka ini.',
+'e.g. Ahmad':'cth. Ahmad','Info about':'Maklumat tentang',
+'General inflation':'Inflasi am','Fixed assumption. Malaysian long-run average sits around 2–3%.':'Andaian tetap. Purata jangka panjang Malaysia sekitar 2–3%.',
+'Medical inflation':'Inflasi perubatan','Fixed assumption. Industry estimates run roughly 10–15% a year.':'Andaian tetap. Anggaran industri sekitar 10–15% setahun.',
+'Emergency fund':'Dana kecemasan','6 months':'6 bulan','Liquid savings of 6 months of household expenses.':'Simpanan mudah cair bernilai 6 bulan perbelanjaan isi rumah.',
+'Debt service ratio':'Nisbah khidmat hutang','Monthly debt payments as a share of gross income.':'Bayaran hutang bulanan sebagai peratusan pendapatan kasar.',
+'Savings rate':'Kadar simpanan','Share of income left after expenses and debt payments.':'Peratusan pendapatan selepas perbelanjaan dan bayaran hutang.',
+'Death / TPD cover':'Perlindungan Kematian / TPD','~10× income':'~10× pendapatan','Rule of thumb. This tool uses a needs-based figure instead.':'Panduan kasar. Alat ini menggunakan angka berasaskan keperluan.',
+'Critical illness cover':'Perlindungan penyakit kritikal','5× income':'5× pendapatan','Typical 5-year income replacement during recovery.':'Penggantian pendapatan 5 tahun yang lazim semasa pemulihan.',
+'Education inflation':'Inflasi pendidikan','Reference only. Goals here use 3% as set.':'Rujukan sahaja. Matlamat di sini menggunakan 3% seperti ditetapkan.',
+"Please enter at least the client's age and monthly income.":'Sila masukkan sekurang-kurangnya umur klien dan pendapatan bulanan.',
+'Death / TPD protection':'Perlindungan Kematian / TPD','Critical illness protection':'Perlindungan penyakit kritikal','Medical coverage (12% inflation)':'Perlindungan perubatan (inflasi 12%)','Emergency fund ':'Dana kecemasan',
+'On track':'Mencapai sasaran','Fair':'Sederhana','Needs improvement':'Perlu diperbaiki',
+'Family income, debts, final expenses and education need {0}. Add about {1} of Death/TPD coverage.':'Pendapatan keluarga, hutang, perbelanjaan akhir dan pendidikan memerlukan {0}. Tambah kira-kira {1} perlindungan Kematian/TPD.',
+'Existing cover and savings meet the family protection goal.':'Perlindungan sedia ada dan simpanan memenuhi sasaran perlindungan keluarga.',
+'Replacing {0} years of income with 3% inflation needs {1}. Add about {2} of critical illness coverage.':'Menggantikan pendapatan {0} tahun dengan inflasi 3% memerlukan {1}. Tambah kira-kira {2} perlindungan penyakit kritikal.',
+'Critical illness cover is sufficient for the income-recovery period.':'Perlindungan penyakit kritikal mencukupi bagi tempoh pemulihan pendapatan.',
+"Today's treatment cost of {0} grows to {1} in {2} years. Raise the annual medical limit by about {3}.":'Kos rawatan hari ini {0} meningkat kepada {1} dalam {2} tahun. Naikkan had perubatan tahunan sebanyak {3}.',
+'Medical limit covers projected treatment costs.':'Had perubatan menampung anggaran kos rawatan.',
+'Savings cover 6 months of expenses.':'Simpanan menampung 6 bulan perbelanjaan.',
+'Build up to {0} (6 months of expenses) before investing further.':'Bina sehingga {0} (6 bulan perbelanjaan) sebelum melabur lebih lanjut.',
+'Debt payments take {0}% of income, within the 35% guide.':'Bayaran hutang mengambil {0}% pendapatan, dalam panduan 35%.',
+'Debt payments take {0}% of income. Consider restructuring or settling debts early.':'Bayaran hutang mengambil {0}% pendapatan. Pertimbangkan penstrukturan semula atau penyelesaian awal hutang.',
+'Saving {0}% of income is healthy.':'Menyimpan {0}% pendapatan adalah sihat.',
+'Saving {0}% of income. Aim for 20% through budgeting or a regular savings takaful plan.':'Menyimpan {0}% pendapatan. Sasarkan 20% melalui bajet atau pelan takaful simpanan berkala.',
+'Results for':'Keputusan untuk','your client':'klien anda','protected':'dilindungi','Current standing vs protection goal':'Kedudukan semasa berbanding sasaran perlindungan',
+'Death/TPD, critical illness and medical needs combined, projected with 3% general and 12% medical inflation.':'Keperluan Kematian/TPD, penyakit kritikal dan perubatan digabungkan, dianggar dengan inflasi am 3% dan inflasi perubatan 12%.',
+'Current {0}':'Semasa {0}','Goal {0}':'Sasaran {0}','Death / TPD gap':'Jurang Kematian / TPD','Critical illness gap':'Jurang penyakit kritikal','Medical limit gap':'Jurang had perubatan',
+'Recommended additional coverage':'Perlindungan tambahan disyorkan','No gap. Fully covered':'Tiada jurang. Dilindungi sepenuhnya',
+'Area-by-area review and advice':'Semakan dan nasihat mengikut bidang','Assumptions:':'Andaian:',
+'general inflation 3%, medical inflation 12%, investment return {0}%, income replacement {1}% for {2} working years, final expenses {3}, {4}-year critical illness recovery, {5}-year medical horizon. Usable savings above the emergency fund ({6}) offset the death/TPD need. This is an illustration only, not a product recommendation.':'inflasi am 3%, inflasi perubatan 12%, pulangan pelaburan {0}%, penggantian pendapatan {1}% selama {2} tahun bekerja, perbelanjaan akhir {3}, pemulihan penyakit kritikal {4} tahun, tempoh perubatan {5} tahun. Simpanan boleh guna melebihi dana kecemasan ({6}) mengimbangi keperluan kematian/TPD. Ini hanyalah ilustrasi, bukan syor produk.',
+'Download PDF Report':'Muat Turun Laporan PDF','PDF library failed to load. Check your connection.':'Pustaka PDF gagal dimuatkan. Semak sambungan anda.',
+'Takaful Needs Analysis Report':'Laporan Analisis Keperluan Takaful','Prepared for:':'Disediakan untuk:','Age {0}, retirement at {1}':'Umur {0}, bersara pada {1}','Overall protection:':'Perlindungan keseluruhan:',
+'Death / TPD':'Kematian / TPD','Critical illness':'Penyakit kritikal','Medical annual limit increase':'Tambahan had tahunan perubatan','Area-by-area review':'Semakan mengikut bidang'
+};
+const T=(k,...a)=>{let s=lang==='ms'?(MS[k]||k):k;a.forEach((x,i)=>s=s.replace('{'+i+'}',x));return s};
+const RM=n=>'RM '+Math.round(n).toLocaleString('en-MY');
+const S=[
+['About the client',[
+ ['name','Client name','text','Full name as it should appear on the report.'],
+ ['age','Current age','','Used to work out how many working years of income the family would lose.'],
+ ['retire','Planned retirement age','','Usually 55–60. Income is protected until this age.']]],
+['Income & expenses (monthly)',[
+ ['income','Monthly gross income','','Include salary, regular commission and stable side income. Use average of the last 12 months.'],
+ ['expenses','Monthly household expenses','','Food, utilities, rent or housing, transport, children, insurance. Exclude debt instalments.'],
+ ['debtpay','Monthly debt instalments','','Home financing, car, personal and card payments combined. Ask for the statement if unsure.']]],
+['Debts & savings',[
+ ['debt','Total outstanding debts','','Remaining balance of all financing and loans (house, car, personal, cards). Not the monthly instalment.'],
+ ['savings','Savings & liquid investments','','Cash, fixed deposits, unit trusts, ASB. Exclude EPF and property. Emergency fund is reserved first.']]],
+['Future goals',[
+ ['edu',"Children's education cost (today's value)",'',"Total for all children, in today's prices, covering the years the family still needs to fund. Enter 0 if none."],
+ ['eduyrs','Years until education is needed','','Average years until the first major expense (college or university).'],
+ ['medcost','Major illness treatment cost (today)','','Cost of treating a serious illness such as cancer or heart surgery. Private hospitals commonly range RM 150,000–500,000.']]],
+['Existing takaful coverage',[
+ ['cDeath','Death / TPD coverage','','Total sum covered across all certificates (family and mortgage takaful). Add employer group cover if the client confirms it.'],
+ ['cCI','Critical illness coverage','','Total critical illness benefit across all certificates, including riders.'],
+ ['cMed','Medical card annual limit','','Annual limit of the medical plan. Lifetime limits do not replace this figure.']]]];
+const NOPRE=['name','age','retire','eduyrs'];
+const f=document.getElementById('form');
+function buildForm(){
+ const vals={};document.querySelectorAll('.inp').forEach(i=>vals[i.id]=i.value);
+ f.innerHTML=S.map(([t,fs],i)=>`<div class="glass glow p-6 reveal in"><h2 class="font-bold text-lg mb-4"><span class="text-grad">${i+1}.</span> ${T(t)}</h2><div class="grid md:grid-cols-2 gap-4">${fs.map(([k,l,ty,tip])=>`<div><div class="flex items-center justify-between mb-1.5 text-sm"><label for="${k}">${T(l)}</label><span class="tipw"><button type="button" class="tipb" aria-label="${T('Info about')} ${T(l)}">i</button><span class="tip">${T(tip)}</span></span></div><div class="relative">${NOPRE.includes(k)?'':'<span class="pre">RM</span>'}<input id="${k}" class="inp ${NOPRE.includes(k)?'plain':''}" ${ty==='text'?'type="text"':'type="number" min="0" inputmode="decimal"'} placeholder="${ty==='text'?T('e.g. Ahmad'):'0'}"></div></div>`).join('')}</div></div>`).join('');
+ Object.entries(vals).forEach(([k,x])=>document.getElementById(k).value=x);
+}
+document.addEventListener('click',e=>{const w=e.target.closest('.tipw');document.querySelectorAll('.tipw.open').forEach(x=>x!==w&&x.classList.remove('open'));if(w&&e.target.closest('.tipb'))w.classList.toggle('open')});
+function buildBm(){document.getElementById('bm').innerHTML=[
+['General inflation','3%','Fixed assumption. Malaysian long-run average sits around 2–3%.',1],
+['Medical inflation','12%','Fixed assumption. Industry estimates run roughly 10–15% a year.',1],
+['Emergency fund','6 months','Liquid savings of 6 months of household expenses.',0],
+['Debt service ratio','≤ 35%','Monthly debt payments as a share of gross income.',0],
+['Savings rate','≥ 20%','Share of income left after expenses and debt payments.',0],
+['Death / TPD cover','~10× income','Rule of thumb. This tool uses a needs-based figure instead.',0],
+['Critical illness cover','5× income','Typical 5-year income replacement during recovery.',0],
+['Education inflation','5–8%','Reference only. Goals here use 3% as set.',0]
+].map(([a,b,c,r])=>`<div class="glass tilt p-4"><div class="text-xs muted">${T(a)}</div><div class="text-2xl font-extrabold mt-1" style="color:${r?'var(--redt)':'var(--tealt)'}">${T(b)}</div><div class="text-xs muted mt-1">${T(c)}</div></div>`).join('');initTilt()}
+function applyStatic(){document.querySelectorAll('[data-i18n]').forEach(el=>{el.dataset.en=el.dataset.en||el.innerHTML;el.innerHTML=T(el.dataset.en)})}
+function setLang(l){lang=l;document.documentElement.lang=l;document.getElementById('lm').classList.toggle('on',l==='ms');document.getElementById('le').classList.toggle('on',l==='en');applyStatic();buildForm();buildBm();err('');if(last)render(false)}
+const v=k=>parseFloat(document.getElementById(k).value)||0;
+function calc(){
+ const d={};S.forEach(([,fs])=>fs.forEach(([k,,t])=>d[k]=t==='text'?document.getElementById(k).value.trim():v(k)));
+ if(!d.income||!d.age){err(T("Please enter at least the client's age and monthly income."));return}
+ if(d.retire<=d.age){d.retire=d.age+1}
+ err('');
+ const n=d.retire-d.age,A=d.income*12;
+ const pvInc=A*REPL*(1-Math.pow((1+GEN)/(1+RET),n))/(RET-GEN);
+ const eduFV=d.edu*Math.pow(1+GEN,d.eduyrs);
+ const ef=d.expenses?6*d.expenses:0,usable=Math.max(0,d.savings-ef);
+ const deathNeed=pvInc+d.debt+FINAL+eduFV;
+ const ciNeed=A*Array.from({length:CIYRS},(_,k)=>Math.pow(1+GEN,k)).reduce((a,b)=>a+b,0);
+ const medNeed=d.medcost*Math.pow(1+MED,MEDYRS);
+ const dCover=d.cDeath+usable;
+ const gaps={death:Math.max(0,deathNeed-dCover),ci:Math.max(0,ciNeed-d.cCI),med:Math.max(0,medNeed-d.cMed)};
+ const pc=(c,nd)=>nd>0?Math.min(100,c/nd*100):100;
+ const st=p=>p>=100?['On track','g-teal']:p>=60?['Fair','g-amb']:['Needs improvement','g-red'];
+ const dsr=d.debtpay/d.income,sr=(d.income-d.expenses-d.debtpay)/d.income;
+ const A_=[
+ {k:'Death / TPD protection',cur:dCover,goal:deathNeed,p:pc(dCover,deathNeed),adv:g=>g>0?T('Family income, debts, final expenses and education need {0}. Add about {1} of Death/TPD coverage.',RM(deathNeed),RM(g)):T('Existing cover and savings meet the family protection goal.'),g:gaps.death,cov:1},
+ {k:'Critical illness protection',cur:d.cCI,goal:ciNeed,p:pc(d.cCI,ciNeed),adv:g=>g>0?T('Replacing {0} years of income with 3% inflation needs {1}. Add about {2} of critical illness coverage.',CIYRS,RM(ciNeed),RM(g)):T('Critical illness cover is sufficient for the income-recovery period.'),g:gaps.ci,cov:1},
+ {k:'Medical coverage (12% inflation)',cur:d.cMed,goal:medNeed,p:pc(d.cMed,medNeed),adv:g=>g>0?T("Today's treatment cost of {0} grows to {1} in {2} years. Raise the annual medical limit by about {3}.",RM(d.medcost),RM(medNeed),MEDYRS,RM(g)):T('Medical limit covers projected treatment costs.'),g:gaps.med,cov:1},
+ {k:'Emergency fund',cur:d.savings,goal:ef,p:pc(d.savings,ef),adv:()=>d.savings>=ef?T('Savings cover 6 months of expenses.'):T('Build up to {0} (6 months of expenses) before investing further.',RM(ef)),g:Math.max(0,ef-d.savings)},
+ {k:'Debt service ratio',cur:dsr*100,goal:35,p:dsr<=.35?100:Math.max(0,100-(dsr-.35)*300),fmt:x=>x.toFixed(0)+'%',adv:()=>dsr<=.35?T('Debt payments take {0}% of income, within the 35% guide.',(dsr*100).toFixed(0)):T('Debt payments take {0}% of income. Consider restructuring or settling debts early.',(dsr*100).toFixed(0))},
+ {k:'Savings rate',cur:sr*100,goal:20,p:Math.max(0,Math.min(100,sr/.2*100)),fmt:x=>x.toFixed(0)+'%',adv:()=>sr>=.2?T('Saving {0}% of income is healthy.',(sr*100).toFixed(0)):T('Saving {0}% of income. Aim for 20% through budgeting or a regular savings takaful plan.',Math.max(0,sr*100).toFixed(0))}];
+ A_.forEach(a=>a.s=st(a.p));
+ const cov=A_.filter(a=>a.cov),goalSum=cov.reduce((s,a)=>s+a.goal,0),curSum=cov.reduce((s,a)=>s+Math.min(a.cur,a.goal),0);
+ last={d,A_,overall:goalSum?curSum/goalSum*100:100,gaps,n,usable,goalSum,curSum};
+ render(true);
+}
+function err(m){document.getElementById('err').textContent=m}
+const assump=L=>T('general inflation 3%, medical inflation 12%, investment return {0}%, income replacement {1}% for {2} working years, final expenses {3}, {4}-year critical illness recovery, {5}-year medical horizon. Usable savings above the emergency fund ({6}) offset the death/TPD need. This is an illustration only, not a product recommendation.',RET*100,REPL*100,L.n,RM(FINAL),CIYRS,MEDYRS,RM(L.usable));
+function render(scroll){
+ const L=last,r=document.getElementById('results'),o=Math.round(L.overall),col=o>=100?'var(--tealt)':o>=60?'var(--amber)':'var(--redt)';
+ const cards=[['Death / TPD gap',L.gaps.death],['Critical illness gap',L.gaps.ci],['Medical limit gap',L.gaps.med]];
+ r.className='mt-20';
+ r.innerHTML=`<h2 class="text-2xl font-bold mb-5">${T('Results for')} <span class="text-grad">${L.d.name||T('your client')}</span></h2>
+ <div class="glass glow p-6 grid md:grid-cols-[auto,1fr] gap-8 items-center reveal in">
+  <div class="relative w-40 h-40 mx-auto"><svg viewBox="0 0 120 120" class="-rotate-90"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(127,127,127,.25)" stroke-width="10"/><circle id="ring" cx="60" cy="60" r="54" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="339.3" style="transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 6px ${col})"/></svg><div class="absolute inset-0 grid place-items-center text-center"><div><div class="text-3xl font-extrabold"><span data-roll="${o}" data-sfx="%">0%</span></div><div class="text-xs muted">${T('protected')}</div></div></div></div>
+  <div><h3 class="font-bold text-lg">${T('Current standing vs protection goal')}</h3><p class="muted text-sm mt-1">${T('Death/TPD, critical illness and medical needs combined, projected with 3% general and 12% medical inflation.')}</p>
+  <div class="bar mt-4"><i data-w="${Math.min(100,o)}" class="g-${o>=100?'teal':o>=60?'amb':'red'}"></i></div>
+  <div class="flex justify-between text-xs muted mt-1"><span>${T('Current {0}',RM(L.curSum))}</span><span>${T('Goal {0}',RM(L.goalSum))}</span></div></div>
+ </div>
+ <div class="grid md:grid-cols-3 gap-5 mt-6">${cards.map(([t,g])=>`<div class="glass glow tilt p-5 reveal in"><div class="text-sm muted">${T(t)}</div><div class="text-3xl font-extrabold mt-2" style="color:${g>0?'var(--redt)':'var(--tealt)'}">RM <span data-roll="${Math.round(g)}">0</span></div><div class="text-xs muted mt-1">${g>0?T('Recommended additional coverage'):T('No gap. Fully covered')}</div></div>`).join('')}</div>
+ <div class="glass p-6 mt-6 reveal in"><h3 class="font-bold text-lg mb-4">${T('Area-by-area review and advice')}</h3><div class="space-y-5">${L.A_.map(a=>{const f=a.fmt||RM;return`<div><div class="flex items-center justify-between gap-3 text-sm"><span class="font-semibold">${T(a.k)}</span><span class="pill text-white ${a.s[1]}">${T(a.s[0])}</span></div><div class="bar mt-2"><i class="${a.s[1]}" data-w="${a.p}"></i></div><div class="flex justify-between text-xs muted mt-1"><span>${T('Current {0}',f(a.cur))}</span><span>${T('Goal {0}',f(a.goal))}</span></div><p class="text-sm mt-1.5">${a.adv(a.g)}</p></div>`}).join('')}</div></div>
+ <div class="glass p-5 mt-6 text-xs muted reveal in"><b>${T('Assumptions:')}</b> ${assump(L)}</div>
+ <div class="text-center mt-8"><button id="pdf" class="btn">${T('Download PDF Report')}</button></div>`;
+ document.getElementById('pdf').onclick=pdf;
+ if(scroll)r.scrollIntoView({behavior:'smooth'});
+ setTimeout(()=>{document.getElementById('ring').style.strokeDashoffset=339.3*(1-Math.min(100,L.overall)/100);r.querySelectorAll('[data-w]').forEach(b=>b.style.width=b.dataset.w+'%');r.querySelectorAll('[data-roll]').forEach(roll)},scroll?350:50);
+ initTilt();
+}
+function roll(el){const to=+el.dataset.roll,sfx=el.dataset.sfx||'',t0=performance.now();(function s(t){const p=Math.min(1,(t-t0)/1400),e=1-Math.pow(1-p,3);el.textContent=Math.round(to*e).toLocaleString('en-MY')+sfx;p<1&&requestAnimationFrame(s)})(t0)}
+function pdf(){
+ const {jsPDF}=window.jspdf||{};if(!jsPDF){alert(T('PDF library failed to load. Check your connection.'));return}
+ const L=last,doc=new jsPDF({unit:'mm',format:'a4'});let y=18;
+ const txt=(s,x,sz=10,b=false,c=[30,30,30])=>{doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(sz);doc.setTextColor(...c);const w=doc.splitTextToSize(s,180-(x-15));doc.text(w,x,y);y+=w.length*(sz*.45)+1.5};
+ const chk=h=>{if(y+h>280){doc.addPage();y=18}};
+ doc.setFillColor(217,0,13);doc.rect(0,0,210,10,'F');doc.setFillColor(0,129,131);doc.rect(105,0,105,10,'F');y=22;
+ txt('FS Takaful Needs Analyzer',15,9,true,[217,0,13]);
+ txt(T('Takaful Needs Analysis Report'),15,20,true);
+ txt(`${T('Prepared for:')} ${L.d.name||'-'}   |   ${T('Age {0}, retirement at {1}',L.d.age,L.d.retire)}   |   ${new Date().toLocaleDateString('en-MY')}`,15,10,false,[90,90,90]);y+=3;
+ txt(`${T('Overall protection:')} ${Math.round(L.overall)}%`,15,14,true);
+ doc.setFillColor(225,225,225);doc.roundedRect(15,y,180,5,2.5,2.5,'F');doc.setFillColor(L.overall>=100?0:L.overall>=60?232:217,L.overall>=100?129:L.overall>=60?163:0,L.overall>=100?131:L.overall>=60?23:13);doc.roundedRect(15,y,Math.max(2,1.8*Math.min(100,L.overall)),5,2.5,2.5,'F');y+=12;
+ txt(T('Recommended additional coverage'),15,13,true);
+ txt(`${T('Death / TPD')}: ${RM(L.gaps.death)}`,18);txt(`${T('Critical illness')}: ${RM(L.gaps.ci)}`,18);txt(`${T('Medical annual limit increase')}: ${RM(L.gaps.med)}`,18);y+=3;
+ txt(T('Area-by-area review'),15,13,true);
+ L.A_.forEach(a=>{chk(28);const f=a.fmt||RM;txt(`${T(a.k)}: ${T(a.s[0])}`,15,11,true);
+  doc.setFillColor(225,225,225);doc.roundedRect(15,y-1,180,3.5,1.7,1.7,'F');const c=a.p>=100?[0,129,131]:a.p>=60?[232,163,23]:[217,0,13];doc.setFillColor(...c);doc.roundedRect(15,y-1,Math.max(1.5,1.8*a.p),3.5,1.7,1.7,'F');y+=6;
+  txt(`${T('Current {0}',f(a.cur))}  |  ${T('Goal {0}',f(a.goal))}`,15,9,false,[100,100,100]);txt(a.adv(a.g),15,10);y+=2});
+ chk(30);y+=2;txt(T('Assumptions:'),15,12,true);
+ txt(assump(L),15,9,false,[100,100,100]);
+ doc.save(`FS-Takaful-Needs-${(L.d.name||'Client').replace(/\s+/g,'-')}.pdf`);
+}
+function observe(){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal:not(.in)').forEach(x=>io.observe(x))}
+function initTilt(){document.querySelectorAll('.tilt:not([data-t])').forEach(c=>{c.dataset.t=1;c.addEventListener('pointermove',e=>{const b=c.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;c.style.transform=`perspective(700px) rotateY(${x*14}deg) rotateX(${-y*14}deg) scale(1.03)`});c.addEventListener('pointerleave',()=>c.style.transform='')})}
+document.getElementById('calc').onclick=calc;
+document.getElementById('lm').onclick=()=>setLang('ms');
+document.getElementById('le').onclick=()=>setLang('en');
+document.getElementById('reset').onclick=()=>{document.querySelectorAll('.inp').forEach(i=>i.value='');document.getElementById('results').className='hidden';err('');last=null;scrollTo({top:0,behavior:'smooth'})};
+setLang('ms');observe();
+</script>
+</body>
+</html>
